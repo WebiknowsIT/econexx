@@ -1,0 +1,159 @@
+
+:root {
+	--primary-clr: #059669;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+	font-family: 'Inter', sans-serif;
+	background-color: #FCFCFD;
+	color: #1A1A21;
+}
+
+
+/*******************
+Common  
+**********************/
+input:focus {
+  outline: none;
+}
+/* For all form elements */
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline: none;
+}
+
+.editorial-title {
+	/* font-family: "Playfair Display", serif; */
+	font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+
+.glass-nav {
+	background: rgba(255, 255, 255, 0.8);
+	backdrop-filter: blur(12px);
+}
+
+.hover-lift {
+	transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hover-lift:hover {
+	transform: translateY(-4px);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+	width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background: #e2e8f0;
+	border-radius: 10px;
+}
+
+@keyframes reveal {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* .reveal {
+	animation: reveal 0.8s ease forwards;
+} */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.ratio-9x16 {
+    position: relative;
+    width: 100%;
+    padding-top: 177.78%;
+}
+.ratio-9x16 iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.swiper-pagination-bullet-active {
+	background: var(--primary-clr);
+}
+
+.StockCard {
+	--tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+	position: relative;
+}
+
+.StockCard::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	/* background-image: url("../images/cardBg.jpg"); */
+	background-image: url("../../public/images/cardBg.jpg");
+	background-size: cover;
+	z-index: 0;
+	opacity: 0.2;
+}
+
+/*******************
+Homepage 
+**********************/
+.bannerBgPattern {
+	position: relative;
+	background-image: url("../../public/images/bulb-icons.png");
+    background-size: contain;
+    background-position: top 100px center;
+    background-repeat: no-repeat;
+}
+
+.bannerBgPattern::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	opacity: 0.08;
+	background-image: url("../../public/images/banners-bg.jpg");
+    background-size: contain;
+    background-position: top 50px center;
+    background-repeat: no-repeat;
+	background-attachment: fixed;
+
+}
+
+.bannerVideoThumbs {
+	background-image: url("../../public/images/banners.jpg");
+}
