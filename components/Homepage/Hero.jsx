@@ -2,7 +2,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 
 export default function Hero() {
   return (
-    <section className="pt-32 pb-14 overflow-hidden bannerBgPattern">
+    <section className="pt-14 pb-14 overflow-hidden bannerBgPattern">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>

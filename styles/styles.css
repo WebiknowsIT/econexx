@@ -9,7 +9,9 @@ body {
 	font-family: 'Inter', sans-serif;
 	background-color: #FCFCFD;
 	color: #1A1A21;
+	padding-top: 80px;
 }
+
 
 
 /*******************
@@ -120,7 +122,7 @@ button:focus {
 	height: 100%;
 	width: 100%;
 	/* background-image: url("../images/cardBg.jpg"); */
-	background-image: url("../../public/images/cardBg.jpg");
+	background-image: url("../public/images/cardBg.jpg");
 	background-size: cover;
 	z-index: 0;
 	opacity: 0.2;
@@ -131,7 +133,7 @@ Homepage
 **********************/
 .bannerBgPattern {
 	position: relative;
-	background-image: url("../../public/images/bulb-icons.png");
+	background-image: url("../public/images/bulb-icons.png");
     background-size: contain;
     background-position: top 100px center;
     background-repeat: no-repeat;
@@ -146,7 +148,7 @@ Homepage
 	height: 100%;
 	z-index: -1;
 	opacity: 0.08;
-	background-image: url("../../public/images/banners-bg.jpg");
+	background-image: url("../public/images/banners-bg.jpg");
     background-size: contain;
     background-position: top 50px center;
     background-repeat: no-repeat;
@@ -155,5 +157,5 @@ Homepage
 }
 
 .bannerVideoThumbs {
-	background-image: url("../../public/images/banners.jpg");
+	background-image: url("../public/images/banners.jpg");
 }

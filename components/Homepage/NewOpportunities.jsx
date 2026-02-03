@@ -1,11 +1,10 @@
 import AnimatedSection from "@/components/AnimatedSection";
+import StockCard from "../StockCard";
 
 export default function NewOpportunities() {
   return (
     <section className="py-24 bg-white border-y border-gray-100">
       <div className="max-w-7xl mx-auto px-6">
-
-        {/* HEADER */}
         <AnimatedSection delay={0.1}>
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
 
@@ -55,46 +54,44 @@ export default function NewOpportunities() {
 
           {/* CARD 1 */}
           <AnimatedSection delay={0.1}>
-            <OpportunityCard
-              image="/images/stocks/s3v_vascular_technologies.png"
-              tag="STABLE"
-              tagClass="bg-primary-50 text-primary-700"
+            <StockCard
+              id={1}
               title="S3V Vascular Technologies Limited"
-              category="Exchange & Data Services"
-              price="₹395"
-              change="+20.3%"
-              period="6M"
-              positive
-            />
+              category= "Exchange & Data Services"
+              price= "395"
+              change= "+20.3%"
+              duration= "6M"
+              badge= "STABLE"
+              logo= "/images/stocks/s3v_vascular_technologies.png"
+              />
           </AnimatedSection>
 
           {/* CARD 2 */}
           <AnimatedSection delay={0.2}>
-            <OpportunityCard
-              image="/images/stocks/pashupati_polytex.jpg"
-              tag="HOT DEAL"
-              tagClass="bg-amber-50 text-amber-700"
+            <StockCard
+              id={2}
               title="Pashupati Polytex Private Limited"
-              category="Sports & Entertainment"
-              price="₹280.00"
-              change="-0.5%"
-              period="6M"
-            />
+              category= "Sports & Entertainment"
+              price= "280"
+              change= "-0.5%"
+              duration= "6M"
+              badge= "HOT DEAL"
+              logo= "/images/stocks/pashupati_polytex.jpg"
+              />
           </AnimatedSection>
 
           {/* CARD 3 */}
           <AnimatedSection delay={0.3}>
-            <OpportunityCard
-              image="/images/stocks/fractal_analytics.png"
-              tag="TRENDING"
-              tagClass="bg-primary-50 text-primary-700"
+            <StockCard
+              id={2}
               title="Fractal Analytics Limited"
-              category="Technology"
-              price="₹900.00"
-              change="0.8%"
-              period="6M"
-              positive
-            />
+              category= "Technology"
+              price= "900"
+              change= "0.8%"
+              duration= "6M"
+              badge= "TRENDING"
+              logo= "/images/stocks/fractal_analytics.png"
+              />
           </AnimatedSection>
 
         </div>
@@ -103,55 +100,4 @@ export default function NewOpportunities() {
   );
 }
 
-/* ---------------------------------- */
-/* Reusable Opportunity Card */
-/* ---------------------------------- */
 
-function OpportunityCard({
-  image,
-  tag,
-  tagClass,
-  title,
-  category,
-  price,
-  change,
-  period,
-  positive,
-}) {
-  return (
-    <div className="group p-6 rounded-2xl border border-gray-100 bg-white hover:shadow-xl transition-all hover:border-primary-100">
-      <div className="flex justify-between items-start mb-6">
-        <div className="w-14 h-14 p-1 rounded-md flex items-center justify-center border border-gray-100 overflow-hidden">
-          <img src={image} alt={title} className="w-auto h-full" />
-        </div>
-        <span className={`px-2 py-1 rounded text-[10px] font-bold ${tagClass}`}>
-          {tag}
-        </span>
-      </div>
-
-      <h3 className="font-bold text-lg text-gray-900 mb-1 group-hover:text-primary-600 transition-colors">
-        {title}
-      </h3>
-
-      <p className="text-sm text-gray-400 mb-4">{category}</p>
-
-      <div className="flex items-baseline gap-2">
-        <span className="text-2xl font-bold text-gray-900">{price}</span>
-        <span
-          className={`text-sm font-medium ${
-            positive ? "text-primary-600" : "text-red-500"
-          }`}
-        >
-          {change}
-        </span>
-        <span
-          className={`text-sm font-medium ${
-            positive ? "text-primary-600" : "text-red-500"
-          }`}
-        >
-          {period}
-        </span>
-      </div>
-    </div>
-  );
-}

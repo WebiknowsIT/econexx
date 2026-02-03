@@ -143,7 +143,7 @@ function TestimonialCard({ quote, name }) {
         <div className="w-10 h-10 bg-gray-700 rounded-full" />
         <div>
           <div className="font-bold text-sm">{name}</div>
-          <div className="text-xs text-primary-500 uppercase font-bold">
+          <div className="text-xs text-secondary-500 uppercase font-bold">
             Verified Investor
           </div>
         </div>

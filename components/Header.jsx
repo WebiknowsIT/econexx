@@ -2,13 +2,14 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Header() {
   return (
     <nav className="fixed top-0 w-full z-50 glass-nav border-b border-gray-100 bg-white/80 backdrop-blur">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <div className="flex items-center gap-12">
-          <div className="text-2xl font-bold tracking-tighter text-primary-700 flex items-center gap-2">
+          <Link href='/' className="text-2xl font-bold tracking-tighter text-primary-700 flex items-center gap-2">
             <Image
               src="/images/Logo.png"
               alt="Logo"
@@ -17,11 +18,11 @@ export default function Header() {
               priority
               className="w-auto h-[50px] ml-[-14px]"
             />
-          </div>
+          </Link>
           <div className="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-500">
-            <a href="#" className="hover:text-primary-600">
+            <Link href="/unlisted-shares" className="hover:text-primary-600">
               All Unlisted<br />Shares
-            </a>
+            </Link>
             <a href="#" className="hover:text-primary-600">
               DRHP<br />Filed
             </a>
