@@ -85,12 +85,12 @@ export default function Footer() {
           {/* MARKET */}
           <AnimatedSection delay={0.2}>
             <div>
-              <h5 className="font-bold text-primary mb-6">Market</h5>
+              <h5 className="font-bold text-secondary-500 mb-6">Market</h5>
               <ul className="space-y-4 text-sm text-gray-500">
-                <li><a href="#" className="hover:text-primary-600">All Shares</a></li>
-                <li><a href="#" className="hover:text-primary-600">Pre-IPO List</a></li>
-                <li><a href="#" className="hover:text-primary-600">Screener</a></li>
-                <li><a href="#" className="hover:text-primary-600">DRHP Filed</a></li>
+                <li><a href="#" className="hover:text-secondary-600">All Shares</a></li>
+                <li><a href="#" className="hover:text-secondary-600">Pre-IPO List</a></li>
+                <li><a href="#" className="hover:text-secondary-600">Screener</a></li>
+                <li><a href="#" className="hover:text-secondary-600">DRHP Filed</a></li>
               </ul>
             </div>
           </AnimatedSection>
@@ -98,12 +98,12 @@ export default function Footer() {
           {/* RESOURCES */}
           <AnimatedSection delay={0.3}>
             <div>
-              <h5 className="font-bold text-primary mb-6">Resources</h5>
+              <h5 className="font-bold text-secondary-500 mb-6">Resources</h5>
               <ul className="space-y-4 text-sm text-gray-500">
-                <li><a href="#" className="hover:text-primary-600">Knowledge Center</a></li>
-                <li><a href="#" className="hover:text-primary-600">Market News</a></li>
-                <li><a href="#" className="hover:text-primary-600">SEBI Guidelines</a></li>
-                <li><a href="#" className="hover:text-primary-600">FAQ</a></li>
+                <li><a href="#" className="hover:text-secondary-600">Knowledge Center</a></li>
+                <li><a href="#" className="hover:text-secondary-600">Market News</a></li>
+                <li><a href="#" className="hover:text-secondary-600">SEBI Guidelines</a></li>
+                <li><a href="#" className="hover:text-secondary-600">FAQ</a></li>
               </ul>
             </div>
           </AnimatedSection>
@@ -124,7 +124,7 @@ export default function Footer() {
                   placeholder="Your email"
                   className="flex-1 rounded-xl p-2 border border-primary-100 focus:ring-primary-500 text-sm"
                 />
-                <button className="bg-primary-600 text-white px-4 py-2 rounded-xl text-sm font-bold">
+                <button className="bg-secondary-600 text-white px-4 py-2 rounded-xl text-sm font-bold">
                   Subscribe
                 </button>
               </div>
@@ -141,9 +141,9 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-8 text-xs font-bold text-gray-400 uppercase tracking-widest">
-              <a href="#" className="hover:text-primary">Privacy Policy</a>
-              <a href="#" className="hover:text-primary">Terms of Use</a>
-              <a href="#" className="hover:text-primary">Disclaimer</a>
+              <a href="#" className="hover:text-secondary-500">Privacy Policy</a>
+              <a href="#" className="hover:text-secondary-500">Terms of Use</a>
+              <a href="#" className="hover:text-secondary-500">Disclaimer</a>
             </div>
           </div>
         </AnimatedSection>
@@ -155,7 +155,7 @@ export default function Footer() {
     <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
       <button
         type="button"
-        className="w-14 h-14 bg-primary-500 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all"
+        className="w-14 h-14 cursor-pointer bg-secondary-500 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all"
         aria-label="Chat"
       >
         <svg

@@ -4,7 +4,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import Button from "@/components/ui/Button";
+import { usePathname } from "next/navigation";
+
 export default function Header() {
+  const pathname = usePathname();
+
+  const isActive = (path) =>
+    pathname === path ? "text-primary-600 font-semibold" : "text-gray-500 hover:text-primary-600";
+
+
   return (
     <nav className="fixed top-0 w-full z-50 glass-nav border-b border-gray-100 bg-white/80 backdrop-blur">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -19,22 +28,26 @@ export default function Header() {
               className="w-auto h-[50px] ml-[-14px]"
             />
           </Link>
-          <div className="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-500">
-            <Link href="/unlisted-shares" className="hover:text-primary-600">
+          <div className="hidden lg:flex items-center gap-6 text-sm font-medium">
+            <Link href="/unlisted-shares" className={isActive("/unlisted-shares")}>
               All Unlisted<br />Shares
             </Link>
-            <a href="#" className="hover:text-primary-600">
+
+            <Link href="/drhp-filed" className={isActive("/drhp-filed")}>
               DRHP<br />Filed
-            </a>
-            <a href="#" className="hover:text-primary-600">
+            </Link>
+
+            <Link href="/partners" className={isActive("/partners")}>
               Become Our<br />Partner
-            </a>
-            <a href="#" className="hover:text-primary-600">
+            </Link>
+
+            <Link href="/screener" className={isActive("/screener")}>
               Our<br />Screener
-            </a>
-            <a href="#" className="hover:text-primary-600">
+            </Link>
+
+            <Link href="/media-coverage" className={isActive("/media-coverage")}>
               Media<br />Coverage
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -55,10 +68,7 @@ export default function Header() {
           <button className="text-sm font-semibold text-gray-700 hover:text-primary-600">
             Sign In
           </button>
-
-          <button className="bg-primary-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-primary-700 shadow-lg shadow-primary-100">
-            Get Started
-          </button>
+          <Button variant="secondary">Get Started</Button>
         </div>
       </div>
     </nav>

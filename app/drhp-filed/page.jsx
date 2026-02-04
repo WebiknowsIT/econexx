@@ -1,11 +1,13 @@
 "use client";
 
-
 import PageHeader from "../../components/PageHeader";
 import ShortVideos from "@/components/Homepage/ShortVideos";
 import StockCard from "../../components/StockCard";
 import NewsCard from "../../components/NewsCard";
 import Button from "../../components/ui/Button";
+
+import { useRouter } from "next/navigation";
+
 const stocks = [
   {
     id: 1,
@@ -166,7 +168,9 @@ const NEWS_LIST = [
 ];
 
 
-export default function UnlistedShares() {
+export default function DrhpFiled() {
+
+  const router = useRouter();
 
  const renderBlogs = () => {
   return (
@@ -205,13 +209,13 @@ export default function UnlistedShares() {
           backgroundImage="images/banners.jpg"
           overlay="bg-black/50"
           badge="🔒 Trusted Unlisted Marketplace"
-          title="Unlisted Shares Price List"
+          title="DRHP Filed"
           //highlight="Price List"
-          description="Explore verified unlisted companies with transparent pricing, expert support, and secure transaction execution."
-          primaryText="Register Now"
-          secondaryText="View Price List"
-          onPrimaryClick={() => console.log("Register clicked")}
-          onSecondaryClick={() => console.log("View price list clicked")}
+          description="Unlock early-stage investment opportunities with companies that have filed their DRHP, signaling their readiness to enter the public market."
+          primaryText="Learn More"
+          onPrimaryClick={() => router.push("/media-coverage")}
+          //secondaryText="View Price List"
+          //onSecondaryClick={() => console.log("View price list clicked")}
         />
 
         <section className="py-12">
@@ -228,8 +232,6 @@ export default function UnlistedShares() {
         </section>
 
         {renderBlogs()}
-
-
 
         <ShortVideos />
 

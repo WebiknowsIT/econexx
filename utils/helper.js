@@ -70,3 +70,27 @@ export function splitText(element, type = 'chars') {
 
   return { words, chars };
 }
+
+
+export function filterChartData(data, range) {
+  if (range === "MAX") return data;
+
+  const now = new Date(data[data.length - 1].date + "-01");
+
+  const monthsMap = {
+    "1M": 1,
+    "6M": 6,
+    "1Y": 12,
+    "3Y": 36,
+    "5Y": 60,
+  };
+
+  const months = monthsMap[range];
+  const cutoff = new Date(now);
+  cutoff.setMonth(now.getMonth() - months);
+
+  return data.filter((d) => {
+    const date = new Date(d.date + "-01");
+    return date >= cutoff;
+  });
+}

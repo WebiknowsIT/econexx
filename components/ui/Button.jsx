@@ -8,14 +8,11 @@ export default function Button(props) {
 
 
   const variants = {
-    primary:
-      "bg-primary-600 text-white hover:bg-primary-700 shadow-lg shadow-primary-600/30 focus:ring-primary-500",
-    secondary:
-      "border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 focus:ring-gray-300",
-    outlineLight:
-      "border border-white/30 text-white hover:bg-white/10 focus:ring-white",
-    ghost:
-      "text-gray-700 hover:bg-gray-100 focus:ring-gray-300",
+    primary: "bg-primary-600 text-white hover:bg-primary-700 shadow-lg shadow-primary-600/30 focus:ring-primary-500",
+    secondary: "border border-secondary-500 bg-secondary-500 text-white hover:bg-secondary-600 focus:ring-secondary-600",
+    outlineLight: "border border-white/30 text-white hover:bg-white/10 focus:ring-white",
+    outline: "border border-primary-500 text-primary-500 hover:border-secondary-500 hover:bg-secondary-500 hover:text-white focus:ring-white",
+    ghost:"text-gray-700 hover:bg-gray-100 focus:ring-gray-300",
   };
 
   const sizes = {
@@ -27,7 +24,7 @@ export default function Button(props) {
   const className = `
     ${baseClass}
     ${variants[props.variant || "primary"]}
-    ${sizes[props.size || "lg"]}
+    ${sizes[props.size || "sm"]}
     ${props.className || ""}
   `;
 

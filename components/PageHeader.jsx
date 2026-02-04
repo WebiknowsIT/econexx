@@ -5,16 +5,10 @@ import Button from "./ui/Button";
 export default function PageHeader(props) {
   return (
     <section className={`relative flex items-center ${props.minHeight || "min-h-[320px]"}`}>
-      
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('${props.backgroundImage}')`,
-        }}
+      <div className="absolute inset-0 bg-cover bg-center"
+        style={{backgroundImage: `url('${props.backgroundImage}')`,}}
       />
 
-      {/* Overlay */}
       <div className={`absolute inset-0 ${props.overlay || "bg-black/50"}`} />
 
       {/* Content */}
@@ -35,7 +29,7 @@ export default function PageHeader(props) {
           </h1>
 
           {props.description && (
-            <p className="text-gray-200 text-lg mb-10">
+            <p className="text-gray-200 text-lg mb-10 md:px-28">
               {props.description}
             </p>
           )}
@@ -43,11 +37,11 @@ export default function PageHeader(props) {
           {(props.primaryText || props.secondaryText) && (
             <div className="flex flex-wrap justify-center gap-4">
               {props.primaryText && (
-                <Button onClick={props.onPrimaryClick}>{props.primaryText}</Button>
+                <Button variant="secondary" onClick={props.onPrimaryClick}>{props.primaryText}</Button>
               )}
 
               {props.secondaryText && (
-                <Button variant="secondary" onClick={props.onSecondaryClick}>{props.secondaryText}</Button>
+                <Button variant="outlineLight" onClick={props.onSecondaryClick}>{props.secondaryText}</Button>
               )}
             </div>
           )}
