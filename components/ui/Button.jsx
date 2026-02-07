@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Button(props) {
   const baseClass =
-  "inline-flex items-center justify-center cursor-pointer rounded-xl font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-2";
+  "inline-flex items-center justify-center cursor-pointer rounded-lg font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-2";
 
 
   const variants = {

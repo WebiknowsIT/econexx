@@ -20,6 +20,7 @@ body {
 /*******************
 Common  
 **********************/
+button,a {cursor: pointer;}
 input:focus {
   outline: none;
 }
@@ -152,7 +153,7 @@ button:focus {
   position: absolute;
   inset: 0;
   border: 4px solid transparent;
-  border-top-color: #2563eb; /* primary color */
+  border-top-color: #4a83ff; 
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
 }
@@ -163,7 +164,7 @@ button:focus {
 }
 
 .loader-ring span:nth-child(3) {
-  border-top-color: #f97316;
+  border-top-color: #f59f4a;
   animation-delay: -0.8s;
 }
 
@@ -186,11 +187,11 @@ button:focus {
 .select-styled {
   appearance: none;
   background-color: #ffffff;
-  border: 1px solid #d1d5db; /* gray-300 */
-  border-radius: 0.5rem; /* rounded-lg */
-  padding: 0.5rem 2rem 0.5rem 0.75rem; /* py-2 pr-8 pl-3 */
-  font-size: 0.875rem; /* text-sm */
-  color: #374151; /* gray-700 */
+  border: 1px solid #d1d5db; 
+  border-radius: 0.5rem; 
+  padding: 0.5rem 2rem 0.5rem 0.75rem; 
+  font-size: 0.875rem; 
+  color: #374151;
   cursor: pointer;
 }
 

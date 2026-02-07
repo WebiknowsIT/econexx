@@ -1,13 +1,13 @@
 /* Base input styling */
 .input-styled {
-  background-color: #ffffff;
-  border: 1px solid #d1d5db; /* gray-300 */
-  color: #111827; /* gray-900 */
-  font-size: 0.875rem; /* text-sm */
-  border-radius: 0.5rem; /* rounded-lg */
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db; 
+  color: #111827; 
+  font-size: 0.875rem; 
+  border-radius: 0.5rem; 
   display: block;
   width: 100%;
-  padding: 0.625rem; /* p-2.5 */
+  padding: 0.625rem; 
   margin-bottom: 0.5rem;
 }
 
@@ -17,8 +17,8 @@
 
 /* Focus enhancement */
 .input-styled-focus:focus {
-  border-color: var(--color-primary, #16a34a);
-  box-shadow: 0 0 0 1px var(--color-primary, #16a34a);
+  border-color: var(--color-primary, #7A3D9A);
+  box-shadow: 0 0 0 1px var(--color-primary, #7A3D9A);
 }
 
 /* Remove number arrows (Chrome, Safari, Edge) */

@@ -6,7 +6,10 @@ import StockCard from "../../components/StockCard";
 import NewsCard from "../../components/NewsCard";
 import Button from "../../components/ui/Button";
 
+import Accordion from "@/components/ui/Accordion";
+
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const stocks = [
   {
@@ -167,6 +170,35 @@ const NEWS_LIST = [
   },
 ];
 
+const FaqData = [
+  {
+    "id": 1,
+    "question": "What is a Draft Red Herring Prospectus (DRHP)?",
+    "answer": "A Draft Red Herring Prospectus (DRHP) is a preliminary document filed by a company with SEBI before launching an IPO. It contains detailed information about the company’s business operations, financials, risks, and objectives of the issue, but does not include the final issue price or share quantity."
+  },
+  {
+    "id": 2,
+    "question": "Why is the DRHP important for investors in unlisted shares?",
+    "answer": "The DRHP helps investors evaluate a company’s fundamentals, growth prospects, risks, and financial health before investing in its unlisted shares. It offers transparency and allows informed decision-making ahead of a potential IPO."
+  },
+  {
+    "id": 3,
+    "question": "How can I access a company’s DRHP?",
+    "answer": "A company’s DRHP can be accessed on the SEBI website, stock exchange portals, or directly from the company’s official website once it is filed."
+  },
+  {
+    "id": 4,
+    "question": "What key information should I look for in a DRHP?",
+    "answer": "Key information in a DRHP includes company overview, business model, industry analysis, financial statements, risk factors, management details, use of IPO proceeds, and legal or regulatory disclosures."
+  },
+  {
+    "id": 5,
+    "question": "Should I buy unlisted shares after the filing of DRHP?",
+    "answer": "Buying unlisted shares after DRHP filing depends on factors such as company fundamentals, valuation, IPO prospects, and market conditions. Investors should assess risks carefully or consult a financial advisor before investing."
+  }
+];
+
+
 
 export default function DrhpFiled() {
 
@@ -174,7 +206,7 @@ export default function DrhpFiled() {
 
  const renderBlogs = () => {
   return (
-    <section className="py-20 bg-gray-100">
+    <section className="py-20 ">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-14">
           <h2 className="editorial-title text-4xl text-gray-900 mb-4">
@@ -201,6 +233,34 @@ export default function DrhpFiled() {
     </section>
   )
  }
+
+ const renderFaqs = () => {
+  return (
+    <section className="py-20 bg-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-xl font-semibold mb-4 text-center">
+          Frequently Asked Questions
+        </h2>
+        <p className="text-base mb-6 text-center">Find answers to common questions you may have in your mind</p>
+        <Accordion items={FaqData} />
+
+        <div class="mt-16 md:w-1/2 mx-auto bg-white border border-primary-500 rounded-2xl p-6 sm:p-8 text-center shadow-xl">
+            <h2 class="text-primary-500 font-display text-3xl sm:text-4xl font-bold mb-4">
+                Still have questions?
+            </h2>
+            <p class="text-lg mb-6 max-w-2xl mx-auto">
+                Can't find what you're looking for? Our support team is here to help.
+            </p>
+            <a href="mailto:support@example.com" class="inline-block bg-primary-500 hover:bg-primary-600 text-white font-semibold px-8 py-2 rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
+                Contact Support
+            </a>
+        </div>      
+      </div>
+    </section>
+  )
+ }
+
+
 
   return (
     <>
@@ -231,6 +291,7 @@ export default function DrhpFiled() {
           </div>
         </section>
 
+        {renderFaqs()}
         {renderBlogs()}
 
         <ShortVideos />

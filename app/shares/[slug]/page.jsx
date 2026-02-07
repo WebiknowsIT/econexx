@@ -13,6 +13,7 @@ import FinancialsSection from "./FinancialsSection";
 import ShareholdingPattern from "./ShareholdingPattern";
 import PromotersManagement from "./PromotersManagement";
 import DownloadSection from "./DownloadSection";
+import FAQs from "./FAQs";
 
 // Optional: server-side fetch
 // async function getShareDetails(slug) {
@@ -55,6 +56,51 @@ const fundamentalData = [
     { label: "RTA", value: "M/S Niche Technologies Private Limited" },
 ];
 
+const FaqData = [
+    {
+        question:
+            "How to Invest in Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "You can invest online through the fund house website, AMC platforms, or via registered distributors. SIP and lump sum options are available.",
+    },
+    {
+        question:
+            "What kind of returns does Aditya Birla Sun Life Gold Fund Direct Growth provide?",
+        answer:
+            "Returns depend on gold price movements and market conditions. It is suitable for long-term diversification.",
+    },
+    {
+        question:
+            "How much expense ratio is charged by Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "The expense ratio is charged as per SEBI guidelines and may change from time to time.",
+    },
+    {
+        question:
+            "What is the AUM of Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "AUM refers to Assets Under Management and reflects the total market value of assets managed by the fund.",
+    },
+    {
+        question:
+            "How to Redeem Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "Redemption can be done online through the AMC website or via your investment platform.",
+    },
+    {
+        question:
+            "Can I invest in SIP and Lump Sum of Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "Yes, both SIP and lump sum investment options are available.",
+    },
+    {
+        question:
+            "What is the NAV of Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "NAV represents the per-unit value of the fund and is updated daily on the AMC website.",
+    },
+];
+
 
 
 
@@ -65,7 +111,8 @@ export default function ShareDetailsPage({ params }) {
     //   if (!share) notFound();
 
     return (
-        <div className="bg-white max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="bg-white max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
                 <Breadcrumbs
                     items={[
@@ -114,12 +161,15 @@ export default function ShareDetailsPage({ params }) {
                     <DownloadSection />
                 </div>
             </div>
-            <div className="space-y-6">
-                <BuySellCard />
-                <CreateAlertCard />
-                <ValuationCard />
+            <div className="">
+                <div className="space-y-6 sticky top-[90px]">
+                    <BuySellCard />
+                    <CreateAlertCard />
+                    <ValuationCard />
+                </div>
             </div>
-
+        </div>
+        <FAQs data={FaqData} />
         </div>
 
     );

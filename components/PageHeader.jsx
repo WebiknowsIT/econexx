@@ -4,7 +4,7 @@ import Button from "./ui/Button";
 
 export default function PageHeader(props) {
   return (
-    <section className={`relative flex items-center ${props.minHeight || "min-h-[320px]"}`}>
+    <section className={`relative flex items-center ${props.minHeight || "min-h-[250px]"}`}>
       <div className="absolute inset-0 bg-cover bg-center"
         style={{backgroundImage: `url('${props.backgroundImage}')`,}}
       />
@@ -16,12 +16,12 @@ export default function PageHeader(props) {
         <div className="text-center">
 
           {props.badge && (
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur text-white text-xs font-semibold mb-6">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur text-white text-xs font-semibold mb-2">
               {props.badge}
             </span>
           )}
 
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-2">
             {props.title}
             {props.highlight && (
               <span className="text-primary-400"> {props.highlight}</span>
@@ -29,7 +29,7 @@ export default function PageHeader(props) {
           </h1>
 
           {props.description && (
-            <p className="text-gray-200 text-lg mb-10 md:px-28">
+            <p className="text-gray-200 text-lg mb-4 md:px-28">
               {props.description}
             </p>
           )}
