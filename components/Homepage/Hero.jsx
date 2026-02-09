@@ -1,6 +1,29 @@
+'use client';
 import AnimatedSection from "@/components/AnimatedSection";
+import CustomPopup from "@/components/ui/Popup/CustomPopup"
+import { useState } from "react";
 
 export default function Hero() {
+
+  const [openVideo, setVideoOpen] = useState(false); 
+
+
+function renderEmbedVideo() {
+  return (
+    <div className="relative w-full aspect-video rounded-md overflow-hidden">
+      <iframe
+        src="https://www.youtube.com/shorts/rQrtlKz1ToM"
+        title="YouTube video player"
+        allow="autoplay; encrypted-media; fullscreen"
+        allowFullScreen
+        className="absolute inset-0 w-full h-full border-0"
+      />
+    </div>
+  );
+}
+
+
+
   return (
     <section className="pt-14 pb-14 overflow-hidden bannerBgPattern">
       <div className="max-w-7xl mx-auto px-6">
@@ -94,7 +117,10 @@ export default function Hero() {
                   {/* Play Button – zoomIn */}
                   <AnimatedSection delay={0.45} y={0}>
                     <div className="text-white text-sm font-medium flex flex-col items-center gap-4">
-                      <div className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <div 
+                      className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer"
+                      onClick={() => setVideoOpen(true)}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
@@ -157,6 +183,19 @@ export default function Hero() {
 
         </div>
       </div>
+
+      {openVideo && (
+        <CustomPopup
+          //title="Product Overview"
+          //subTitle="Watch this quick demo"
+          close={() => setVideoOpen(false)}
+          size="w-full max-w-2xl"
+          dimension="h-auto"
+          scrollClass="overflow-hidden !p-0"
+          bodyClass=""
+          popupBody={renderEmbedVideo()}
+        />
+      )} 
     </section>
   );
 }
