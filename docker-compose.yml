@@ -1,12 +1,10 @@
-version: "3.9"
-
 services:
   nextjs-app:
     build: .
     container_name: econexx_app
     restart: always
     ports:
-      - "3001:3000"
+      - "3002:3000"
     environment:
       NEXT_PUBLIC_API_URL: "https://pharmintechbackend.webiknows.in"
       NODE_ENV: "production"
