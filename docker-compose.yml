@@ -6,6 +6,7 @@ services:
     container_name: econexx_app
     restart: always
     ports:
-      - "3001:3001"
+      - "3001:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=https://pharmintechbackend.webiknows.in
+      NEXT_PUBLIC_API_URL: "https://pharmintechbackend.webiknows.in"
+      NODE_ENV: "production"
