@@ -68,7 +68,7 @@ export default function Header() {
           <Link href="login" className={`text-sm font-semibold text-gray-700 hover:text-primary-600 ${isActive("/login")} `}>
             Sign In
           </Link>
-          <Button variant="secondary">Get Started</Button>
+          <Button href="/contact-us" variant="secondary">Get Started</Button>
         </div>
       </div>
     </nav>
