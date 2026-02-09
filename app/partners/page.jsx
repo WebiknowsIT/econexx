@@ -111,8 +111,12 @@ export default function PartnerPage() {
               <h2 className="text-3xl font-bold">
                 Become Our Partner in 3 Easy Steps
               </h2>
-              <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Unlock Your Earning Potential: Sign Up, Get Paid, Repeat! Join us today to start earning effortlessly.</p>
+
             </AnimatedSection>
+            <AnimatedSection>
+              <p className="text-gray-600 mb-8 max-w-2xl mx-auto">Unlock Your Earning Potential: Sign Up, Get Paid, Repeat! Join us today to start earning effortlessly.</p>
+            </AnimatedSection>
+
 
             <div className="mt-16 grid md:grid-cols-3 gap-10">
               {[
@@ -153,8 +157,8 @@ export default function PartnerPage() {
 
             <AnimatedSection>
               <img
-                src="/images/our-dashboard.png"
-                className=""
+                src="/images/dashboard.png"
+                className="rounded-md shadow-sm p-2 bg-white"
                 alt="Dashboard Preview"
               />
             </AnimatedSection>
@@ -188,9 +192,14 @@ export default function PartnerPage() {
               <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900">
                 What You Get?
               </h2>
-              <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Research Reports, Partner Dashboard and
-                            Daily News of Unlisted Market.</p>
+
             </AnimatedSection>
+            <AnimatedSection delay={0.1}>
+              <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Research Reports, Partner Dashboard and
+                Daily News of Unlisted Market.</p>
+            </AnimatedSection>
+
+
             <div className="grid md:grid-cols-3 gap-8">
               {/* Benefit 1 */}
               <AnimatedSection delay={0.2}>
@@ -255,8 +264,13 @@ export default function PartnerPage() {
               <h2 className="text-3xl font-bold text-center">
                 Frequently Asked Questions
               </h2>
-              <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Find answers to common questions that may help you in your initial exploration</p>
+
             </AnimatedSection>
+            <AnimatedSection>
+              <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Find answers to common questions that may help you in your initial exploration</p>
+
+            </AnimatedSection>
+
 
             <Accordion
               items={[
@@ -290,6 +304,9 @@ export default function PartnerPage() {
               <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">
                 Reach Out To Us
               </h2>
+
+            </AnimatedSection>
+            <AnimatedSection delay={0.3}>
               <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
                 Love what's on your mind and you have had a moment to check our partners section. Then why not drop us a line along with your questions. Get in touch now!
               </p>
@@ -297,10 +314,11 @@ export default function PartnerPage() {
 
 
 
+
             <div className="mb-20 grid md:grid-cols-2 gap-4">
 
               {/* Contact Info Cards */}
-              <div className="grid md:grid-cols-1 gap-8 mb-20">
+              <div className="grid md:grid-cols-1 gap-8">
                 <AnimatedSection delay={0.2}>
                   <div className="bg-gradient-to-br from-purple-50 to-orange-50 rounded-md p-8 text-center hover:shadow-lg transition flex gap-4 items-start">
                     <div className="flex">
@@ -310,9 +328,9 @@ export default function PartnerPage() {
                     </div>
                     <div className="text-left">
                       <h3 className="font-bold text-gray-900 mb-2">Visit Us</h3>
-                    <p className="text-sm text-gray-600">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
+                      <p className="text-sm text-gray-600">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      </p>
                     </div>
                   </div>
                 </AnimatedSection>
@@ -326,12 +344,12 @@ export default function PartnerPage() {
                     </div>
                     <div className="text-left">
                       <h3 className="font-bold text-gray-900 mb-2">Call Us</h3>
-                    <p className="text-sm text-gray-600">
-                      +91 9594747028
-                    </p>
+                      <p className="text-sm text-gray-600">
+                        +91 9594747028
+                      </p>
 
                     </div>
-                    
+
                   </div>
                 </AnimatedSection>
 
@@ -344,12 +362,12 @@ export default function PartnerPage() {
                     </div>
                     <div className="text-left">
                       <h3 className="font-bold text-gray-900 mb-2">Email Us</h3>
-                    <p className="text-sm text-gray-600">
-                      info@unlistedzone.com
-                    </p>
+                      <p className="text-sm text-gray-600">
+                        info@unlistedzone.com
+                      </p>
 
                     </div>
-                    
+
                   </div>
                 </AnimatedSection>
               </div>
@@ -358,32 +376,32 @@ export default function PartnerPage() {
                   <form className="space-y-2" onSubmit={(e) => e.preventDefault()}>
                     <div className="grid md:grid-cols-2 gap-6">
                       <Input
-                          label="Name"
-                          type="text"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="Enter your name"
-                          className="input-styled !mb-0"
-                        />
-                        <Input
-                          label="Email"
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="Enter your email"
-                          className="input-styled !mb-0"
-                        />
-                    </div>
-                    <Input
-                        label="Phone Number"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="Enter your phone number"
+                        label="Name"
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="Enter your name"
                         className="input-styled !mb-0"
                       />
+                      <Input
+                        label="Email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="Enter your email"
+                        className="input-styled !mb-0"
+                      />
+                    </div>
+                    <Input
+                      label="Phone Number"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="Enter your phone number"
+                      className="input-styled !mb-0"
+                    />
 
-                    
+
 
                     <div className="form-group ">
                       <label className="form-label">

@@ -65,9 +65,9 @@ export default function Header() {
             />
           </div>
 
-          <button className="text-sm font-semibold text-gray-700 hover:text-primary-600">
+          <Link href="login" className={`text-sm font-semibold text-gray-700 hover:text-primary-600 ${isActive("/login")} `}>
             Sign In
-          </button>
+          </Link>
           <Button variant="secondary">Get Started</Button>
         </div>
       </div>

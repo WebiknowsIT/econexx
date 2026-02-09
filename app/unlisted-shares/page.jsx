@@ -1,11 +1,11 @@
 "use client";
 
-
 import PageHeader from "../../components/PageHeader";
 import ShortVideos from "@/components/Homepage/ShortVideos";
 import StockCard from "../../components/StockCard";
 import NewsCard from "../../components/NewsCard";
 import Button from "../../components/ui/Button";
+import AnimatedSection from "../../components/AnimatedSection";
 const stocks = [
   {
     id: 1,
@@ -165,7 +165,6 @@ const NEWS_LIST = [
   },
 ];
 
-
 export default function UnlistedShares() {
 
  const renderBlogs = () => {
@@ -217,12 +216,16 @@ export default function UnlistedShares() {
         <section className="py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {stocks.map((item) => (
-                <StockCard key={item.id} {...item} />
+              {stocks.map((item, index) => (
+                <AnimatedSection key={index} delay={index * 0.1}>
+                  <StockCard key={item.id} {...item} />
+                </AnimatedSection>
               ))}
             </div>
             <div className="text-center py-6">
-              <Button variant="secondary">View More</Button>
+              <AnimatedSection delay={0.2}>
+                <Button variant="secondary">View More</Button>
+              </AnimatedSection>
             </div>
           </div>
         </section>

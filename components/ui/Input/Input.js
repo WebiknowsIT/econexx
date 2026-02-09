@@ -88,7 +88,7 @@ export default function Input(props) {
     const getInput=()=>{
         return(
           <input id={props.inputId}
-            className={`form-control ${props.className} ${disabledStyles}`}
+            className={`form-control input-styled ${props.className} ${disabledStyles}`}
               style={{ ...props.style, ...bgIconStyle }}
               type={props.type}
               step={props.step}
