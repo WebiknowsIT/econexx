@@ -24,6 +24,28 @@
   --color-secondary-900: #6F3E0E;
 }
 
+@layer base {
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+     font-family: 'Poppins', sans-serif;
+  }
+  body{
+    font-family: 'Poppins', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  button {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  a {
+    font-family: 'Poppins', sans-serif;
+  }
+}
 
 @keyframes fadeSlideUp {
   from {

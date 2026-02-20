@@ -1,30 +1,27 @@
 // app/page.tsx
+import HeroSection from "../components/Home/HeroSection";
+import Homeinfo from "@/components/Home/Homeinfo";
+import ServiceInfo from "@/components/Home/ServiceInfo";
+import WhyChooseUs from "@/components/Home/WhyChooseUs";
+import HowItWorks from "@/components/Home/HowItWorks";
+import Testimonials from "@/components/Home/Testimonials";
+import FAQ from "@/components/Home/FAQ";
+import CTASection from "@/components/Home/CTASection";
 
-import MarketMarquee from "@/components/MarketMarquee";
-
-import Hero from "@/components/Homepage/Hero";
-import PopularUnlistedShares from "@/components/Homepage/PopularUnlistedShares";
-import LeadingSectors from "@/components/Homepage/LeadingSectors";
-import NewOpportunities from "@/components/Homepage/NewOpportunities";
-import HistoricalIPO from "@/components/Homepage/HistoricalIPO";
-import HowItWorks from "@/components/Homepage/HowItWorks";
-import EditorialBlogs from "@/components/Homepage/EditorialBlogs";
-import ShortVideos from "@/components/Homepage/ShortVideos";
 
 
 export default function Home() {
   return (
     <>
       <main className="">
-        <Hero />
-        <MarketMarquee />
-        <PopularUnlistedShares />
-        <LeadingSectors />
-        <NewOpportunities />
-        <HistoricalIPO />
+        <HeroSection />
+        <Homeinfo />
+        <ServiceInfo />
+        <WhyChooseUs />
         <HowItWorks />
-        <EditorialBlogs />
-        <ShortVideos />
+        <Testimonials />
+        <FAQ />
+        <CTASection />
       </main>
     </>
   );

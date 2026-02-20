@@ -1,7 +1,7 @@
 "use client";
 
 import PageHeader from "../../components/PageHeader";
-import ShortVideos from "@/components/Homepage/ShortVideos";
+// import ShortVideos from "@/components/Homepage/ShortVideos";
 import StockCard from "../../components/StockCard";
 import NewsCard from "../../components/NewsCard";
 import Button from "../../components/ui/Button";
@@ -234,7 +234,7 @@ export default function UnlistedShares() {
 
 
 
-        <ShortVideos />
+        {/* <ShortVideos /> */}
 
         
       </main>
