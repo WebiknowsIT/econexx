@@ -20,6 +20,7 @@ export default function ReusableSlider({
   pagination = false,
   rows = 1,              // ✅ NEW
   className = "",
+  onSwiper,              // ✅ NEW - callback to get swiper instance
 }) {
   return (
     <Swiper
@@ -40,6 +41,7 @@ export default function ReusableSlider({
       pagination={pagination ? { clickable: true } : false}
       breakpoints={breakpoints}
       className={className}
+      onSwiper={onSwiper}  // ✅ NEW - pass swiper instance to parent
     >
       {children}
     </Swiper>

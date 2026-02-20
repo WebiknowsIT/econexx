@@ -5,7 +5,11 @@ module.exports = {
     "./pages/**/*.{js,jsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+       fontFamily: {
+        primary: ["Poppins", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };
