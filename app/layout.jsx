@@ -16,7 +16,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "EconexxWealth | Premium Pre-IPO & Unlisted Share Trading",
+  title: "EconexxWealth | Premium Pre-IPO & Unlisted Share Trading ",
   description:
     "India's most trusted platform for buying and selling unlisted shares, Pre-IPO stocks, and ESOPs. Experience transparency and expert guidance.",
 };
