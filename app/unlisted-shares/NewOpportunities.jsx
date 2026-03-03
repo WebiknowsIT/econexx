@@ -1,5 +1,5 @@
 import AnimatedSection from "@/components/AnimatedSection";
-import StockCard from "../StockCard";
+import StockCard from "@/components/StockCard";
 
 export default function NewOpportunities() {
   return (

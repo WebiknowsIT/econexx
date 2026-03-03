@@ -16,9 +16,8 @@ export default function Header() {
 
   return (
     <nav className="fixed top-0 w-full z-50 glass-nav border-b border-gray-100 bg-white/80 backdrop-blur">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between w-full">
-        <div className="flex items-center gap-12">
-          <Link href='/' className="text-2xl font-bold tracking-tighter text-primary-700 flex items-center gap-2">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex gap-6 items-center justify-between w-full">
+        <Link href='/' className="text-2xl font-bold tracking-tighter text-primary-700 flex items-center">
             <Image
               src="/images/Logo.png"
               alt="Logo"
@@ -28,32 +27,31 @@ export default function Header() {
               className="w-auto h-[50px] ml-[-14px]"
             />
           </Link>
-          <div className="hidden lg:flex items-center gap-6 text-sm font-medium">
+          <div className="mainMenu hidden lg:flex items-center gap-4 text-sm font-medium">
             <Link href="/unlisted-shares" className={isActive("/unlisted-shares")}>
-              All Unlisted Shares
+              Unlisted Shares
             </Link>
-
-            <Link href="/drhp-filed" className={isActive("/drhp-filed")}>
-              DRHP Filed
+            <Link href="/pre-ipo-stocks" className={isActive("/pre-ipo-stocks")}>
+              Pre-IPO Stocks
             </Link>
-
-            <Link href="/partners" className={isActive("/partners")}>
-              Become Our Partner
+            <Link href="/smart-screener" className={isActive("/smart-screener")}>
+              Smart Screener
             </Link>
-
-            <Link href="/screener" className={isActive("/screener")}>
-              Our Screener
+            <Link href="/bond-marketplace" className={isActive("/bond-marketplace")}>
+              Bonds
             </Link>
-
-            <Link href="/media-coverage" className={isActive("/media-coverage")}>
-              Media Coverage
+            <Link href="/news-and-insights" className={isActive("/news-and-insights")}>
+              Insights
+            </Link>
+            <Link href="/partner-with-us" className={isActive("/partner-with-us")}>
+              Partner With Us
             </Link>
           </div>
-        </div>
+        
 
         {/* RIGHT */}
-        <div className="flex items-center gap-4">
-            <svg width="16" height="16" fill="none" className="me-3" stroke="currentColor" strokeWidth="2">
+        <div className="flex items-center gap-4 shrink-0">
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="7" cy="7" r="6" />
               <path d="m15 15-3-3" />
             </svg>
@@ -69,7 +67,7 @@ export default function Header() {
             />
           </div> */}
 
-          <Link href="login" className={`text-sm font-semibold text-gray-700 hover:text-primary-600 ${isActive("/login")} `}>
+          <Link href="login" className={`text-sm shrink-0 font-semibold text-gray-700 hover:text-primary-600 ${isActive("/login")} `}>
             Sign In
           </Link>
           <Button href="/contact-us" variant="secondary">Get Started</Button>

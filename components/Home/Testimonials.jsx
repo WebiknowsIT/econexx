@@ -1,9 +1,12 @@
 "use client";
 import React from "react";
-import AnimatedSection from "@/components/AnimatedSection";
-import ReusableSlider from "@/components/ReusableSlider";
 import { SwiperSlide } from "swiper/react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+
+import AnimatedSection from "@/components/AnimatedSection";
+import SectionTitle from "@/components/SectionTitle";
+import ReusableSlider from "@/components/ReusableSlider";
+
 
 const Testimonials = () => {
   const [swiperInstance, setSwiperInstance] = React.useState(null);
@@ -43,16 +46,14 @@ const Testimonials = () => {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
-        <AnimatedSection delay={0.1}>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 font-primary">
-              Trusted by <span className="text-secondary-300">Growth-Focused</span> Investors
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Trusted by 1,50,000+ customers
-            </p>
-          </div>
-        </AnimatedSection>
+
+        <SectionTitle
+         align="center"
+          eyebrow="— Testimonials"
+          title="Trusted by Growth-Focused Investors"
+          description="Trusted by 1,50,000+ customers"
+        />
+
 
         {/* Testimonials Slider */}
         <AnimatedSection delay={0.2}>

@@ -1,11 +1,14 @@
 "use client";
-
-import AnimatedSection from "../../components/AnimatedSection";
-import Accordion from "../../components/ui/Accordion"
-import Button from "../../components/ui/Button";
-import Input from "../../components/ui/Input/Input";
 import { useState } from "react";
 import { ArrowRight, FileText, Mail, MapPin, Phone, TrendingUp, Users } from "lucide-react";
+
+import AnimatedSection from "@/components/AnimatedSection";
+import Accordion from "@/components/ui/Accordion"
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input/Input";
+import ContactSection from "./ContactSection";
+
+
 
 
 export default function PartnerPage() {
@@ -297,151 +300,8 @@ export default function PartnerPage() {
         </section>
 
         {/* ================= CONTACT ================= */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
 
-            <AnimatedSection delay={0.1}>
-              <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">
-                Reach Out To Us
-              </h2>
-
-            </AnimatedSection>
-            <AnimatedSection delay={0.3}>
-              <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-                Love what's on your mind and you have had a moment to check our partners section. Then why not drop us a line along with your questions. Get in touch now!
-              </p>
-            </AnimatedSection>
-
-
-
-
-            <div className="mb-20 grid md:grid-cols-2 gap-4">
-
-              {/* Contact Info Cards */}
-              <div className="grid md:grid-cols-1 gap-8">
-                <AnimatedSection delay={0.2}>
-                  <div className="bg-gradient-to-br from-purple-50 to-orange-50 rounded-md p-8 text-center hover:shadow-lg transition flex gap-4 items-start">
-                    <div className="flex">
-                      <div className="w-12 h-12 bg-[#7A3D9A] rounded-lg flex items-center justify-center">
-                        <MapPin className="w-6 h-6 text-white" />
-                      </div>
-                    </div>
-                    <div className="text-left">
-                      <h3 className="font-bold text-gray-900 mb-2">Visit Us</h3>
-                      <p className="text-sm text-gray-600">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      </p>
-                    </div>
-                  </div>
-                </AnimatedSection>
-
-                <AnimatedSection delay={0.3}>
-                  <div className="bg-gradient-to-br from-purple-50 to-orange-50 rounded-md p-8 text-center hover:shadow-lg transition flex gap-4 items-start">
-                    <div className="flex justify-center">
-                      <div className="w-12 h-12 bg-[#7A3D9A] rounded-lg flex items-center justify-center">
-                        <Phone className="w-6 h-6 text-white" />
-                      </div>
-                    </div>
-                    <div className="text-left">
-                      <h3 className="font-bold text-gray-900 mb-2">Call Us</h3>
-                      <p className="text-sm text-gray-600">
-                        +91 9594747028
-                      </p>
-
-                    </div>
-
-                  </div>
-                </AnimatedSection>
-
-                <AnimatedSection delay={0.4}>
-                  <div className="bg-gradient-to-br from-purple-50 to-orange-50 rounded-md p-8 text-center hover:shadow-lg transition flex gap-4 items-start">
-                    <div className="flex justify-center">
-                      <div className="w-12 h-12 bg-[#7A3D9A] rounded-lg flex items-center justify-center">
-                        <Mail className="w-6 h-6 text-white" />
-                      </div>
-                    </div>
-                    <div className="text-left">
-                      <h3 className="font-bold text-gray-900 mb-2">Email Us</h3>
-                      <p className="text-sm text-gray-600">
-                        info@unlistedzone.com
-                      </p>
-
-                    </div>
-
-                  </div>
-                </AnimatedSection>
-              </div>
-              <AnimatedSection delay={0.2}>
-                <div className="mx-auto bg-gradient-to-br from-purple-50 to-orange-50 hover:shadow-lg transition rounded-md p-8">
-                  <form className="space-y-2" onSubmit={(e) => e.preventDefault()}>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <Input
-                        label="Name"
-                        type="text"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="Enter your name"
-                        className="input-styled !mb-0"
-                      />
-                      <Input
-                        label="Email"
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="Enter your email"
-                        className="input-styled !mb-0"
-                      />
-                    </div>
-                    <Input
-                      label="Phone Number"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="Enter your phone number"
-                      className="input-styled !mb-0"
-                    />
-
-
-
-                    <div className="form-group ">
-                      <label className="form-label">
-                        Where did you hear about us?
-                      </label>
-                      <select
-                        className="w-full bg-white px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7A3D9A] focus:border-transparent outline-none transition"
-                        value={formData.source}
-                        onChange={(e) => setFormData({ ...formData, source: e.target.value })}
-                      >
-                        <option>Select an option</option>
-                        <option>Social Media</option>
-                        <option>Search Engine</option>
-                        <option>Referral</option>
-                        <option>Other</option>
-                      </select>
-                    </div>
-
-                    <div className="form-group">
-                      <label className="form-label">
-                        Message
-                      </label>
-                      <textarea
-                        rows="2"
-                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7A3D9A] focus:border-transparent outline-none transition resize-none"
-                        placeholder="Tell us more about your query..."
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      ></textarea>
-                    </div>
-
-                    <Button variant="secondary" className="w-full">
-                      Submit
-                    </Button>
-                  </form>
-                </div>
-              </AnimatedSection>
-            </div>
-          </div>
-        </section>
+        <ContactSection />
       </div>
     </main>
   );

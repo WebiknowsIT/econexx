@@ -1,16 +1,13 @@
 "use client";
 
-import PageHeader from "../../components/PageHeader";
-import ShortVideos from "@/components/Homepage/ShortVideos";
-import StockCard from "../../components/StockCard";
-import NewsCard from "../../components/NewsCard";
-import Button from "../../components/ui/Button";
-
-import Accordion from "@/components/ui/Accordion";
-
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-
+import PageHeader from "../../../components/PageHeader";
+import PageHeaderDark from "@/components/PageHeaderDark";
+// import ShortVideos from "@/components/Homepage/ShortVideos";
+import StockCard from "../../../components/StockCard";
+import NewsCard from "../../../components/NewsCard";
+import Button from "../../../components/ui/Button";
+import AnimatedSection from "../../../components/AnimatedSection";
+import { ArrowRight } from "lucide-react";
 const stocks = [
   {
     id: 1,
@@ -170,43 +167,11 @@ const NEWS_LIST = [
   },
 ];
 
-const FaqData = [
-  {
-    "id": 1,
-    "question": "What is a Draft Red Herring Prospectus (DRHP)?",
-    "answer": "A Draft Red Herring Prospectus (DRHP) is a preliminary document filed by a company with SEBI before launching an IPO. It contains detailed information about the company’s business operations, financials, risks, and objectives of the issue, but does not include the final issue price or share quantity."
-  },
-  {
-    "id": 2,
-    "question": "Why is the DRHP important for investors in unlisted shares?",
-    "answer": "The DRHP helps investors evaluate a company’s fundamentals, growth prospects, risks, and financial health before investing in its unlisted shares. It offers transparency and allows informed decision-making ahead of a potential IPO."
-  },
-  {
-    "id": 3,
-    "question": "How can I access a company’s DRHP?",
-    "answer": "A company’s DRHP can be accessed on the SEBI website, stock exchange portals, or directly from the company’s official website once it is filed."
-  },
-  {
-    "id": 4,
-    "question": "What key information should I look for in a DRHP?",
-    "answer": "Key information in a DRHP includes company overview, business model, industry analysis, financial statements, risk factors, management details, use of IPO proceeds, and legal or regulatory disclosures."
-  },
-  {
-    "id": 5,
-    "question": "Should I buy unlisted shares after the filing of DRHP?",
-    "answer": "Buying unlisted shares after DRHP filing depends on factors such as company fundamentals, valuation, IPO prospects, and market conditions. Investors should assess risks carefully or consult a financial advisor before investing."
-  }
-];
-
-
-
-export default function DrhpFiled() {
-
-  const router = useRouter();
+export default function UnlistedShares() {
 
  const renderBlogs = () => {
   return (
-    <section className="py-20 ">
+    <section className="py-20 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-14">
           <h2 className="editorial-title text-4xl text-gray-900 mb-4">
@@ -225,7 +190,7 @@ export default function DrhpFiled() {
         </div>
         <div className="mt-14 text-center">
           <Button variant="secondary" href="/news">
-            View More News
+            View All <ArrowRight className="ms-2" size={18} />
           </Button>
         </div>
 
@@ -234,67 +199,61 @@ export default function DrhpFiled() {
   )
  }
 
- const renderFaqs = () => {
-  return (
-    <section className="py-20 bg-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-xl font-semibold mb-4 text-center">
-          Frequently Asked Questions
-        </h2>
-        <p className="text-base mb-6 text-center">Find answers to common questions you may have in your mind</p>
-        <Accordion items={FaqData} />
-
-        <div class="mt-16 md:w-1/2 mx-auto bg-white border border-primary-500 rounded-2xl p-6 sm:p-8 text-center shadow-xl">
-            <h2 class="text-primary-500 font-display text-3xl sm:text-4xl font-bold mb-4">
-                Still have questions?
-            </h2>
-            <p class="text-lg mb-6 max-w-2xl mx-auto">
-                Can't find what you're looking for? Our support team is here to help.
-            </p>
-            <a href="mailto:support@example.com" class="inline-block bg-primary-500 hover:bg-primary-600 text-white font-semibold px-8 py-2 rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
-                Contact Support
-            </a>
-        </div>      
-      </div>
-    </section>
-  )
- }
-
-
-
   return (
     <>
       <main className="">
-        <PageHeader
+        
+        {/* <PageHeader
           backgroundImage="images/banners.jpg"
           overlay="bg-black/50"
           badge="🔒 Trusted Unlisted Marketplace"
-          title="DRHP Filed"
+          title="Unlisted Shares Price List"
           //highlight="Price List"
-          description="Unlock early-stage investment opportunities with companies that have filed their DRHP, signaling their readiness to enter the public market."
-          primaryText="Learn More"
-          onPrimaryClick={() => router.push("/media-coverage")}
-          //secondaryText="View Price List"
-          //onSecondaryClick={() => console.log("View price list clicked")}
-        />
+          description="Explore verified unlisted companies with transparent pricing, expert support, and secure transaction execution."
+          primaryText="Register Now"
+          secondaryText="View Price List"
+          onPrimaryClick={() => console.log("Register clicked")}
+          onSecondaryClick={() => console.log("View price list clicked")}
+        /> */}
+
+        <PageHeaderDark
+        breadcrumb={[
+          { label: "Home", href: "/" },
+          { label: "Unlisted Shares" },
+        ]}
+        tag="Marketplace"
+        title="Unlisted"
+        highlight="Shares"
+        description="Browse 200+ pre-IPO and unlisted opportunities across India's most exciting growth sectors."
+        stats={[
+          { value: "200+", label: "Companies" },
+          { value: "12K+", label: "Investors" },
+          { value: "₹480Cr", label: "Traded" },
+        ]}
+      />
 
         <section className="py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {stocks.map((item) => (
-                <StockCard key={item.id} {...item} />
+              {stocks.map((item, index) => (
+                <AnimatedSection key={index} delay={index * 0.1}>
+                  <StockCard key={item.id} {...item} />
+                </AnimatedSection>
               ))}
             </div>
             <div className="text-center py-6">
-              <Button variant="secondary">View More</Button>
+              <AnimatedSection delay={0.2}>
+                <Button variant="secondary">View More</Button>
+              </AnimatedSection>
             </div>
           </div>
         </section>
 
-        {renderFaqs()}
         {renderBlogs()}
 
-        <ShortVideos />
+
+
+        {/* <ShortVideos /> */}
 
         
       </main>
