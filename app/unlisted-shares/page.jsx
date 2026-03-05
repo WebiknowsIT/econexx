@@ -1,7 +1,7 @@
 
 import "@/styles/unlisted.css";
 
-import Hero from "./HeroDark";
+import HeroDark from "./HeroDark";
 import MarketMarquee from "@/components/MarketMarquee";
 import HowItWorks from "./HowItWorksLight";
 import PopularUnlistedShares from "./FeaturedUnlistedShares";
@@ -71,7 +71,7 @@ export default function UnlistedShares() {
 
   return (
     <>
-      <Hero />
+      <HeroDark />
       <MarketMarquee />
       <HowItWorks />
       <PopularUnlistedShares />

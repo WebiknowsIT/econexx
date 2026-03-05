@@ -133,6 +133,11 @@ export default function Input(props) {
                 <span onClick={props.onClickEye} className='eye'>
                   {(props.type==="password") ? closeEyeIcon()  :  openEyeIcon()}
                 </span>}
+              {props.icon && (
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                  {props.icon}
+                </span>
+              )}
             {props.errorMessage && <div className='error'>{props.errorMessage}</div>}
             {props.helpText && <div className='text-xs text-gray-400'>{props.helpText}</div>}
         </div>

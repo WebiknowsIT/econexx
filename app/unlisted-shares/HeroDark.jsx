@@ -63,7 +63,7 @@ export default function HeroSection() {
         <AnimatedSection delay={0.4} y={40}>
           <div className="flex gap-4 justify-center flex-wrap">
 
-            <Button href="/unlisted-shares/list" variant="primary" className="px-9 py-4 text-base">
+            <Button href="/unlisted-shares/list" variant="secondary" className="px-9 py-4 text-base">
               <TrendingUp className="w-4 h-4 mr-2" />
               Explore Shares
             </Button>

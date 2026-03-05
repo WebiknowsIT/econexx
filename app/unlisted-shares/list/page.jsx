@@ -1,23 +1,30 @@
 "use client";
 
 import "@/styles/unlisted.css";
-
+import { Search } from "lucide-react";
 import { useState, useMemo } from "react";
+
+// import ShareCard from "./components/ShareCard";
+// import SidebarFilters from "./components/SidebarFilters";
+// import Toolbar from "./components/Toolbar";
+
 import PageHeader from "@/components/PageHeaderDark";
-import ShareCard from "./components/ShareCard";
 import QuickFilterBar from "./components/QuickFilterBar";
-import SidebarFilters from "./components/SidebarFilters";
-import Toolbar from "./components/Toolbar";
+import Input from "@/components/ui/Input/Input";
+import Pagination from "@/components/Pagination";
+import StockCard from "@/components/StockCard";
 
 import {SHARES} from "../../../utils/data";
+
 
 export default function UnlistedMarketplace() {
   const [search, setSearch] = useState("");
   const [sector, setSector] = useState([]);
   const [quickFilter, setQuickFilter] = useState("All");
   const [sortValue, setSortValue] = useState("default");
-  const [view, setView] = useState("grid");
-  const [watchlist, setWatchlist] = useState([]);
+
+  
+
   const [filters, setFilters] = useState({
   search: "",
   sectors: [],
@@ -73,6 +80,11 @@ const clearFilters = () => {
     return result;
   }, [search, sector, sortValue]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 12;
+  const start = (currentPage - 1) * perPage;
+  const pageItems = filteredShares.slice(start, start + perPage);
+
   return (
     <>
       <PageHeader
@@ -97,48 +109,73 @@ const clearFilters = () => {
                 setQuickFilter(val);
                 setPage(1);
             }}
-            />
+      />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-16 py-10 flex gap-8">
+      <div className="max-w-7xl bg-white mx-auto px-6 lg:px-16 py-8 flex gap-8">
 
         {/* Sidebar */}
-        <SidebarFilters
+        {/* <SidebarFilters
         filters={filters}
         setFilters={setFilters}
         clearFilters={clearFilters}
-        />
+        /> */}
 
         {/* Main Content */}
         <div className="flex-1">
+          <div className="flex items-center justify-between gap-4 pb-4 ">
+            <p className="text-sm">
+              <span className="font-semibold">
+                {filteredShares.length}
+              </span>{" "}companies found
+            </p>
+            <div className="">
+              <Input
+                type="text"
+                placeholder="Company name..."
+                value={filters.search}
+                onChange={(e) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    search: e.target.value,
+                  }))
+                }
+                className="!pr-8"
+                icon={<Search size={16} />}
+              />
+            </div>
 
-            <Toolbar
+
+          </div>
+            {/* <Toolbar
                 totalCount={filteredShares.length}
                 sortValue={sortValue}
                 setSortValue={setSortValue}
                 view={view}
                 setView={setView}
                 onOpenDrawer={() => setIsDrawerOpen(true)}
-            />
+            /> */}
 
-          
-
-          <div
-            className={
-              view === "grid"
-                ? "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
-                : "flex flex-col gap-4"
-            }
-          >
-            {filteredShares.map((share) => (
-              <ShareCard
-                    key={share.id}
-                    s={share}
-                    view={view}
-                    watchlist={watchlist}
-                    toggleWatch={toggleWatch}
-                />
+          <div className={`grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-3 gap-6`}>
+            {pageItems.map((share) => (
+              <StockCard
+                id={share.id}
+                title={share.name}
+                category={share.sector}
+                price= {share.price}
+                change= "+1.3%"
+                duration= "15D"
+                badge= {share.badge}
+                logo= "/images/stocks/nse.png"
+              />
             ))}
           </div>
+
+          <Pagination
+            totalItems={filteredShares.length}
+            perPage={perPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
 
         </div>
       </div>

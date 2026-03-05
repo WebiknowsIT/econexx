@@ -1,6 +1,5 @@
 export const SHARES = [
-  { id:1,  name:'Razorpay',
-    sector:'FinTech',    stage:'Series F',   price:1240, return6m:18.4,  demand:94, exclusive:false, available:true,  badge:'Hot',       desc:'India\'s leading payment gateway powering 8M+ businesses.' },
+  { id:1,  name:'Razorpay',           sector:'FinTech',    stage:'Series F',   price:1240, return6m:18.4,  demand:94, exclusive:false, available:true,  badge:'Hot',       desc:'India\'s leading payment gateway powering 8M+ businesses.' },
   { id:2,  name:'Ola Electric',       sector:'EV',         stage:'Pre-IPO',    price:86,   return6m:31.2,  demand:88, exclusive:false, available:true,  badge:'Hot',       desc:'Largest EV two-wheeler manufacturer in India by volume.' },
   { id:3,  name:'PhysicsWallah',      sector:'EdTech',     stage:'Series B',   price:58,   return6m:24.9,  demand:79, exclusive:false, available:true,  badge:'New',       desc:'India\'s most affordable online education platform with 10M+ students.' },
   { id:4,  name:'Boat Lifestyle',     sector:'D2C',        stage:'Series D+',  price:1070, return6m:-3.1,  demand:65, exclusive:false, available:true,  badge:null,        desc:'#1 wearables and audio brand in India by market share.' },

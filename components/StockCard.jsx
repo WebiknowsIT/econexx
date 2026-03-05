@@ -1,6 +1,7 @@
 import Image from "next/image";
 import {formatAmount} from '@/utils/helper';
 import Link from "next/link";
+import StatusTag from "@/components/ui/StatusTag/StatusTag";
 
 export default function StockCard({
   title,
@@ -11,6 +12,20 @@ export default function StockCard({
   badge = "STABLE",
   logo = "/images/stocks/nse.png",
 }) {
+
+
+  const getVariant = (badge) => {
+  const map = {
+    Exclusive: "Submitted",
+    Hot: "warning",
+    New: "Paid",
+    STABLE: "Submitted",
+    ACTIVE: "info",
+  };
+  return map[badge] || badge;
+};
+
+
   return (
     <div className="StockCard group p-6 rounded-2xl border border-gray-100 bg-white hover:shadow-xl transition-all hover:border-primary-100">
       <div className="relative z-5">
@@ -25,9 +40,9 @@ export default function StockCard({
           />
         </Link>
 
-        <span className="px-2 py-1 rounded bg-primary-50 text-primary-700 text-[10px] font-bold">
-          {badge}
-        </span>
+        {badge && (
+          <StatusTag className="rounded" variant={getVariant(badge)}>{badge}</StatusTag>
+        )}
       </div>
 
       <Link href="/shares/arohan-financial-services-unlisted-shares" className="font-bold text-sm text-gray-900 mb-1 group-hover:text-primary-600 transition-colors cursor-pointer">

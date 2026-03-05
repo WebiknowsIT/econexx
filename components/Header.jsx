@@ -16,7 +16,7 @@ export default function Header() {
 
   return (
     <nav className="fixed top-0 w-full z-50 glass-nav border-b border-gray-100 bg-white/80 backdrop-blur">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex gap-6 items-center justify-between w-full">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex gap-5 items-center justify-between w-full">
         <Link href='/' className="text-2xl font-bold tracking-tighter text-primary-700 flex items-center">
             <Image
               src="/images/Logo.png"
@@ -24,7 +24,7 @@ export default function Header() {
               height={50}
               width={200}  
               priority
-              className="w-auto h-[50px] ml-[-14px]"
+              className="w-auto h-[46px]"
             />
           </Link>
           <div className="mainMenu hidden lg:flex items-center gap-4 text-sm font-medium">

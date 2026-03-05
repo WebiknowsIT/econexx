@@ -1,0 +1,39 @@
+.StatusTag {
+  overflow: hidden;
+  &::before {
+    font-size: 30px;
+    margin-top: -20px;
+    margin-right: 4px;
+  }
+}
+.StatusTag.hideDots {
+  &::before {
+    display: none;
+  }
+}
+
+.Overdue {
+  color: var(--Error-700, #B42318);
+  border: 1px solid var(--Error-200, #FECDCA);
+  background: var(--Error-50, #FEF3F2);
+}
+.Paid {
+  color: var(--Success-700, #067647);
+  border: 1px solid var(--Success-200, #ABEFC6);
+  background: var(--Success-50, #ECFDF3);
+}
+.Unpaid {
+  color: var(--Gray-700, #344054);
+  background: var(--Gray-50, #F9FAFB);
+  border: 1px solid var(--Gray-200, #EAECF0);
+}
+.Rejected {
+  color: var(--Gray-700, #344054);
+  background: var(--Gray-50, #F9FAFB);
+  border: 1px solid var(--Gray-200, #EAECF0);
+}
+.Submitted {
+  color: var(--Primary-700, #6941C6);
+  border: 1px solid var(--Primary-200, #E9D7FE);
+  background: var(--Primary-50, #F9F5FF);
+}

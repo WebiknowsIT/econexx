@@ -33,7 +33,7 @@ export default function QuickFilterBar({ active, onChange }) {
                 ${item.exclusive
                   ? "border-secondary-300 text-secondary-700 bg-secondary-50 hover:bg-secondary-100"
                   : isActive
-                    ? "bg-primary-600 text-white border-primary-600"
+                    ? "bg-secondary-600 text-white border-secondary-600"
                     : "border-primary-200 text-primary-600 hover:bg-primary-50"
                 }
               `}
