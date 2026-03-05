@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
 
+import ShareDetailPage        from "./ShareDetailPage1";
+import { razorpayData, razorpayFaqs } from "./components/Data";
+
 const shares = [
   {
     slug: "tata-capital",
@@ -17,10 +20,15 @@ const shares = [
   },
 ];
 
-export default function ShareDetailPage({ params }) {
+export default function page({ params }) {
   const share = shares.find((s) => s.slug === params.slug);
 
-  if (!share) return notFound();
+  //if (!share) return notFound();
+
+  return <ShareDetailPage
+        share={razorpayData}
+        faqData={razorpayFaqs}  
+      />
 
   return (
     <section className="px-6 lg:px-16 py-24 bg-white min-h-screen">

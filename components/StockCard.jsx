@@ -41,7 +41,7 @@ export default function StockCard({
         </Link>
 
         {badge && (
-          <StatusTag className="rounded" variant={getVariant(badge)}>{badge}</StatusTag>
+          <StatusTag className="rounded-full" variant={getVariant(badge)}>{badge}</StatusTag>
         )}
       </div>
 
