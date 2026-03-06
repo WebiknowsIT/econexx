@@ -22,6 +22,7 @@ export default function UnlistedMarketplace() {
   const [sector, setSector] = useState([]);
   const [quickFilter, setQuickFilter] = useState("All");
   const [sortValue, setSortValue] = useState("default");
+  const [watchlist, setWatchlist] = useState([]);
 
   
 
@@ -104,11 +105,11 @@ const clearFilters = () => {
       />
 
       <QuickFilterBar
-            active={quickFilter}
-            onChange={(val) => {
-                setQuickFilter(val);
-                setPage(1);
-            }}
+        active={quickFilter}
+        onChange={(val) => {
+          setQuickFilter(val);
+          setCurrentPage(1);
+        }}
       />
 
       <div className="max-w-7xl bg-white mx-auto px-6 lg:px-16 py-8 flex gap-8">

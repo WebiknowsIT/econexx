@@ -1,16 +1,18 @@
 // components/detail/tabs/DocumentsTab.jsx
 
+import { BarChart2, Download, FileText, Lock, ShieldCheck } from "lucide-react";
+
 const ICON_MAP = {
-  "file-text":    "📄",
-  "bar-chart-2":  "📊",
-  "shield-check": "🛡️",
-  "lock":         "🔒",
+  "file-text": <FileText className="w-4 h-4" />,
+  "bar-chart-2": <BarChart2 className="w-4 h-4" />,
+  "shield-check": <ShieldCheck className="w-4 h-4" />,
+  "lock": <Lock className="w-4 h-4" />,
 };
 
 export default function DocumentsTab({ share }) {
   return (
     <div className="bg-white border border-primary-100 rounded-2xl p-7">
-      <h2 className="font-serif text-2xl font-bold text-primary-900 mb-6">
+      <h2 className="text-2xl font-bold text-primary-900 mb-6">
         Research &amp; Documents
       </h2>
       <div className="space-y-3">
@@ -38,7 +40,7 @@ export default function DocumentsTab({ share }) {
 
             {/* Info */}
             <div className="flex-1">
-              <div className="font-semibold text-sm text-primary-900">
+              <div className="font-semibold text-sm">
                 {doc.title}
                 {doc.locked && (
                   <span className="ml-2 text-xs bg-secondary-100 text-secondary-700 px-2 py-0.5 rounded-full">
@@ -46,12 +48,12 @@ export default function DocumentsTab({ share }) {
                   </span>
                 )}
               </div>
-              <div className="text-xs text-primary-400 mt-0.5">{doc.meta}</div>
+              <div className="text-xs mt-0.5">{doc.meta}</div>
             </div>
 
             {/* Action */}
             <span className={`text-sm ${doc.locked ? "text-secondary-400" : "text-primary-400 group-hover:text-secondary-600 transition-colors"}`}>
-              {doc.locked ? "🔒" : "⬇️"}
+              {doc.locked ? <Lock className="w-4 h-4" /> : <Download className="w-4 h-4" />}
             </span>
           </div>
         ))}

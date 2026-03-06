@@ -2,7 +2,7 @@
 
 const TABS = [
   { key: "overview",   label: "Overview" },
-  { key: "financials", label: "Financials" },
+  { key: "FundamentalsFinancials", label: "Fundamentals & Financials" },
   { key: "price",      label: "Price History" },
   { key: "documents",  label: "Documents" },
   { key: "faq",        label: "FAQ" },

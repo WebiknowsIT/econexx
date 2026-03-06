@@ -77,11 +77,9 @@ function CashFlow() {
   );
 }
 
-
-
 export default function FinancialsSection() {
   return (
-      <div className="">
+      <div className="bg-white border border-primary-100 rounded-2xl p-7">
           <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold">
                   Financials <span className="text-xs text-gray-400">(figures in ₹ cr)</span>

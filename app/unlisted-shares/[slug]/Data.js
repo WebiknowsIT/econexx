@@ -13,13 +13,13 @@ export const razorpayData = {
   employees: "3,000+",
   price: 1240,
   return6m: 18.4,
-  valuation: "$7.5B",
+  valuation: "₹62,250 Cr",
   demand: 94,
   available: true,
   isin: "INE0Z9801016",
   faceValue: "₹1 per share",
   depository: "CDSL / NSDL",
-  lotSize: 10,
+  lotSize: 100,
   lastUpdated: "Today, 11:30 AM",
 
   highlights: [

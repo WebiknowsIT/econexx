@@ -1,56 +1,100 @@
+"use client";
+import { useState } from "react";
+
 import { notFound } from "next/navigation";
 
-import ShareDetailPage        from "./ShareDetailPage1";
-import { razorpayData, razorpayFaqs } from "./components/Data";
+import DetailHero        from "./components/DetailHero";
+import TabBar            from "./components/TabBar";
+import BuySellBox        from "./components/BuySellBox";
+import SimilarShares     from "./components/SimilarShares";
+import CreateAlertCard     from "./components/CreateAlertCard";
+import ValuationCard     from "./components/ValuationCard";
+import OverviewTab       from "./components/tabs/OverviewTab";
+import FinancialsTab     from "./components/tabs/FinancialsTab";
+import PriceHistoryTab   from "./components/tabs/PriceHistoryTab";
+import DocumentsTab      from "./components/tabs/DocumentsTab";
 
-const shares = [
-  {
-    slug: "tata-capital",
-    name: "Tata Capital",
-    sector: "NBFC",
-    price: 980,
-    description: "Tata Group’s leading financial services arm.",
-  },
-  {
-    slug: "oyo",
-    name: "OYO",
-    sector: "Hospitality",
-    price: 52,
-    description: "Global hospitality tech platform.",
-  },
+
+import { razorpayData, razorpayFaqs } from "./Data";
+import FAQs from "./components/FAQs";
+
+
+const FaqData = [
+    {
+        question:
+            "How to Invest in Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "You can invest online through the fund house website, AMC platforms, or via registered distributors. SIP and lump sum options are available.",
+    },
+    {
+        question:
+            "What kind of returns does Aditya Birla Sun Life Gold Fund Direct Growth provide?",
+        answer:
+            "Returns depend on gold price movements and market conditions. It is suitable for long-term diversification.",
+    },
+    {
+        question:
+            "How much expense ratio is charged by Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "The expense ratio is charged as per SEBI guidelines and may change from time to time.",
+    },
+    {
+        question:
+            "What is the AUM of Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "AUM refers to Assets Under Management and reflects the total market value of assets managed by the fund.",
+    },
+    {
+        question:
+            "How to Redeem Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "Redemption can be done online through the AMC website or via your investment platform.",
+    },
+    {
+        question:
+            "Can I invest in SIP and Lump Sum of Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "Yes, both SIP and lump sum investment options are available.",
+    },
+    {
+        question:
+            "What is the NAV of Aditya Birla Sun Life Gold Fund Direct Growth?",
+        answer:
+            "NAV represents the per-unit value of the fund and is updated daily on the AMC website.",
+    },
 ];
 
 export default function page({ params }) {
-  const share = shares.find((s) => s.slug === params.slug);
 
-  //if (!share) return notFound();
-
-  return <ShareDetailPage
-        share={razorpayData}
-        faqData={razorpayFaqs}  
-      />
+  const [activeTab, setActiveTab] = useState("overview");
+  
+  const renderTab = () => {
+    switch (activeTab) {
+      case "overview":   return <OverviewTab     share={razorpayData} />;
+      case "FundamentalsFinancials": return <FinancialsTab   share={razorpayData} />;
+      case "price":      return <PriceHistoryTab share={razorpayData} />;
+      case "documents":  return <DocumentsTab    share={razorpayData} />;
+      case "faq":        return (<FAQs data={FaqData} />);
+      default:           return null;
+    }
+  };
 
   return (
-    <section className="px-6 lg:px-16 py-24 bg-white min-h-screen">
-      <div className="max-w-5xl mx-auto">
-
-        <h1 className="font-serif text-4xl font-bold text-primary-900 mb-4">
-          {share.name}
-        </h1>
-
-        <p className="text-primary-400 mb-6">
-          {share.sector}
-        </p>
-
-        <p className="text-lg font-semibold mb-6">
-          ₹{share.price}
-        </p>
-
-        <p className="text-primary-600 leading-relaxed">
-          {share.description}
-        </p>
-
-      </div>
-    </section>
+    <> 
+          <DetailHero share={razorpayData} />
+          <TabBar active={activeTab} onChange={setActiveTab} />
+          <div className="max-w-7xl mx-auto px-6 lg:px-16 py-10 flex flex-col lg:flex-row gap-10 items-start bg-white">
+            <div className="flex-1 min-w-0">
+              {renderTab()}
+            </div>
+            <div className="w-full lg:w-80 shrink-0 space-y-6">
+              <BuySellBox share={razorpayData} />
+              <CreateAlertCard />
+              <ValuationCard />
+            </div>
+           
+          </div>
+          {/* <SimilarShares similar={razorpayData.similar} /> */}
+        </>
   );
 }

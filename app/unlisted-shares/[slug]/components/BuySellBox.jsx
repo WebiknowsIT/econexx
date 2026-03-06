@@ -1,5 +1,7 @@
 // components/detail/BuySellBox.jsx
+import { ArrowDownCircle, ArrowUpCircle, Clock, Headphones, ShieldCheck, Tag, TrendingUp, Zap } from "lucide-react";
 import { useState } from "react";
+import { formatAmount } from "@/utils/helper";
 
 export default function BuySellBox({ share }) {
   const [mode,       setMode]       = useState("buy");
@@ -14,22 +16,14 @@ export default function BuySellBox({ share }) {
   const feeRate   = isBuy ? 0.005 : 0.0075;
   const fee       = Math.round(subtotal * feeRate);
   const total     = isBuy ? subtotal + fee : subtotal - fee;
-  const fmt       = (n) => "₹" + n.toLocaleString("en-IN");
 
   const changeQty = (d) => {
     setQty((v) => Math.max(share.lotSize, v + d * share.lotSize));
   };
 
   return (
-    <div className="w-full lg:w-80 shrink-0">
-
-      {/* ── Main buy/sell box ─────────────────────────────────── */}
-      <div
-        className="sticky top-28 rounded-2xl overflow-hidden border border-primary-100"
-        style={{ boxShadow: "0 20px 50px rgba(34,15,52,.15)" }}
-      >
-
-        {/* Price header */}
+    <div className="">
+      <div className="sticky top-28 rounded-2xl overflow-hidden border border-primary-100">
         <div
           className="relative px-6 py-5 overflow-hidden"
           style={{ background: "linear-gradient(135deg,#3E1C5C 0%,#220F34 60%,#6F3E0E 100%)" }}
@@ -39,16 +33,16 @@ export default function BuySellBox({ share }) {
             style={{ background: "radial-gradient(circle at 80% 20%,#F9A24F 0%,transparent 55%)" }}
           />
           <div className="relative z-10">
-            <div className="flex items-center justify-between mb-3">
+            {/* <div className="flex items-center justify-between mb-3">
               <span className="text-primary-300 text-xs tracking-[.15em] uppercase font-medium">
                 Current Price
               </span>
               <span className="flex items-center gap-1 text-xs font-semibold text-secondary-300 bg-secondary-400/15 border border-secondary-400/25 px-2 py-0.5 rounded-full">
-                📈 +{share.return6m}% (6M)
+                <TrendingUp className="w-4" /> +{share.return6m}% (6M)
               </span>
-            </div>
+            </div> */}
             <div className="flex items-end gap-3 mb-1">
-              <div className="font-serif text-4xl font-bold text-white">{fmt(share.price)}</div>
+              <div className="text-3xl font-bold text-white">{formatAmount(share.price)}</div>
               <div className="text-secondary-300 text-sm mb-1 font-medium">/ share</div>
             </div>
             <div className="flex items-center gap-3">
@@ -74,7 +68,7 @@ export default function BuySellBox({ share }) {
                     : "bg-transparent text-primary-400",
                 ].join(" ")}
               >
-                ↓ Buy
+                <ArrowDownCircle className="w-4" /> Buy
               </button>
               <button
                 onClick={() => setMode("sell")}
@@ -85,7 +79,7 @@ export default function BuySellBox({ share }) {
                     : "bg-transparent text-primary-400",
                 ].join(" ")}
               >
-                ↑ Sell
+                <ArrowUpCircle className="w-4" /> Sell
               </button>
             </div>
           </div>
@@ -93,9 +87,7 @@ export default function BuySellBox({ share }) {
 
         {/* Form body */}
         <div className="bg-white p-6 space-y-5">
-
-          {/* Mode label */}
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <div
               className="w-2 h-2 rounded-full"
               style={{ background: isBuy ? "#7A3D9A" : "#F9A24F" }}
@@ -106,7 +98,7 @@ export default function BuySellBox({ share }) {
             >
               {isBuy ? "Buying Shares" : "Listing Shares for Sale"}
             </span>
-          </div>
+          </div> */}
 
           {/* Quantity */}
           <div>
@@ -145,7 +137,7 @@ export default function BuySellBox({ share }) {
                 +
               </button>
             </div>
-            <p className="text-xs text-primary-300 mt-1.5">
+            <p className="text-xs mt-1.5 text-slate-500">
               Min. {share.lotSize} shares · multiples of {share.lotSize}
             </p>
           </div>
@@ -153,10 +145,10 @@ export default function BuySellBox({ share }) {
           {/* Sell-only: price type */}
           {!isBuy && (
             <div>
-              <label className="block text-xs text-primary-400 tracking-widest uppercase mb-2">
+             {/* <label className="block text-xs text-primary-400 tracking-widest uppercase mb-2">
                 Listing Price
               </label>
-              <div className="flex gap-2">
+               <div className="flex gap-2">
                 {["market", "limit"].map((pt) => (
                   <button
                     key={pt}
@@ -171,8 +163,8 @@ export default function BuySellBox({ share }) {
                     {pt === "market" ? "Market Price" : "Set Limit"}
                   </button>
                 ))}
-              </div>
-              {priceType === "limit" && (
+              </div> */}
+              {/* {priceType === "limit" && (
                 <div className="relative mt-3">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-primary-400 text-sm font-medium">
                     ₹
@@ -184,7 +176,7 @@ export default function BuySellBox({ share }) {
                     className="w-full pl-7 pr-3 py-2.5 text-sm border border-primary-200 rounded-xl outline-none focus:border-secondary-400 bg-primary-50 font-semibold text-primary-900 transition-colors"
                   />
                 </div>
-              )}
+              )} */}
             </div>
           )}
 
@@ -192,14 +184,14 @@ export default function BuySellBox({ share }) {
           <div className="rounded-xl overflow-hidden border border-primary-100">
             <div className="bg-primary-50 px-4 py-3 space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-primary-500">{isBuy ? "Subtotal" : "Listing Value"}</span>
-                <span className="font-semibold text-primary-900">{fmt(subtotal)}</span>
+                <span className="text-slate-500">{isBuy ? "Subtotal" : "Listing Value"}</span>
+                <span className="font-semibold text-primary-900">{formatAmount(subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-primary-500">
+                <span className="text-slate-500">
                   {isBuy ? "Platform fee (0.5%)" : "Seller fee (0.75%)"}
                 </span>
-                <span className="text-primary-600">{fmt(fee)}</span>
+                <span className="font-semibold text-primary-900">{formatAmount(fee)}</span>
               </div>
             </div>
             <div
@@ -212,7 +204,7 @@ export default function BuySellBox({ share }) {
               <span className="font-semibold text-primary-900 text-sm">
                 {isBuy ? "Total Payable" : "You Receive"}
               </span>
-              <span className="font-bold text-primary-900 text-lg">{fmt(total)}</span>
+              <span className="font-bold text-primary-900 text-lg">{formatAmount(total)}</span>
             </div>
           </div>
 
@@ -225,11 +217,13 @@ export default function BuySellBox({ share }) {
                 : "linear-gradient(135deg,#F9A24F,#C47222)",
             }}
           >
-            {isBuy ? "⚡ Invest Now" : "🏷️ List for Sale"}
+            {isBuy ? 
+              (<><Zap className="w-4" /> Invest Now</>) : (<><Tag className="w-4" /> Sale</>)
+            }
           </button>
 
           {/* Watchlist */}
-          <button
+          {/* <button
             onClick={() => setInWatch(!inWatch)}
             className="w-full py-3 rounded-xl text-sm font-medium cursor-pointer flex items-center justify-center gap-2 transition-all border"
             style={
@@ -239,18 +233,21 @@ export default function BuySellBox({ share }) {
             }
           >
             {inWatch ? "❤️ Saved to Watchlist" : "🤍 Add to Watchlist"}
-          </button>
+          </button> */}
 
           {/* Trust signals */}
-          <div className="space-y-2 border-t border-primary-100 pt-4">
-            <div className="flex items-center gap-2 text-xs text-primary-400">
-              <span className="text-emerald-500">✔</span> SEBI compliant off-market transfer
+          <div className="space-y-1 border-t border-primary-100 pt-4">
+            <div className="flex items-center gap-2 text-xs">
+              <ShieldCheck className="w-4 text-emerald-500" />
+               SEBI compliant off-market transfer
             </div>
-            <div className="flex items-center gap-2 text-xs text-primary-400">
-              <span className="text-secondary-500">⏱</span> Settlement in 2–3 business days
+            <div className="flex items-center gap-2 text-xs">
+              <Clock className="w-4 text-secondary-500" />
+              Settlement in 2–3 business days
             </div>
-            <div className="flex items-center gap-2 text-xs text-primary-400">
-              <span className="text-primary-400">🎧</span> Dedicated relationship manager
+            <div className="flex items-center gap-2 text-xs">
+              <Headphones className="w-4 text-primary-400" />
+              Dedicated relationship manager
             </div>
           </div>
         </div>
