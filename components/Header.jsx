@@ -37,7 +37,7 @@ export default function Header() {
             <Link href="/smart-screener" className={isActive("/smart-screener")}>
               Smart Screener
             </Link>
-            <Link href="/bond-marketplace" className={isActive("/bond-marketplace")}>
+            <Link href="/bonds" className={isActive("/bonds")}>
               Bonds
             </Link>
             <Link href="/news-and-insights" className={isActive("/news-and-insights")}>
