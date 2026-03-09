@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   TrendingUp, Building2, Landmark, FileBadge, ShieldCheck, Clock,
   IndianRupee, Calendar, Flag, Layers, Star, Zap, Lock, Wallet,
@@ -197,8 +197,9 @@ export default function BondsPage() {
   const [activeFilter, setActiveFilter] = useState('all');
   const filteredBonds = bonds.filter(b => activeFilter === 'all' || b.type === activeFilter);
 
-  return (
-    <div className='text-[#1a1025]'>
+
+  function renderBondsHero() {
+    return (
       <section
         id="bonds-hero"
         className={`gridBgDark noise heroSection py-10 bg-primary-900 overflow-hidden hero-glow`}
@@ -215,7 +216,7 @@ export default function BondsPage() {
               <span className={'tagSecDark'}>SEBI Regulated</span>
             </div>
             <h1 className={`fu1 heroTitle`}>
-              Earn Predictable Returns with<br/><span className={'gradBrand'}>Premium Bonds</span>
+              Earn Predictable Returns with<br /><span className={'gradBrand'}>Premium Bonds</span>
             </h1>
             <p className={`fu2 heroCopy`}>
               Access curated corporate and government bonds with yields up to{' '}
@@ -241,17 +242,17 @@ export default function BondsPage() {
             <div className={`fu4 flex items-center gap-8 flex-wrap`}>
               {[
                 { num: '₹2,400Cr+', label: 'Capital Deployed' },
-                { num: '11.2%',     label: 'Avg. Yield p.a.' },
-                { num: '100%',      label: 'On-time Payments' },
-                { num: '8,500+',    label: 'Investors' },
+                { num: '11.2%', label: 'Avg. Yield p.a.' },
+                { num: '100%', label: 'On-time Payments' },
+                { num: '8,500+', label: 'Investors' },
               ].map((s, i) => (
-                <>
+                <React.Fragment key={i}>
                   {i > 0 && <div className={'statSep'} key={`sep-${i}`} />}
                   <div key={s.label}>
                     <div className={'statNum grad-hero'}>{s.num}</div>
                     <div className={'statLabel'}>{s.label}</div>
                   </div>
-                </>
+                </React.Fragment>
               ))}
             </div>
           </div>
@@ -278,9 +279,9 @@ export default function BondsPage() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', fontSize: '0.75rem', marginBottom: '1.25rem' }}>
                 {[
                   { icon: IndianRupee, label: 'Min. Investment', val: '₹10,000' },
-                  { icon: Flag,        label: 'Maturity',        val: 'Mar 2027' },
-                  { icon: Calendar,    label: 'Payout',          val: 'Monthly' },
-                  { icon: ShieldCheck, label: 'Rating',          val: 'AA+', green: true },
+                  { icon: Flag, label: 'Maturity', val: 'Mar 2027' },
+                  { icon: Calendar, label: 'Payout', val: 'Monthly' },
+                  { icon: ShieldCheck, label: 'Rating', val: 'AA+', green: true },
                 ].map(({ icon: Icon, label, val, green }) => (
                   <div key={label}>
                     <div className={'labelRowDark'}><Icon size={12} /> {label}</div>
@@ -308,7 +309,11 @@ export default function BondsPage() {
           </div>
         </div>
       </section>
+    );
+  }
 
+  function renderBondsList() {
+    return (
       <section id="bonds-listings" className={'sectionAlt py-14'}>
         <div className='max-w-7xl mx-auto px-6'>
           <AnimatedSection delay={0.1} y={30}>
@@ -316,8 +321,8 @@ export default function BondsPage() {
               <SectionTitle
                 eyebrow="— Live Listings"
                 title="Available Bonds"
-                //description=""
-                />
+              //description=""
+              />
               <div className='flex flex-wrap gap-3'>
                 {[['all', 'All Bonds'], ['corp', 'Corporate'], ['govt', 'Govt / PSU'], ['ncd', 'NCD']].map(([val, label]) => (
                   <button
@@ -341,6 +346,11 @@ export default function BondsPage() {
           </div>
         </div>
       </section>
+    );
+  }
+
+  function renderBondsBenefits() {
+    return (
       <section id="bonds-benefits" className="sectionWhite gridBgLight relative overflow-hidden py-14 px-6">
         <div className="max-w-7xl mx-auto relative z-10">
 
@@ -381,7 +391,11 @@ export default function BondsPage() {
           </div>
         </div>
       </section>
+    );
+  }
 
+  function renderBondsFeatures() {
+    return (
       <section id="bonds-features" className="bg-white py-14 px-6">
         <div className="max-w-7xl mx-auto">
 
@@ -578,7 +592,11 @@ export default function BondsPage() {
           </AnimatedSection>
         </div>
       </section>
+    );
+  }
 
+  function renderBondsHow() {
+    return (
       <section id="bonds-how" className="sectionWhite dotBgLight relative py-14 px-6">
         <div className="max-w-4xl mx-auto relative z-10">
 
@@ -632,14 +650,17 @@ export default function BondsPage() {
 
         </div>
       </section>
+    );
+  }
 
+  function renderBondsApply() {
+    return (
       <section id="bonds-apply" className="sectionAlt relative overflow-hidden py-24 px-6">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_50%,rgba(122,61,154,.04)_0%,transparent_70%)]"></div>
-
         <div className="max-w-2xl mx-auto relative z-10">
           <AnimatedSection delay={0.1} y={30}>
 
-             <SectionTitle
+            <SectionTitle
               align="center"
               eyebrow="— Start Investing"
               title=" Apply for a Bond"
@@ -723,7 +744,17 @@ export default function BondsPage() {
           </AnimatedSection>
         </div>
       </section>
+    );
+  }
 
+  return (
+    <div className='text-[#1a1025]'>
+      {renderBondsHero()}
+      {renderBondsList()}
+      {renderBondsBenefits()}
+      {renderBondsFeatures()}
+      {renderBondsHow()}
+      {renderBondsApply()}
     </div>
   );
 }
