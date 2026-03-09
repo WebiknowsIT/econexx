@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
 import CustomPopup from "@/components/ui/Popup/CustomPopup";
-import Button from "@/components/Elements/Buttons";
+import Button from "@/components/ui/Button";
 
 const HeroSection = () => {
   const [openVideo, setVideoOpen] = useState(false);
@@ -44,9 +44,8 @@ const HeroSection = () => {
 
             <AnimatedSection delay={0.4}>
               <div className="flex flex-wrap gap-4">
-                <Button variant="primary">Explore Our Services</Button>
-
-                <Button variant="light" href="#HowItWorks">
+                <Button size="lg" variant="secondary">Explore Our Services</Button>
+                <Button variant="ghost" href="#HowItWorks">
                   Schedule Consultation 
                 </Button>
               </div>

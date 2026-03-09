@@ -202,7 +202,7 @@ export default function BondsPage() {
     return (
       <section
         id="bonds-hero"
-        className={`gridBgDark noise heroSection py-10 bg-primary-900 overflow-hidden hero-glow`}
+        className={`heroSection hero-glow gridBgDark noise bg-primary-900 py-10  overflow-hidden `}
       >
         {/* Decorative rings */}
         <div className={`heroRing1 floatAnim`} />
@@ -216,7 +216,7 @@ export default function BondsPage() {
               <span className={'tagSecDark'}>SEBI Regulated</span>
             </div>
             <h1 className={`fu1 heroTitle`}>
-              Earn Predictable Returns with<br /><span className={'gradBrand'}>Premium Bonds</span>
+              Earn Predictable Returns with <span className={'gradBrand'}>Premium Bonds</span>
             </h1>
             <p className={`fu2 heroCopy`}>
               Access curated corporate and government bonds with yields up to{' '}

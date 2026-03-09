@@ -16,6 +16,44 @@ body {
 }
 
 
+/* ── BUTTONS ── */
+
+.btnCta {
+  background: linear-gradient(135deg, #C47222, #F9A24F, #C47222);
+  background-size: 200% 100%;
+  color: #fff;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  transition: background-position 0.4s, box-shadow 0.3s;
+  box-shadow: 0 4px 20px rgba(196, 114, 34, 0.25);
+  font-family: 'DM Sans', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+.btnCta:hover {
+  background-position: right center;
+  box-shadow: 0 8px 32px rgba(196, 114, 34, 0.4);
+}
+
+.btnGhostDark {
+  background: transparent;
+  border: 1px solid rgba(182, 138, 204, 0.25);
+  color: #B68ACC;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+.btnGhostDark:hover {
+  border-color: rgba(182, 138, 204, 0.5);
+  background: rgba(182, 138, 204, 0.06);
+  color: #CFB3E0;
+}
+
 
 /*******************
 Common  
@@ -215,6 +253,7 @@ Header
 /*******************
 Page Header
 **********************/
+
 .gradBrand {
   background: linear-gradient(135deg, #7A3D9A, #C47222);
   -webkit-background-clip: text;
@@ -263,6 +302,13 @@ Page Header
   mix-blend-mode: overlay;
   border-radius: inherit;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+}
+.heroTitle {
+  font-weight: 700;
+  line-height: 1.04;
+  margin-bottom: 1.5rem;
+  color: #F4EEF8;
+  font-size: clamp(1.5rem, 4.5vw, 3rem);
 }
 /*******************
 Homepage 

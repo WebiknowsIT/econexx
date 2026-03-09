@@ -1,148 +1,415 @@
 "use client";
+import { useState } from "react";
+import Image from "next/image";
 
-import { motion } from "framer-motion";
+import { Bookmark, Calendar, Clock, Eye ,Flame, Mail, Send, Users, Tag } from "lucide-react";
 
-import AnimatedSection from "../../components/AnimatedSection";
 import Button from "@/components/ui/Button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import Pagination from "@/components/Pagination";
+import AnimatedSection from "@/components/AnimatedSection";
+
+
+
 
 const articles = [
   {
-    title: "Unlisted shares of MSEI plunge as revival optimism fades; price drops 65% since December",
-    date: "Aug 2023",
-    excerpt:
-      "Shares of Metropolitan Stock Exchange of India (MSEI) have seen a sharp fall as optimism around revival faded.",
+    title: "Razorpay's IPO Path: What the ₹50,000 Cr Valuation Actually Implies",
+    category: "Pre-IPO",
+    read: "8 min",
+    date: "Mar 4, 2025",
+    author: "Asha Verma",
+    views: "3,210",
+    saves: "189",
     image: "/images/blog1.jpg",
   },
   {
-    title: "NSE shareholder count crosses 100,000 mark; stock rallies over 30% in a year",
-    date: "Jul 2023",
-    excerpt:
-      "The number of NSE shareholders has crossed the one-lakh milestone, reflecting strong demand.",
+    title: "NCDs vs FDs in 2025: The Real After-Tax Comparison",
+    category: "Bonds",
+    read: "6 min",
+    date: "Mar 1, 2025",
+    author: "Suresh Mehta",
+    views: "5,044",
+    saves: "411",
     image: "/images/blog2.jpg",
   },
   {
-    title: "Can Swiggy’s High Valuation Stand Up To The IPO Test? Here’s What Grey Market Indicates",
-    date: "Jun 2023",
-    excerpt:
-      "As Swiggy gears up for a potential IPO, grey market signals offer mixed indications.",
+    title: "India's Secondary Unlisted Market: How Price Discovery Works",
+    category: "Market Analysis",
+    read: "10 min",
+    date: "Feb 27, 2025",
+    author: "Rohit Kapoor",
+    views: "2,788",
+    saves: "203",
     image: "/images/blog3.jpg",
   },
-  {
-    title: "High Returns: Unlisted shares join the bull run; prices spurt sharply",
-    date: "May 2023",
-    excerpt:
-      "Unlisted shares have seen strong momentum amid increasing investor participation.",
-    image: "/images/blog4.jpg",
+   {
+    title: "Razorpay's IPO Path: What the ₹50,000 Cr Valuation Actually Implies",
+    category: "Pre-IPO",
+    read: "8 min",
+    date: "Mar 4, 2025",
+    author: "Asha Verma",
+    views: "3,210",
+    saves: "189",
+    image: "/images/blog1.jpg",
   },
+  {
+    title: "NCDs vs FDs in 2025: The Real After-Tax Comparison",
+    category: "Bonds",
+    read: "6 min",
+    date: "Mar 1, 2025",
+    author: "Suresh Mehta",
+    views: "5,044",
+    saves: "411",
+    image: "/images/blog2.jpg",
+  },
+  {
+    title: "India's Secondary Unlisted Market: How Price Discovery Works",
+    category: "Market Analysis",
+    read: "10 min",
+    date: "Feb 27, 2025",
+    author: "Rohit Kapoor",
+    views: "2,788",
+    saves: "203",
+    image: "/images/blog3.jpg",
+  }
 ];
 
-export default function MediaCoverage() {
+function renderHero() {
   return (
-    <div className="w-full text-gray-800">
+    <section className="heroSection hero-glow gridBgDark noise bg-primary-900 py-10 px-6 lg:px-16 overflow-hidden">
+      <div
+        className="absolute top-20 right-0 w-96 h-96 rounded-full border float"
+        style={{ borderColor: "rgba(122,61,154,.1)" }}
+      />
+      <div
+        className="absolute top-40 right-32 w-56 h-56 rounded-full border"
+        style={{ borderColor: "rgba(182,138,204,.06)" }}
+      />
+      <div
+        className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full border"
+        style={{ borderColor: "rgba(122,61,154,.07)" }}
+      />
 
-      <section className="bg-gradient-to-br from-purple-50 to-orange-50 py-6">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
-          <AnimatedSection>
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+          <AnimatedSection delay={0.2} y={40}>
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-                Media <span className="text-[var(--color-primary-500)]">Coverage</span>
+              <div className="flex items-center gap-2 mb-6">
+                <span
+                  className="inline-block font-semibold uppercase tracking-widest text-[.62rem] px-3 py-0.5 rounded-full text-primary-300"
+                  style={{
+                    background: "rgba(122,61,154,.18)",
+                    border: "1px solid rgba(182,138,204,.22)"
+                  }}
+                >
+                  Market Intelligence
+                </span>
+
+                <span
+                  className="inline-block font-semibold uppercase tracking-widest text-[.62rem] px-3 py-0.5 rounded-full text-secondary-400"
+                  style={{
+                    background: "rgba(196,114,34,.12)",
+                    border: "1px solid rgba(249,162,79,.22)"
+                  }}
+                >
+                  Weekly Updated
+                </span>
+
+              </div>
+
+              <h1 className="heroTitle font-bold leading-[1.05] mb-6 text-primary-50">
+                Insights for Smarter <span className="gradBrand">Investment Decisions</span>
               </h1>
 
-              <p className="mt-5 text-lg text-gray-600 max-w-xl">
-                Where experts speak. Our insights, founders, and research from
-                <span className="font-medium text-gray-800"> Econexxwealth </span>
-                are featured across leading financial publications.
+              <p className="text-primary-400 text-lg leading-relaxed max-w-lg mb-10">
+                Deep analysis on unlisted equities, pre-IPO opportunities,
+                and fixed income markets — written by practitioners,
+                not journalists.
               </p>
-
-              <div className="mt-8">
-                <Button variant="primary">Explore Coverage</Button>
-              </div>
             </div>
           </AnimatedSection>
-          <motion.img
-              src="/images/media.png"
-              alt="Econexxwealth Media Coverage"
-              className="rounded-lg"
-              animate={{ y: [0, -12, 0] }}
-              transition={{
-                duration: 4,
-                ease: "easeInOut",
-                repeat: Infinity,
-              }}
-            />
-        </div>
-      </section>
 
-      <section className="py-10 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="space-y-8">
-            {articles.map((item, index) => (
-              <AnimatedSection key={index} delay={index * 0.1}>
-                <div className="grid md:grid-cols-[240px_1fr] gap-8 bg-white rounded-xl shadow-sm hover:shadow-md transition p-6 mb-8">
-                  
-                  <img
-                    src={item.image || 'images/blog1.jpg'}
-                    alt={item.title}
-                    className="rounded-lg object-cover w-full h-40 md:h-full"
-                  />
 
-                  <div>
-                    <span className="text-sm text-gray-500">{item.date}</span>
-                    <h3 className="mt-2 text-xl font-semibold leading-snug">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 text-gray-600 text-sm">
-                      {item.excerpt}
-                    </p>
+          {/* STATS */}
+          <AnimatedSection delay={0.35} y={40}>
+            <div className="grid grid-cols-2 gap-4 pb-2">
+              {[
+                { num: "120+", label: "Articles Published" },
+                { num: "24K+", label: "Monthly Readers" },
+                { num: "Weekly", label: "Market Roundup" },
+                { num: "8 min", label: "Avg. Read Time" }
+              ].map((stat, i) => (
 
-                    <button className="mt-4 text-sm font-medium text-[var(--color-primary-500)] hover:underline">
-                      Read Full Article →
-                    </button>
-                  </div>
-
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          {/* ================= PAGINATION ================= */}
-          <AnimatedSection delay={0.3}>
-            <div className="mt-14 flex items-center justify-center gap-2">
-
-              {/* Previous */}
-              <button
-                className="px-4 py-2 rounded-lg border text-sm text-gray-600 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed"
-                disabled
-              >
-                <ChevronLeft />
-              </button>
-
-              {/* Page Numbers */}
-              {[1, 2, 3].map((page) => (
-                <button
-                  key={page}
-                  className={`w-9 h-9 rounded-full text-sm font-medium transition
-          ${page === 2
-                      ? "bg-[var(--color-primary-500)] text-white"
-                      : "border text-gray-700 hover:bg-gray-100"
-                    }
-        `}
+                <div
+                  key={i}
+                  className="p-5 rounded-[.875rem]"
+                  style={{
+                    background: "rgba(255,255,255,.05)",
+                    border: "1px solid rgba(182,138,204,.1)"
+                  }}
                 >
-                  {page}
-                </button>
+                  <div className="text-3xl font-bold text-secondary-400 mb-1">
+                    {stat.num}
+                  </div>
+                  <div className="text-primary-500 text-xs uppercase tracking-wider">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function renderArticles() {
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 4;
+  const start = (currentPage - 1) * perPage;
+  const pageItems = articles.slice(start, start + perPage);
+
+
+  return (
+    <section className="px-6 lg:px-16 py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* LEFT COLUMN */}
+          <div className="lg:col-span-2">
+            <div className="space-y-5">
+              {pageItems.map((article, i) => (
+                <AnimatedSection key={i} delay={0.15 + i * 0.1} y={40}>
+
+                  <a
+                    href="#"
+                    className="no-underline block bg-white border border-primary-100 rounded-2xl overflow-hidden transition-all duration-300 hover:border-primary-300 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(122,61,154,.1)]"
+                  >
+                    <div className="grid grid-cols-1 sm:grid-cols-3">
+                      <div className="sm:col-span-1 relative min-h-40">
+                        <Image
+                          src={article.image}
+                          alt={article.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="sm:col-span-2 p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="inline-block bg-primary-50 border border-primary-100 text-primary-500 font-semibold uppercase tracking-[.1em] text-[.6rem] px-2.5 py-0.5 rounded-full">
+                            {article.category}
+                          </span>
+                          <span className="w-1 h-1 rounded-full bg-primary-200"></span>
+                          <span className="flex items-center gap-1 text-primary-400 text-xs">
+                            <Clock size={12} /> {article.read}
+                          </span>
+                          <span className="w-1 h-1 rounded-full bg-primary-200"></span>
+                          <span className="flex items-center gap-1 text-primary-400 text-xs">
+                            <Calendar size={12} /> {article.date}
+                          </span>
+
+                        </div>
+
+                        <h3 className="font-bold text-primary-900 mb-2 text-xl">
+                          {article.title}
+                        </h3>
+                        <p class="text-sm leading-relaxed mb-4 line-clamp-2">Dissecting Razorpay's financials, competitive moat, and realistic listing price range — with a framework for evaluating pre-IPO entry points.</p>
+                        <div className="flex justify-between text-xs">
+                          <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 p-1 rounded-full bg-secondary-100 flex items-center justify-center text-secondary-700 text-xs">AV</div>
+                            <span class="text-primary-500 text-xs">{article.author}</span>
+                          </div>
+                          <div className="flex gap-3">
+                            <span className="flex items-center gap-1">
+                              <Eye size={12} />
+                              {article.views}
+                            </span>
+
+                            <span className="flex items-center gap-1">
+                              <Bookmark size={12} />
+                              {article.saves}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </AnimatedSection>
               ))}
 
-              {/* Next */}
-              <button className="px-4 py-2 rounded-lg border text-sm text-gray-600 hover:bg-gray-100"> 
-                <ChevronRight />
-              </button>
+
 
             </div>
-          </AnimatedSection>
-        </div>
-      </section>
+            <Pagination
+              totalItems={articles.length}
+              perPage={perPage}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
 
+          </div>
+          {/* RIGHT SIDEBAR */}
+          <div className="lg:col-span-1 space-y-6">
+            <AnimatedSection>
+              <div className="bg-white border border-primary-100 rounded-2xl p-6">
+
+                <h3 className="font-serif font-bold text-primary-900 mb-4 flex items-center gap-2 text-lg">
+                  <Flame size={16} className="text-secondary-500" />
+                  Trending This Week
+                </h3>
+
+                <div>
+
+                  {[
+                    { title: "Razorpay IPO Path Analysis", views: "3,210" },
+                    { title: "Weekly Market Roundup — Feb 14", views: "7,204" },
+                    { title: "PhysicsWallah $2.8B Valuation Deep Dive", views: "6,391" },
+                    { title: "NCDs vs FDs: After-Tax Comparison", views: "5,044" },
+                  ].map((item, i) => (
+
+                    <a
+                      key={i}
+                      href="#"
+                      className="no-underline flex items-start gap-4 p-3 -mx-3 rounded-lg transition-colors hover:bg-primary-50 border-b border-primary-50 last:border-none"
+                    >
+
+                      <span className="font-serif font-bold text-3xl text-primary-100 leading-none mt-0.5 min-w-[2rem]">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+
+                      <div>
+
+                        <div className="text-sm font-semibold text-primary-800 leading-snug mb-1">
+                          {item.title}
+                        </div>
+
+                        <div className="text-xs text-primary-400 flex items-center gap-1.5">
+                          <Eye size={12} />
+                          {item.views} reads
+                        </div>
+
+                      </div>
+
+                    </a>
+
+                  ))}
+
+                </div>
+
+              </div>
+            </AnimatedSection>
+            <AnimatedSection>
+              <div
+                className="relative rounded-2xl overflow-hidden p-6"
+                style={{background: "linear-gradient(135deg,#0D0812,#220F34)",
+                  border: "1px solid rgba(182,138,204,.12)",
+                }}
+              >
+
+                <div
+                  className="absolute -top-16 -right-16 w-56 h-56 rounded-full pointer-events-none"
+                  style={{ background: "radial-gradient(circle,rgba(122,61,154,.25),transparent 70%)",
+                  }}
+                />
+
+                <div className="relative z-10">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                    style={{
+                      background: "rgba(249,162,79,.15)",
+                      border: "1px solid rgba(249,162,79,.2)",
+                    }}
+                  >
+                    <Mail size={18} className="text-secondary-400" />
+                  </div>
+
+                  <h3 className="font-serif font-bold text-primary-100 mb-2 text-lg">
+                    Market Intelligence, Weekly
+                  </h3>
+
+                  <p className="text-primary-400 text-sm leading-relaxed mb-5">
+                    Pre-IPO movers, bond yields, and one deep-dive — every Friday
+                    morning.
+                  </p>
+
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    className="w-full rounded-xl px-4 py-3 text-sm font-sans outline-none mb-3"
+                    style={{
+                      background: "rgba(255,255,255,.06)",
+                      border: "1px solid rgba(182,138,204,.2)",
+                      color: "#E6D9F0",
+                    }}
+                  />
+
+                  <Button size="lg" variant="secondary" className="w-full flex items-center justify-center gap-2">
+                    <Send size={14} /> Subscribe Free
+                  </Button>
+
+                  <p className="text-white text-xs text-center mt-3 flex items-center justify-center gap-1">
+                    <Users size={12} />
+                    24,000+ subscribers
+                  </p>
+
+                </div>
+              </div>
+            </AnimatedSection>
+            <AnimatedSection>
+              <div className="bg-white border border-primary-100 rounded-2xl p-6">
+
+                <h3 className="font-serif font-bold text-primary-900 mb-4 flex items-center gap-2 text-lg">
+                  <Tag size={16} className="text-primary-500" />
+                  Browse Topics
+                </h3>
+
+                <div className="flex flex-wrap gap-2">
+
+                  {[
+                    "Market Analysis",
+                    "Pre-IPO",
+                    "Bonds",
+                    "Economy",
+                    "Fintech",
+                    "Edtech",
+                    "Clean Energy",
+                    "SEBI & Regulation",
+                    "Deep Dives",
+                  ].map((topic, i) => (
+
+                    <a
+                      key={i}
+                      href="#"
+                      className="no-underline bg-primary-50 border border-primary-100 text-primary-600 text-xs font-medium px-3 py-1.5 rounded-full transition-all hover:border-primary-300 hover:bg-primary-100"
+                    >
+                      {topic}
+                    </a>
+
+                  ))}
+
+                </div>
+
+              </div>
+            </AnimatedSection>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function MediaCoverage() {
+
+
+
+  return (
+    <div className="w-full text-gray-800">
+      {renderHero()}
+      {renderArticles()}
+
+      
     </div>
   );
 }
