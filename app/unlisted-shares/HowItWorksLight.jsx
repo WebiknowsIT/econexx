@@ -44,7 +44,7 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto">
 
         <SectionTitle
-          eyebrow="— Process"
+          eyebrow="Process"
           title="How It Works"
           description="A seamless four-step journey from registration to owning pre-IPO shares in India's most exciting companies."
         />

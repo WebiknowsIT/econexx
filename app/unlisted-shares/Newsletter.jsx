@@ -26,10 +26,10 @@ export default function NewsletterSection() {
     >
       <div className="max-w-2xl mx-auto text-center">
         <SectionTitle
-        align="center"
-            eyebrow=" — Stay Ahead"
-            title=" Get Exclusive Deal Alerts"
-            description="Be the first to know about new pre-IPO listings, buyback opportunities, and market insights — delivered to your inbox."
+          align="center"
+          eyebrow="Stay Ahead"
+          title="Get Exclusive Deal Alerts"
+          description="Be the first to know about new pre-IPO listings, buyback opportunities, and market insights — delivered to your inbox."
         />
 
         {/* Form */}

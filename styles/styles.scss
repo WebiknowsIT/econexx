@@ -212,6 +212,44 @@ button:focus {
     background: linear-gradient(90deg, transparent, #CFB3E0, transparent);
     border: none;
 }
+/* stock card */
+  .scard { background:#fff; border:1px solid #E6D9F0; border-radius:1.25rem; transition:all .28s ease; position:relative; overflow:hidden; }
+  .scard::after { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#7A3D9A,#F9A24F); opacity:0; transition:opacity .28s; }
+  .scard:hover { border-color:#B68ACC; transform:translateY(-4px); box-shadow:0 20px 50px rgba(122,61,154,.1); }
+  .scard:hover::after { opacity:1; }
+  /* ── FILTER PILLS ── */
+.fpill {
+  background: transparent;
+  border: 1px solid rgba(122, 61, 154, 0.15);
+  color: #9A5FB5;
+  font-size: 0.75rem;
+  padding: 6px 16px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+}
+.fpill.active {
+  background: rgba(122, 61, 154, 0.1);
+  border-color: rgba(122, 61, 154, 0.4);
+  color: #4B226E;
+}
+.fpill:hover:not(.active) {
+  border-color: rgba(122, 61, 154, 0.3);
+  color: #7A3D9A;
+}
+.risk-item {
+    border-left: 3px solid;
+    padding-left: 1rem;
+}
+
+.risk-warn {
+    border-color: #F9A24F;
+}
+.risk-info {
+    border-color: #B68ACC;
+}
 /* ===== Page Loader ===== */
 .page-loader {
   position: fixed;

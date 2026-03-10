@@ -57,7 +57,7 @@ export default function WhyChoose() {
     <section id="why" className="bg-purple-50 px-6 lg:px-16 py-24">
       <div className="max-w-7xl mx-auto">
         <SectionTitle
-          eyebrow="— Advantages"
+          eyebrow="Advantages"
           title="Why Choose Econexx?"
           description="We're not just a marketplace — we're your trusted partner in
             unlisted market intelligence."

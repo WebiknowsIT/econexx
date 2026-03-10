@@ -12,7 +12,7 @@ export default function FeaturedUnlistedShares() {
     
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <SectionTitle
-            eyebrow="— Shares"
+            eyebrow="Shares"
             title="Featured Unlisted Shares"
             description="Hand-picked opportunities across high-conviction sectors with strong growth potential."
           />

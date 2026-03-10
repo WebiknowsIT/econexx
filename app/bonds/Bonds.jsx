@@ -319,7 +319,7 @@ export default function BondsPage() {
           <AnimatedSection delay={0.1} y={30}>
             <div className='flex flex-wrap items-end justify-between gap-6 mb-12'>
               <SectionTitle
-                eyebrow="— Live Listings"
+                eyebrow="Live Listings"
                 title="Available Bonds"
               //description=""
               />
@@ -357,7 +357,7 @@ export default function BondsPage() {
           <AnimatedSection delay={0.1} y={30}>
             <SectionTitle
               align="center"
-              eyebrow="— Why Bonds?"
+              eyebrow="Why Bonds?"
               title="The Power of Fixed Income"
               description="Know your returns before you invest. No market volatility — just predictable, compounding income."
             />
@@ -402,7 +402,7 @@ export default function BondsPage() {
           <AnimatedSection delay={0.1} y={30}>
             <SectionTitle
               align="center"
-              eyebrow="— Platform"
+              eyebrow="Platform"
               title="Built for Serious Investors"
               className="mb-8"
             //description=""
@@ -603,7 +603,7 @@ export default function BondsPage() {
           <AnimatedSection delay={0.1} y={30}>
             <SectionTitle
               align="center"
-              eyebrow="— Process"
+              eyebrow="Process"
               title="Invest in 4 Simple Steps"
               description="From signup to first payout — usually under a week."
             />
@@ -659,10 +659,9 @@ export default function BondsPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_50%,rgba(122,61,154,.04)_0%,transparent_70%)]"></div>
         <div className="max-w-2xl mx-auto relative z-10">
           <AnimatedSection delay={0.1} y={30}>
-
             <SectionTitle
               align="center"
-              eyebrow="— Start Investing"
+              eyebrow="Start Investing"
               title=" Apply for a Bond"
               description="Express interest and our team will reach out within 4 business hours."
             />
