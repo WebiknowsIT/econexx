@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
 import AnimatedSection from "@/components/AnimatedSection";
-import Button from "@/components/Elements/Buttons";
+import SectionTitle from "@/components/SectionTitle";
+import Button from "@/components/ui/Button";
 import ReusableSlider from "@/components/ReusableSlider";
 import StockCard from "@/components/StockCard";
 import BondCard from "@/components/BondCard";
 import { SwiperSlide } from "swiper/react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, TrendingUp } from "lucide-react";
 
 const ServiceInfo = () => {
   const [swiperInstances, setSwiperInstances] = React.useState({});
@@ -182,42 +183,31 @@ const ServiceInfo = () => {
       ctaLink: "/contact-us",
       bgGradient: "from-white to-gray-50",
       accentColor: "text-secondary-500",
-      buttonVariant: "primary",
+      buttonVariant: "se",
     },
   ];
 
   return (
     <section className="py-20 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Section Header */}
-        <AnimatedSection delay={0.1}>
-          <div className="text-center mb-16 col-span-2">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 font-primary">
-              Our Core <span className="text-secondary-300">Services</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Three pillars of wealth creation designed for sophisticated investors
-            </p>
-          </div>
-        </AnimatedSection>
-
+        <SectionTitle
+          align="center"
+          eyebrow="Services"
+          title="Our Core Services"
+          description="Three pillars of wealth creation designed for sophisticated investors"
+        />
         {/* Services Grid */}
         <div className="space-y-16  mb-4">
           {services.map((service, index) => (
             <AnimatedSection key={service.id} delay={0.2 + index * 0.1}>
               <div className={`grid lg:grid-cols-12 gap-8 ${service.id === 3 ? 'bg-white' : 'bg-primary-700'} py-8 px-7 rounded-2xl items-center`}>
-                  {/* Left Content */}
                   <div className={`col-span-12 lg:col-span-5 ${service.id === 3 ? 'lg:order-2' : ''}`}>
                     <div className="flex items-center gap-3 mb-4">
-                     
                       <h3 className={`text-3xl md:text-4xl ${service.id === 3 ? 'text-gray-900' : 'text-white'} font-bold font-primary`}>
                         {service.title}
                       </h3>
                     </div>
-
-                    
-
-                    {/* Features List */}
+     
                     <div className="mb-4">
                       <h5 className={`font-semibold ${service.id === 3 ? 'text-gray-900' : 'text-white'} my-3`}>
                         What You Get:
@@ -244,7 +234,12 @@ const ServiceInfo = () => {
                       </ul>
                     </div>
                     <div className="">
-                     <Button variant={service.buttonVariant} href={service.ctaLink} className="mt-2 w-auto text-center">
+                     <Button 
+                      variant="secondary" 
+                      size="lg"
+                      href={service.ctaLink}
+                      className="mt-2 w-auto text-center">
+                      <TrendingUp className="w-4 h-4 mr-2" />
                       {service.cta}
                     </Button>
                   </div>

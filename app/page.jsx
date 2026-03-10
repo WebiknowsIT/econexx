@@ -98,14 +98,14 @@ export default function Home() {
         <WhyChooseUs />
         <HowItWorks />
         <Testimonials />
-
+        <CTASection />
         <FAQ 
         title="Frequently Asked"
         highlightedTitle="Questions"
         subtitle="Everything you need to know before investing with Econexx Wealth."
         data={faqs} 
       />
-        <CTASection />
+        
       </main>
     </>
   );

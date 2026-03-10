@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
 import CustomPopup from "@/components/ui/Popup/CustomPopup";
 import Button from "@/components/ui/Button";
+import { Calendar, Compass, Layers } from "lucide-react";
 
 const HeroSection = () => {
   const [openVideo, setVideoOpen] = useState(false);
@@ -44,8 +45,11 @@ const HeroSection = () => {
 
             <AnimatedSection delay={0.4}>
               <div className="flex flex-wrap gap-4">
-                <Button size="lg" variant="secondary">Explore Our Services</Button>
+                <Button size="lg" variant="secondary">
+                   <Layers className="w-4 h-4 mr-2" /> Explore Our Services
+                </Button>
                 <Button variant="ghost" href="#HowItWorks">
+                  <Calendar className="w-4 h-4 mr-2" />
                   Schedule Consultation 
                 </Button>
               </div>

@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import AnimatedSection from "@/components/AnimatedSection";
+import SectionTitle from "@/components/SectionTitle";
+
 import { Shield, Target, Eye, TrendingUp } from "lucide-react";
 
 const WhyChooseUs = () => {
@@ -43,16 +45,12 @@ const WhyChooseUs = () => {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
-        <AnimatedSection delay={0.1}>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 font-primary">
-              Why Serious Investors <span className="text-secondary-300">Choose Us</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Built on trust, transparency, and a commitment to your financial success
-            </p>
-          </div>
-        </AnimatedSection>
+        <SectionTitle
+          align="center"
+          eyebrow="Why Choose Us"
+          title=" Why Serious Investors Choose Us"
+          description="Built on trust, transparency, and a commitment to your financial success"
+        />
 
         {/* Reasons Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import AnimatedSection from "@/components/AnimatedSection";
+import SectionTitle from "@/components/SectionTitle";
 
 const HowItWorks = () => {
   const steps = [
@@ -31,20 +32,15 @@ const HowItWorks = () => {
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
-        <AnimatedSection delay={0.1}>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 font-primary">
-              How It <span className="text-secondary-300">Works?</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Simple. Structured. Transparent.
-            </p>
-          </div>
-        </AnimatedSection>
+        <SectionTitle
+          align="center"
+          eyebrow="Steps"
+          title="How It Works?"
+          description="Simple. Structured. Transparent."
+        />
 
         {/* Steps */}
         <div className="relative max-w-5xl mx-auto">
-          {/* Connecting Line - positioned behind circles */}
           <div className="hidden lg:block absolute top-8 left-0 right-0 h-0.5 bg-gray-300 z-0" style={{ left: '8%', right: '8%' }}></div>
 
           <div className="grid md:grid-cols-3 gap-12 relative z-10">
