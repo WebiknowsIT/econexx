@@ -697,11 +697,10 @@ function renderPreIpoTrackRecord() {
   ];
 
   return (
-    <section className="px-6 lg:px-16 py-24 heroSection hero-glow gridBgDark noise bg-primary-900">
+    <section className="px-6 lg:px-16 py-24 bg-primary-50">
       <div className="max-w-5xl mx-auto">
         <AnimatedSection>
           <SectionTitle
-            theme="dark"
             align="center"
             eyebrow="Track Record"
             title="Pre-IPO Entry vs Listing Price"
@@ -710,7 +709,7 @@ function renderPreIpoTrackRecord() {
         </AnimatedSection>
         <AnimatedSection delay={0.1} y={40}>
           <div
-            className="rounded-2xl overflow-hidden"
+            className="rounded-2xl heroSection hero-glow gridBgDark noise bg-primary-900 overflow-hidden"
             style={{ border: "1px solid rgba(182,138,204,.1)" }}
           >
             <div
