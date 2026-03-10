@@ -169,6 +169,49 @@ button:focus {
 	opacity: 0.2;
 }
 
+.step-dot {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #7A3D9A, #9A5FB5);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	font-size: .95rem;
+	flex-shrink: 0;
+	box-shadow: 0 4px 14px rgba(122, 61, 154, .3);
+}
+
+.step-line {
+	width: 2px;
+	background: linear-gradient(180deg, rgba(122, 61, 154, .3), rgba(122, 61, 154, .04));
+	min-height: 56px;
+	margin-left: 23px;
+	flex-shrink: 0;
+}
+  .inp { background:#fff; border:1.5px solid #E6D9F0; color:#220F34; border-radius:.75rem; padding:.8rem 1rem; width:100%; font-size:.875rem; font-family:'DM Sans',sans-serif; outline:none; transition:border-color .2s,box-shadow .2s; }
+  .inp:focus { border-color:#9A5FB5; box-shadow:0 0 0 3px rgba(122,61,154,.1); }
+  .inp::placeholder { color:#B68ACC; }
+  .inp-dark { background:rgba(255,255,255,.04); border:1px solid rgba(182,138,204,.18); color:#E6D9F0; border-radius:.75rem; padding:.8rem 1rem; width:100%; font-size:.875rem; font-family:'DM Sans',sans-serif; outline:none; transition:border-color .2s; }
+  .inp-dark:focus { border-color:rgba(182,138,204,.5); }
+  .inp-dark::placeholder { color:rgba(182,138,204,.3); }
+  select.inp option, select.inp-dark option { background:#1a0d2e; color:#E6D9F0; }
+  
+  .glass-card { background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01)); border:1px solid rgba(182,138,204,.12); backdrop-filter:blur(12px); position:relative; transition:all .3s ease; }
+  .glass-card::before { content:''; position:absolute; top:0; left:15%; right:15%; height:1px; background:linear-gradient(90deg,transparent,rgba(182,138,204,.4),transparent); z-index:2; }
+  .glass-card:hover { border-color:rgba(249,162,79,.3); transform:translateY(-3px); box-shadow:0 24px 60px rgba(0,0,0,.55); }
+.hr-dark {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(182, 138, 204, .35), transparent);
+    border: none;
+}
+.hr-light {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #CFB3E0, transparent);
+    border: none;
+}
 /* ===== Page Loader ===== */
 .page-loader {
   position: fixed;

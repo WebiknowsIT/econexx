@@ -22,8 +22,8 @@ const FAQ = ({
         {/* Section Header */}
 
         <SectionTitle
-        align="center"
-          eyebrow="— FAQs"
+          align="center"
+          eyebrow="FAQs"
           title={`${title} ${highlightedTitle}`}
           description={subtitle}
         />

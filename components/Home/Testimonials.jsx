@@ -45,17 +45,12 @@ const Testimonials = () => {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Section Header */}
-
         <SectionTitle
-         align="center"
-          eyebrow="— Testimonials"
+          align="center"
+          eyebrow="Testimonials"
           title="Trusted by Growth-Focused Investors"
           description="Trusted by 1,50,000+ customers"
         />
-
-
-        {/* Testimonials Slider */}
         <AnimatedSection delay={0.2}>
           <div className="relative max-w-4xl mx-auto">
             <ReusableSlider
@@ -75,17 +70,12 @@ const Testimonials = () => {
               {testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
                   <div className="text-center px-8 py-12">
-                    {/* Quote Icon */}
                     <div className="flex justify-center mb-6">
                       <Quote className="w-12 h-12 text-secondary-500" />
                     </div>
-
-                    {/* Testimonial Text */}
                     <p className="text-xl md:text-2xl text-gray-800 leading-relaxed mb-8 font-medium">
                       "{testimonial.quote}"
                     </p>
-
-                    {/* Author */}
                     <div className="border-t border-gray-200 pt-6 inline-block">
                       <p className="text-sm font-semibold text-gray-900 uppercase tracking-wider">
                         {testimonial.author}
