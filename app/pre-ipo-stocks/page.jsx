@@ -280,14 +280,13 @@ export default function DrhpFiled() {
 
                 <AnimatedSection delay={0.3} y={30}>
                 <div className="fu3 flex gap-4 flex-wrap">
-
                   <Button
                     variant="secondary"
                     size="lg"
                     className="flex items-center gap-2"
                     onClick={() =>
                       document
-                        .getElementById("apply")
+                        .getElementById("tracker")
                         ?.scrollIntoView({ behavior: "smooth" })
                     }
                   >
@@ -300,7 +299,7 @@ export default function DrhpFiled() {
                     className="flex items-center gap-2"
                     onClick={() =>
                       document
-                        .getElementById("earn")
+                        .getElementById("what-drhp")
                         ?.scrollIntoView({ behavior: "smooth" })
                     }
                   >
@@ -1245,13 +1244,6 @@ function renderExpressInterest() {
     </section>
   );
 }
-
-
-
-
-
-
-
 
   return (
     <>
