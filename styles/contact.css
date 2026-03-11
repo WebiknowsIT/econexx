@@ -1,0 +1,177 @@
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #f4eef8; }
+::-webkit-scrollbar-thumb { background: #cfb3e0; border-radius: 2px; }
+
+/* ── GRADIENT TEXT ── */
+.grad-brand {
+  background: linear-gradient(135deg, #b68acc, #f9a24f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-purple {
+  background: linear-gradient(135deg, #9a5fb5, #cfb3e0, #7a3d9a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+/* ── INPUTS (light) ── */
+.inp {
+  background: #fff;
+  border: 1.5px solid #e6d9f0;
+  color: #220f34;
+  border-radius: 0.875rem;
+  padding: 0.85rem 1rem;
+  width: 100%;
+  font-size: 0.875rem;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.inp:focus {
+  border-color: #9a5fb5;
+  box-shadow: 0 0 0 3px rgba(122, 61, 154, 0.1);
+}
+.inp::placeholder { color: #b68acc; }
+textarea.inp { resize: vertical; min-height: 130px; }
+select.inp option { background: #fff; color: #220f34; }
+
+/* ── OFFICE CARD ── */
+.office-card {
+  border: 1px solid #e6d9f0;
+  border-radius: 1.25rem;
+  transition: all 0.24s;
+}
+.office-card:hover {
+  border-color: #cfb3e0;
+  box-shadow: 0 12px 36px rgba(122, 61, 154, 0.08);
+}
+
+/* ── SOCIAL PILL ── */
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(122, 61, 154, 0.1);
+  border: 1px solid rgba(182, 138, 204, 0.22);
+  color: #7a3d9a;
+  font-size: 0.78rem;
+  padding: 8px 16px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600;
+  text-decoration: none;
+}
+.social-pill:hover {
+  background: rgba(122, 61, 154, 0.18);
+  border-color: rgba(182, 138, 204, 0.4);
+  color: #4b226e;
+}
+
+/* ── TAGS ── */
+.tag-dark {
+  background: rgba(122, 61, 154, 0.18);
+  border: 1px solid rgba(182, 138, 204, 0.22);
+  color: #b68acc;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 11px;
+  border-radius: 99px;
+  font-weight: 600;
+  display: inline-block;
+}
+.tag-sec {
+  background: rgba(196, 114, 34, 0.12);
+  border: 1px solid rgba(249, 162, 79, 0.22);
+  color: #f9a24f;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 11px;
+  border-radius: 99px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── TIME PILL ── */
+.time-pill {
+  background: #fff;
+  border: 1.5px solid #e6d9f0;
+  color: #7a3d9a;
+  font-size: 0.75rem;
+  padding: 6px 14px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+}
+.time-pill.active {
+  background: #7a3d9a;
+  border-color: #7a3d9a;
+  color: #fff;
+}
+.time-pill:hover:not(.active) {
+  border-color: #b68acc;
+  background: #f4eef8;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.vis {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── HERO FADE-UP ── */
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: none; }
+}
+.fu  { animation: fadeup 0.7s ease both; }
+.fu1 { animation: fadeup 0.7s 0.12s ease both; }
+.fu2 { animation: fadeup 0.7s 0.24s ease both; }
+.fu3 { animation: fadeup 0.7s 0.36s ease both; }
+
+/* ── FLOAT (decorative rings) ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+.float-anim { animation: float 6s ease-in-out infinite; }
+
+/* ── PULSE (live dot) ── */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+.pulse-dot { animation: pulse-soft 2.2s ease-in-out infinite; }
+
+/* ── BACK TO TOP ── */
+.back-top {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.back-top.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.back-top:hover { transform: translateY(-2px); }
+
+/* ── FORM ERROR STATE ── */
+.inp.error {
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}

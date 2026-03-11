@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import Button from "@/components/ui/Button";
 import { usePathname } from "next/navigation";
+import { LogIn } from "lucide-react";
 
 export default function Header() {
   const pathname = usePathname();
@@ -67,9 +68,9 @@ export default function Header() {
             />
           </div> */}
 
-          <Link href="login" className={`text-sm shrink-0 font-semibold text-gray-700 hover:text-primary-600 ${isActive("/login")} `}>
-            Sign In
-          </Link>
+          <Button variant="outline" href="login" className={`shrink-0 ${isActive("/login")} `}>
+            <LogIn size={14} className="mr-2" /> Sign In
+          </Button>
           <Button href="/contact-us" variant="secondary">Get Started</Button>
         </div>
       </div>

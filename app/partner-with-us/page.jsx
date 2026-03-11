@@ -46,37 +46,6 @@ export default function PartnerPage() {
     message: ''
   });
 
-  const faqItems = [
-    {
-      question: "Q1 - Who is Eligible for Partner Program?",
-      answer: "Anyone with a passion for financial markets and a network of potential investors can join our partner program. Whether you're a financial advisor, consultant, or simply have connections in the investment community, you're welcome to apply."
-    },
-    {
-      question: "Q2 - How can I become a partner with UnlistedZone?",
-      answer: "Becoming a partner is simple: Sign up on our platform, complete the verification process by uploading required documents, and once approved, you can start earning commissions immediately."
-    },
-    {
-      question: "Q3 - What resources are available to partners?",
-      answer: "Partners get access to comprehensive research reports, real-time pricing data, marketing materials, a dedicated dashboard for tracking performance, and ongoing support from our team."
-    },
-    {
-      question: "Q4 - What can you provide from our Partner Program?",
-      answer: "You'll receive competitive commission rates, access to exclusive Pre-IPO opportunities, comprehensive training materials, dedicated support, and regular market updates to help you succeed."
-    },
-    {
-      question: "Q5 - Is there a fee to join the Partner Program?",
-      answer: "No, joining our Partner Program is completely free. There are no setup fees, monthly charges, or hidden costs. You start earning commissions from your first successful transaction."
-    },
-    {
-      question: "Q6 - How do I contact UnlistedZone for more information about the partnership?",
-      answer: "You can reach us via email at info@unlistedzone.com, call us at +91 9594747028, or fill out the contact form on this page. Our team typically responds within 24 hours."
-    },
-    {
-      question: "Q7 - What makes UnlistedZone's Partner Program unique?",
-      answer: "Our program offers zero investment requirements, industry-leading commission rates, comprehensive support, access to India's largest Pre-IPO platform, and a proven track record with 1000+ active partners."
-    }
-  ];
-
   const benefitCards = [
     {
       icon: ShieldCheck,
