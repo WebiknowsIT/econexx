@@ -201,6 +201,9 @@ const ServiceInfo = () => {
           {services.map((service, index) => (
             <AnimatedSection key={service.id} delay={0.2 + index * 0.1}>
               <div className={`grid lg:grid-cols-12 gap-8 ${service.id === 3 ? 'bg-white' : 'bg-primary-700'} py-8 px-7 rounded-2xl items-center`}>
+                <div className="absolute bottom-0 right-0 w-80 h-80 opacity-70 pointer-events-none">
+                  <img src="/images/corner-shape-silver.svg" alt="" class="w-full h-full opacity-20" />
+                </div>
                   <div className={`col-span-12 lg:col-span-5 ${service.id === 3 ? 'lg:order-2' : ''}`}>
                     <div className="flex items-center gap-3 mb-4">
                       <h3 className={`text-3xl md:text-4xl ${service.id === 3 ? 'text-gray-900' : 'text-white'} font-bold font-primary`}>
