@@ -1,5 +1,6 @@
 import AnimatedSection from "@/components/AnimatedSection";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -141,9 +142,9 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-8 text-xs font-bold text-gray-400 uppercase tracking-widest">
-              <a href="#" className="hover:text-secondary-500">Privacy Policy</a>
-              <a href="#" className="hover:text-secondary-500">Terms of Use</a>
-              <a href="#" className="hover:text-secondary-500">Disclaimer</a>
+              <Link href="privacy-policy" className="hover:text-secondary-500">Privacy Policy</Link>
+              <Link href="terms-and-conditions" className="hover:text-secondary-500">Terms & Conditions</Link>
+              <Link href="disclaimer" className="hover:text-secondary-500">Disclaimer</Link>
             </div>
           </div>
         </AnimatedSection>
