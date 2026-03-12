@@ -575,7 +575,7 @@ export default function DrhpFiled() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((company, i) => (
-              <AnimatedSection key={i} delay={0.1 + i * 0.05} y={40}>
+              <div key={i} delay={0.1 + i * 0.05} y={40}>
                 <DrhpStockCard
                   company={company}
                   onInterest={() =>
@@ -584,7 +584,7 @@ export default function DrhpFiled() {
                       ?.scrollIntoView({ behavior: "smooth" })
                   }
                 />
-              </AnimatedSection>
+              </div>
             ))}
           </div>
         </div>
