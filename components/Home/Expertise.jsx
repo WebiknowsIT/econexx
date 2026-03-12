@@ -163,7 +163,7 @@ export default function ExpertiseSection() {
               <h2
                 className="font-bold leading-[1.06] mb-5"
                 style={{
-                  fontSize: 'clamp(2.4rem, 4.5vw, 3.6rem)',
+                  fontSize: 'clamp(1.4rem, 4vw, 3rem)',
                   letterSpacing: '-.02em',
                   color: '#1A0A28',
                 }}
