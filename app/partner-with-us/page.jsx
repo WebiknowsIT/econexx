@@ -31,8 +31,7 @@ import SectionTitle from "@/components/SectionTitle";
 import Button from "@/components/ui/Button";
 import Testimonials from "@/components/Home/Testimonials";
 import FAQ from "@/components/ui/Faq";
-import Accordion from "@/components/ui/Accordion"
-import Input from "@/components/ui/Input/Input";
+
 
 
 export default function PartnerPage() {

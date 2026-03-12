@@ -1,0 +1,581 @@
+/* ── CSS Variables ─────────────────────────────────────────── */
+:root {
+  --p50:  #F4EEF8;
+  --p100: #E6D9F0;
+  --p200: #CFB3E0;
+  --p300: #B68ACC;
+  --p400: #9A5FB5;
+  --p500: #7A3D9A;
+  --p600: #4B226E;
+  --p700: #3E1C5C;
+  --p800: #31164A;
+  --p900: #220F34;
+
+  --s400: #F9A24F;
+  --s600: #E38A34;
+  --s700: #C47222;
+
+  --bg-dark:   #0D0812;
+  --bg-footer: #08040F;
+
+  --grad-brand:  linear-gradient(135deg, #B68ACC, #F9A24F);
+  --grad-purple: linear-gradient(135deg, #9A5FB5, #CFB3E0, #7A3D9A);
+  --grad-cta:    linear-gradient(135deg, #C47222, #F9A24F, #C47222);
+  --grad-logo:   linear-gradient(135deg, #7A3D9A, #4B226E);
+  --grad-bar:    linear-gradient(90deg, #7A3D9A, #F9A24F);
+
+  --shadow-card:  0 12px 32px rgba(122, 61, 154, 0.1);
+  --shadow-cta:   0 4px 20px rgba(249, 162, 79, 0.25);
+}
+
+/* ── Keyframes ──────────────────────────────────────────────── */
+@keyframes ring-pulse {
+  0%, 100% { transform: scale(1); opacity: .15; }
+  50%       { transform: scale(1.08); opacity: .07; }
+}
+@keyframes floatAnim {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes floatAnimD {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(10px); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: .6; }
+  50%       { opacity: 1; }
+}
+
+.fu  { animation: fadeUp .7s ease both; }
+.fu1 { animation: fadeUp .7s .1s ease both; }
+.fu2 { animation: fadeUp .7s .22s ease both; }
+.fu3 { animation: fadeUp .7s .34s ease both; }
+.fu4 { animation: fadeUp .7s .46s ease both; }
+
+/* ── Page Root ──────────────────────────────────────────────── */
+.aboutPage {
+  
+  color: #1a1025;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+/* ── Gradient text ──────────────────────────────────────────── */
+.gradBrand {
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Section backgrounds ────────────────────────────────────── */
+.sectionWhite { background: #ffffff; }
+.sectionAlt   { background: var(--p50); }
+
+/* ── Dot / grid bg helpers ──────────────────────────────────── */
+.dotBgLight {
+  background-image: radial-gradient(circle, rgba(122,61,154,.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.gridBgLight {
+  background-image:
+    linear-gradient(rgba(182,138,204,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(182,138,204,.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.gridBgDark {
+  background-image:
+    linear-gradient(rgba(182,138,204,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(182,138,204,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Noise overlay */
+.noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .25;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+}
+
+/* ─────────────────────────────────────────────
+   HERO
+   ───────────────────────────────────────────── */
+
+
+.heroInner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+.heroCopy {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: rgba(182,138,204,.7);
+  max-width: 36rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Decorative rings */
+.heroRing1 {
+  position: absolute;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  border: 1px solid rgba(122,61,154,.1);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: ring-pulse 5s ease-in-out infinite;
+}
+.heroRing2 {
+  position: absolute;
+  width: 460px; height: 460px;
+  border-radius: 50%;
+  border: 1px solid rgba(182,138,204,.07);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: ring-pulse 5s 1.5s ease-in-out infinite;
+}
+.heroRing3 {
+  position: absolute;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  border: 1px solid rgba(182,138,204,.05);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.floatAnim  { animation: floatAnim  6s ease-in-out infinite; }
+.floatAnimD { animation: floatAnimD 7s ease-in-out infinite; }
+
+/* Stat strip in hero */
+.statNum {
+  
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.grad-hero {
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.statLabel {
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: rgba(182,138,204,.5);
+}
+.statSep {
+  width: 1px; height: 2.5rem;
+  background: rgba(182,138,204,.15);
+}
+
+/* ─────────────────────────────────────────────
+   TAGS / BADGES
+   ───────────────────────────────────────────── */
+.tagDark {
+  display: inline-block;
+  font-size: .62rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .12em;
+  padding: 3px 11px; border-radius: 99px;
+  background: rgba(122,61,154,.18);
+  border: 1px solid rgba(182,138,204,.22);
+  color: var(--p300);
+}
+.tagSecDark {
+  display: inline-block;
+  font-size: .62rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .12em;
+  padding: 3px 11px; border-radius: 99px;
+  background: rgba(196,114,34,.12);
+  border: 1px solid rgba(249,162,79,.22);
+  color: var(--s400);
+}
+.tag {
+  display: inline-block;
+  font-size: .62rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .12em;
+  padding: 3px 11px; border-radius: 99px;
+  background: rgba(122,61,154,.08);
+  border: 1px solid rgba(122,61,154,.18);
+  color: var(--p500);
+}
+
+/* ─────────────────────────────────────────────
+   BUTTONS
+   ───────────────────────────────────────────── */
+.btnCta {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--grad-cta);
+  background-size: 200% 100%;
+  color: #0D0812; font-weight: 700; border: none; cursor: pointer;
+  box-shadow: var(--shadow-cta);
+  transition: background-position .4s, box-shadow .3s;
+  
+}
+.btnCta:hover {
+  background-position: right center;
+  box-shadow: 0 8px 32px rgba(249,162,79,.42);
+}
+.btnGhostDark {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: transparent;
+  border: 1px solid rgba(182,138,204,.28);
+  color: var(--p300); cursor: pointer;
+  transition: all .2s; 
+}
+.btnGhostDark:hover {
+  border-color: rgba(182,138,204,.5);
+  background: rgba(182,138,204,.06);
+  color: var(--p200);
+}
+.btnLight {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: transparent;
+  border: 1.5px solid var(--p100);
+  color: var(--p500); font-weight: 600; cursor: pointer;
+  transition: all .2s; 
+}
+.btnLight:hover {
+  border-color: var(--p400);
+  background: var(--p50);
+}
+
+/* ─────────────────────────────────────────────
+   CARDS
+   ───────────────────────────────────────────── */
+.lightCard {
+  position: relative; overflow: hidden;
+  background: #fff;
+  border: 1.5px solid var(--p100);
+  box-shadow: 0 2px 12px rgba(122,61,154,.06);
+  transition: border-color .22s, box-shadow .22s, transform .22s;
+}
+.lightCard:hover {
+  border-color: var(--p300);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+.lightCard::before {
+  content: '';
+  position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(182,138,204,.25), transparent);
+}
+
+.glassCardDark {
+  background: linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+  border: 1px solid rgba(182,138,204,.16);
+  backdrop-filter: blur(20px);
+}
+
+/* Featured accent top bar */
+.featuredCard::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--grad-bar);
+  border-radius: 2px 2px 0 0;
+}
+
+/* ─────────────────────────────────────────────
+   DIVIDERS
+   ───────────────────────────────────────────── */
+.brandHrLight {
+  height: 1px; border: none;
+  background: linear-gradient(90deg, transparent, var(--p100), transparent);
+}
+.brandHrDark {
+  height: 1px; border: none;
+  background: linear-gradient(90deg, transparent, rgba(182,138,204,.2), transparent);
+}
+
+/* ─────────────────────────────────────────────
+   SECTION TITLE (matches SectionTitle component)
+   ───────────────────────────────────────────── */
+.sectionEyebrow {
+  font-size: .62rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .12em;
+  color: var(--p400);
+  display: flex; align-items: center; gap: .5rem;
+  margin-bottom: .75rem;
+}
+.sectionEyebrow::before {
+  content: '';
+  display: inline-block; width: 1.5rem; height: 1px;
+  background: var(--grad-brand);
+}
+.sectionHeadline {
+  font-weight: 700;
+  color: #1a1025;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+/* ─────────────────────────────────────────────
+   ICON BOXES
+   ───────────────────────────────────────────── */
+.iconBox {
+  width: 2.75rem; height: 2.75rem;
+  border-radius: .875rem;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(122,61,154,.08);
+  border: 1px solid rgba(122,61,154,.15);
+}
+.iconBoxSec {
+  width: 2.75rem; height: 2.75rem;
+  border-radius: .875rem;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(196,114,34,.08);
+  border: 1px solid rgba(196,114,34,.2);
+}
+
+/* ─────────────────────────────────────────────
+   CHECK CIRCLE (feature lists)
+   ───────────────────────────────────────────── */
+.checkCircle {
+  width: 1.5rem; height: 1.5rem; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(196,114,34,.1);
+  border: 1px solid rgba(196,114,34,.25);
+}
+
+/* ─────────────────────────────────────────────
+   PROGRESS BAR
+   ───────────────────────────────────────────── */
+.progressTrack {
+  width: 100%; height: 5px;
+  background: var(--p100); border-radius: 99px; overflow: hidden;
+  margin-bottom: 1rem;
+}
+.fillBar {
+  height: 100%; border-radius: 99px;
+  background: var(--grad-bar);
+  transition: width .4s ease;
+}
+
+/* ─────────────────────────────────────────────
+   STEP LINE (How section)
+   ───────────────────────────────────────────── */
+.stepLine {
+  flex: 1; width: 2px; min-height: 2.5rem;
+  background: linear-gradient(180deg, rgba(122,61,154,.25), rgba(122,61,154,.05));
+  border-radius: 1px;
+}
+
+/* ─────────────────────────────────────────────
+   FILTER PILLS
+   ───────────────────────────────────────────── */
+.fpill {
+  font-size: .78rem; font-weight: 500;
+  padding: 7px 18px; border-radius: .75rem; cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--p100);
+  color: var(--p500);
+  
+  transition: all .18s;
+}
+.fpill:hover  { border-color: var(--p400); color: var(--p600); }
+.fpill.active { background: var(--p500); border-color: var(--p500); color: #fff; }
+
+/* ─────────────────────────────────────────────
+   FLOATING HERO CARD
+   ───────────────────────────────────────────── */
+.heroFloatCard {
+  position: absolute;
+  right: max(2rem, calc(50% - 38rem));
+  top: 35%; 
+  transform: translateY(-35%);
+  width: 300px; z-index: 20;
+  animation: floatAnim 6s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────
+   TEAM CARD
+   ───────────────────────────────────────────── */
+.teamCard {
+  position: relative; overflow: hidden;
+  background: #fff;
+  border: 1.5px solid var(--p100);
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(122,61,154,.06);
+  transition: border-color .22s, box-shadow .22s, transform .22s;
+  text-align: center;
+}
+.teamCard:hover {
+  border-color: var(--p300);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-3px);
+}
+.teamCard::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--grad-bar);
+  opacity: 0; transition: opacity .22s;
+}
+.teamCard:hover::after { opacity: 1; }
+
+.teamAvatar {
+  width: 5rem; height: 5rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+   font-size: 1.75rem; font-weight: 700;
+  margin: 0 auto 1rem;
+}
+
+/* ─────────────────────────────────────────────
+   TIMELINE (Journey section)
+   ───────────────────────────────────────────── */
+.timelineItem {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+}
+.timelineDot {
+  width: 2.75rem; height: 2.75rem; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+   font-weight: 700; font-size: .95rem;
+  border: 2px solid rgba(122,61,154,.3);
+  color: var(--p500);
+}
+.timelineDot--accent {
+  border-color: rgba(196,114,34,.35);
+  color: var(--s700);
+  background: rgba(196,114,34,.06);
+}
+.timelineConnector {
+  width: 2px; height: 2.5rem; margin: 0 auto;
+  background: linear-gradient(180deg, rgba(122,61,154,.25), rgba(122,61,154,.05));
+  border-radius: 1px;
+}
+
+/* ─────────────────────────────────────────────
+   LABEL ROW (dark / light)
+   ───────────────────────────────────────────── */
+.labelRowDark {
+  display: flex; align-items: center; gap: 4px;
+  font-size: .68rem; color: var(--p500);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 3px;
+}
+.labelRowLight {
+  display: flex; align-items: center; gap: 4px;
+  font-size: .68rem; color: var(--p400);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 3px;
+}
+
+/* ─────────────────────────────────────────────
+   MARQUEE / PARTNER LOGOS
+   ───────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marqueeTrack {
+  display: flex; gap: 2.5rem; width: max-content;
+  animation: marquee 20s linear infinite;
+}
+.marqueeWrap {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+.logoChip {
+  display: flex; align-items: center; gap: .5rem; flex-shrink: 0;
+  padding: .5rem 1.25rem; border-radius: .75rem;
+  background: #fff; border: 1px solid var(--p100);
+  font-size: .78rem; font-weight: 600; color: var(--p600);
+  white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────────
+   VALUE CARD (dark section)
+   ───────────────────────────────────────────── */
+.valueCard {
+  background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border: 1px solid rgba(182,138,204,.14);
+  border-radius: 1rem; padding: 1.75rem;
+  backdrop-filter: blur(8px);
+  position: relative; overflow: hidden;
+  transition: border-color .22s, box-shadow .22s;
+}
+.valueCard:hover {
+  border-color: rgba(182,138,204,.28);
+  box-shadow: 0 12px 40px rgba(0,0,0,.3);
+}
+.valueCard::before {
+  content: '';
+  position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(182,138,204,.2), transparent);
+}
+
+/* ─────────────────────────────────────────────
+   METRIC / STAT BOXES (light section)
+   ───────────────────────────────────────────── */
+.metricBox {
+  background: #fff;
+  border: 1.5px solid var(--p100);
+  border-radius: 1rem; padding: 1.5rem;
+  text-align: center;
+  transition: border-color .22s, box-shadow .22s, transform .22s;
+}
+.metricBox:hover {
+  border-color: var(--p300);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+.metricValue {
+  
+  font-size: 2.25rem; font-weight: 700; line-height: 1;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: .35rem;
+}
+.metricLabel {
+  font-size: .75rem; font-weight: 500;
+  color: var(--p500);
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.metricSub {
+  font-size: .7rem; color: var(--p400); margin-top: .25rem;
+}
+
+/* ─────────────────────────────────────────────
+   INPUT / FORM
+   ───────────────────────────────────────────── */
+.inp {
+  width: 100%; padding: .625rem .875rem;
+  border-radius: .625rem;
+  border: 1.5px solid var(--p100);
+  background: var(--p50);
+  color: #1a1025; font-size: .875rem;
+  
+  outline: none; transition: border-color .2s, box-shadow .2s;
+}
+.inp:focus {
+  border-color: var(--p400);
+  box-shadow: 0 0 0 3px rgba(122,61,154,.1);
+  background: #fff;
+}
+.inp::placeholder { color: var(--p300); }
+
+/* ─────────────────────────────────────────────
+   SCROLLBAR
+   ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--p50); }
+::-webkit-scrollbar-thumb { background: var(--p200); border-radius: 2px; }
