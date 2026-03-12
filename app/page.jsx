@@ -2,6 +2,7 @@
 import HeroSection from "../components/Home/HeroSection";
 import Homeinfo from "@/components/Home/Homeinfo";
 import ServiceInfo from "@/components/Home/ServiceInfo";
+import Expertise from "@/components/Home/Expertise";
 import WhyChooseUs from "@/components/Home/WhyChooseUs";
 import HowItWorks from "@/components/Home/HowItWorks";
 import Testimonials from "@/components/Home/Testimonials";
@@ -11,6 +12,10 @@ import CTASection from "@/components/Home/CTASection";
 
 
 export default function Home() {
+
+
+
+
   
   const faqs = [
     {
@@ -94,6 +99,7 @@ export default function Home() {
       <main className="">
         <HeroSection />
         <Homeinfo />
+        <Expertise />
         <ServiceInfo />
         <WhyChooseUs />
         <HowItWorks />
