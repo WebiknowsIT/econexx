@@ -1,13 +1,16 @@
 "use client";
+import { useState, useMemo, useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUnlistedShares } from "@/store/action/unlistedShareActions";
 
 import "@/styles/unlisted.css";
 import { Search } from "lucide-react";
-import { useState, useMemo } from "react";
 
 // import ShareCard from "./components/ShareCard";
 // import SidebarFilters from "./components/SidebarFilters";
 // import Toolbar from "./components/Toolbar";
-
+import PageLoader from "@/components/PageLoader";
 import PageHeader from "@/components/PageHeaderDark";
 import QuickFilterBar from "./components/QuickFilterBar";
 import Input from "@/components/ui/Input/Input";
@@ -18,6 +21,17 @@ import {SHARES} from "../../../utils/data";
 
 
 export default function UnlistedMarketplace() {
+
+  const dispatch = useDispatch();
+  const { unlistedShares, loading } = useSelector((state) => state.unlistedShares);
+
+  useEffect(() => {
+    dispatch(fetchUnlistedShares({ page: 1 }));
+  }, [dispatch]);
+
+  console.log("unlistedShares", unlistedShares);
+
+
   const [search, setSearch] = useState("");
   const [sector, setSector] = useState([]);
   const [quickFilter, setQuickFilter] = useState("All");
@@ -85,6 +99,9 @@ const clearFilters = () => {
   const perPage = 12;
   const start = (currentPage - 1) * perPage;
   const pageItems = filteredShares.slice(start, start + perPage);
+
+
+  if (loading) return <PageLoader />;
 
   return (
     <>
@@ -157,15 +174,16 @@ const clearFilters = () => {
             /> */}
 
           <div className={`grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-3 gap-6`}>
-            {pageItems.map((share) => (
+            {unlistedShares.map((share) => (
               <StockCard
+                key={share.id}
                 id={share.id}
-                title={share.name}
-                category={share.sector}
-                price= {share.price}
+                title={share.share_name}
+                category={share.risk_factors}
+                price= {share.buy_price}
                 change= "+1.3%"
                 duration= "15D"
-                badge= {share.badge}
+                badge= {share.tags}
                 logo= "/images/stocks/nse.png"
               />
             ))}

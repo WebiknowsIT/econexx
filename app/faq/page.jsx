@@ -8,141 +8,146 @@ import '@/styles/contact.css';
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
 const CATEGORIES = [
-  { id: 'all',       label: 'All'              },
-  { id: 'general',   label: 'General'          },
-  { id: 'unlisted',  label: 'Unlisted Shares'  },
-  { id: 'ipo',       label: 'Pre-IPO & IPO'    },
-  { id: 'bonds',     label: 'Bonds'            },
-  { id: 'kyc',       label: 'KYC & Account'    },
-  { id: 'payments',  label: 'Payments'         },
+  { id: 'all',         label: 'All' },
+  { id: 'general',     label: 'General' },
+  { id: 'process',     label: 'Process' },
+  { id: 'unlisted',    label: 'Unlisted Shares' },
+  { id: 'risk',        label: 'Risks' },
+  { id: 'investment',  label: 'Investment' },
+  { id: 'technical',   label: 'Technical' },
+  { id: 'fees',        label: 'Fees & Charges' },
+  { id: 'liquidity',   label: 'Liquidity' },
+  { id: 'security',    label: 'Security' },
+  { id: 'onboarding',  label: 'Getting Started' },
+  { id: 'contact',     label: 'Contact' },
 ];
 
 const FAQS = [
-  // general
   {
-    id: 1, cat: 'general',
-    q: 'What is EconexxWealth / UnlistedEdge?',
-    a: 'EconexxWealth (operating as UnlistedEdge) is India\'s premier platform for buying and selling unlisted shares, accessing pre-IPO investment opportunities, and investing in bonds and fixed income instruments. We connect retail and HNI investors with private market opportunities that were previously accessible only to institutional players.',
+    id: 1,
+    cat: 'general',
+    q: 'What does PlanMoney do?',
+    a: 'PlanMoney is a platform operated by Econexx Wealth Private Limited that helps investors access opportunities in unlisted shares, bonds, and other financial products through a structured and guided process.',
   },
   {
-    id: 2, cat: 'general',
-    q: 'Is EconexxWealth a SEBI-registered entity?',
-    a: 'Yes. Econexx Wealth Pvt Ltd. operates in compliance with applicable SEBI regulations and Indian securities laws. All transactions facilitated through our platform adhere to regulatory requirements including KYC norms, reporting obligations, and investor protection guidelines.',
+    id: 2,
+    cat: 'general',
+    q: 'Is PlanMoney a SEBI-registered entity?',
+    a: 'No. PlanMoney is not registered with SEBI as an investment advisor, broker, or portfolio manager. We act as a facilitation and support platform.',
   },
   {
-    id: 3, cat: 'general',
-    q: 'Who can invest through UnlistedEdge?',
-    a: 'Any Indian resident above the age of 18 with a valid PAN card, Aadhaar, and a DEMAT account can invest through UnlistedEdge. NRI investors may also participate subject to additional compliance requirements under FEMA guidelines. We serve retail investors, HNIs, family offices, and corporate treasuries.',
+    id: 3,
+    cat: 'general',
+    q: 'Do you give stock tips or investment advice?',
+    a: 'No. We do not provide stock tips or investment advice. All information shared is for awareness and educational purposes only. You should consult a qualified financial advisor before making any decisions.',
   },
   {
-    id: 4, cat: 'general',
-    q: 'How do I get started on the platform?',
-    a: 'Getting started is simple. Register on the platform, complete your KYC by submitting your PAN, Aadhaar, and bank details, and link your DEMAT account. Once verified, you can browse available opportunities and place your first investment. Our team is available to assist you through the onboarding process.',
+    id: 4,
+    cat: 'general',
+    q: 'What kind of investment opportunities do you offer?',
+    a: 'We provide access and assistance in unlisted shares (pre-IPO companies), corporate bonds, fixed income products, and select private market opportunities.',
   },
-
-  // unlisted
   {
-    id: 5, cat: 'unlisted',
+    id: 5,
+    cat: 'process',
+    q: 'How does the process work?',
+    a: 'We share opportunities, assist with documentation, and coordinate transactions. Investments are completed via legal off-market transfers and banking channels.',
+  },
+  {
+    id: 6,
+    cat: 'unlisted',
     q: 'What are unlisted shares?',
-    a: 'Unlisted shares are equity shares of companies that are not listed or traded on any recognised stock exchange like BSE or NSE. These are shares of private companies, subsidiaries of listed companies, or companies in the pre-listing stage. They offer investors the opportunity to participate in a company\'s growth before it becomes publicly listed.',
+    a: 'Unlisted shares are shares of companies not traded on stock exchanges. These include pre-IPO companies, private companies, and growth-stage businesses.',
   },
   {
-    id: 6, cat: 'unlisted',
-    q: 'How are unlisted share prices determined?',
-    a: 'Unlisted share prices are determined based on factors such as the company\'s last fundraising valuation, comparable listed peer multiples, financial performance, growth trajectory, and prevailing demand and supply in the secondary market. Unlike listed stocks, there is no real-time exchange price — indicative prices are updated regularly on our platform based on market activity.',
+    id: 7,
+    cat: 'unlisted',
+    q: 'Why do investors consider unlisted shares?',
+    a: 'Investors consider them for early-stage entry before IPO and long-term value creation, though they come with higher risk and lower liquidity.',
   },
   {
-    id: 7, cat: 'unlisted',
-    q: 'How are unlisted shares transferred to my DEMAT account?',
-    a: 'Once payment is confirmed, the unlisted shares are transferred to your DEMAT account through an off-market transfer via CDSL or NSDL. The typical settlement period is T+2 to T+5 working days depending on the company and seller. You will receive a confirmation once the shares are credited to your account.',
+    id: 8,
+    cat: 'risk',
+    q: 'What are the risks involved?',
+    a: 'Investments involve market risk, liquidity risk, price uncertainty, and regulatory changes. Unlisted investments are particularly illiquid and volatile.',
   },
   {
-    id: 8, cat: 'unlisted',
-    q: 'What are the risks of investing in unlisted shares?',
-    a: 'Unlisted shares carry risks including illiquidity (no guaranteed secondary market), price opacity, lack of real-time price discovery, company-specific operational risks, and the possibility of total loss of capital. Investors should conduct thorough due diligence and invest only the amount they can afford to remain locked in for an uncertain period.',
+    id: 9,
+    cat: 'general',
+    q: 'Do you guarantee returns or exits?',
+    a: 'No. We do not guarantee returns, liquidity, or exit opportunities under any circumstances.',
   },
   {
-    id: 9, cat: 'unlisted',
-    q: 'What is the minimum investment amount for unlisted shares?',
-    a: 'The minimum investment varies by company and the number of shares available. Typically, minimum lot sizes start from ₹10,000 to ₹25,000 depending on the share price. Some high-demand companies may have higher minimum lot sizes. Specific lot size details are mentioned on each company\'s listing page.',
-  },
-
-  // ipo
-  {
-    id: 10, cat: 'ipo',
-    q: 'What is a Pre-IPO investment?',
-    a: 'A Pre-IPO investment allows you to buy shares of a company before it conducts its Initial Public Offering (IPO) and lists on a stock exchange. If the company lists successfully at a higher price than your acquisition cost, you stand to gain significant returns. However, there is no guarantee of an IPO or of listing above the pre-IPO price.',
+    id: 10,
+    cat: 'investment',
+    q: 'What is the minimum investment?',
+    a: 'Minimum investment depends on the opportunity and availability. Our team will guide you accordingly.',
   },
   {
-    id: 11, cat: 'ipo',
-    q: 'What is a DRHP and why does it matter?',
-    a: 'A Draft Red Herring Prospectus (DRHP) is a preliminary IPO filing submitted to SEBI by a company intending to go public. It contains detailed information about the company\'s business, financials, risk factors, and the proposed use of IPO proceeds. Filing a DRHP signals that a company has initiated the IPO process, though approval and listing are not guaranteed.',
+    id: 11,
+    cat: 'process',
+    q: 'How are transactions completed?',
+    a: 'Transactions are executed off-market with proper documentation and settled through demat and banking systems.',
   },
   {
-    id: 12, cat: 'ipo',
-    q: 'Can I apply for IPOs directly through UnlistedEdge?',
-    a: 'UnlistedEdge currently provides IPO consultancy, research, and pre-IPO investment facilitation. For applying directly to IPOs through ASBA or UPI, you would need to use your bank or broker. Our platform focuses on helping you identify and access pre-IPO opportunities before the public listing.',
+    id: 12,
+    cat: 'technical',
+    q: 'What is ISIN and why is it required?',
+    a: 'ISIN is a unique identification number for securities, enabling demat holding, transfer, and tracking.',
   },
   {
-    id: 13, cat: 'ipo',
-    q: 'What happens to my pre-IPO shares after the company lists?',
-    a: 'Once the company lists on a stock exchange, your pre-IPO shares become listed equity shares and are freely tradeable on BSE or NSE subject to any lock-in period applicable under SEBI regulations. Typically, pre-IPO investors may be subject to a lock-in of 6 months from the date of listing. After the lock-in, you can sell your shares on the open market.',
-  },
-
-  // bonds
-  {
-    id: 14, cat: 'bonds',
-    q: 'What types of bonds are available on UnlistedEdge?',
-    a: 'We offer a curated selection of corporate bonds, Non-Convertible Debentures (NCDs), secured and unsecured debentures, and government securities. Opportunities are available across credit ratings, tenures, and yield profiles to suit different risk appetites and investment horizons.',
+    id: 13,
+    cat: 'technical',
+    q: 'Do you assist in ISIN generation?',
+    a: 'Yes, we assist with documentation, coordination with depositories/RTAs, and the dematerialisation process.',
   },
   {
-    id: 15, cat: 'bonds',
-    q: 'Are bond investments safe?',
-    a: 'Bonds are generally considered lower risk than equities, but they are not risk-free. Key risks include credit risk (the issuer\'s ability to repay), interest rate risk (bond prices move inversely to interest rates), and liquidity risk. Secured bonds backed by company assets carry lower risk compared to unsecured debentures. Always review the credit rating and issuer financials before investing.',
+    id: 14,
+    cat: 'fees',
+    q: 'Are there any charges?',
+    a: 'Yes, we may charge facilitation or service fees. All charges are communicated clearly before proceeding.',
   },
   {
-    id: 16, cat: 'bonds',
-    q: 'What returns can I expect from bonds?',
-    a: 'Bond returns depend on the type, credit rating, and tenure. Investment-grade corporate bonds typically offer yields in the range of 8%–12% per annum, while higher-yield (lower-rated) bonds may offer more but carry greater default risk. Actual returns depend on the coupon rate and your holding period. All yield figures on the platform are indicative.',
+    id: 15,
+    cat: 'liquidity',
+    q: 'Can I sell my investment anytime?',
+    a: 'Liquidity depends on market demand. Unlisted shares may not have immediate buyers and exit timelines can vary.',
   },
   {
-    id: 17, cat: 'bonds',
-    q: 'How is interest from bonds taxed in India?',
-    a: 'Interest income from bonds and NCDs is taxed as per your applicable income tax slab rate. Capital gains on sale of bonds before maturity are taxed as short-term or long-term capital gains depending on the holding period. We recommend consulting a chartered accountant for advice specific to your tax situation.',
-  },
-
-  // kyc
-  {
-    id: 18, cat: 'kyc',
-    q: 'What KYC documents are required?',
-    a: 'You will need to submit a copy of your PAN card, Aadhaar card (for address verification), a cancelled cheque or bank statement, and your DEMAT account details (DP ID and Client ID). For NRI investors, additional documents such as passport and NRE/NRO bank details are required.',
+    id: 16,
+    cat: 'security',
+    q: 'Is my money safe?',
+    a: 'Transactions are processed through standard banking and demat systems. However, investments are subject to market risks.',
   },
   {
-    id: 19, cat: 'kyc',
-    q: 'How long does KYC verification take?',
-    a: 'KYC verification is typically completed within 24–48 business hours of submitting all required documents. You will receive an email confirmation once your account is verified. If additional documents are required, our team will reach out to you directly.',
+    id: 17,
+    cat: 'security',
+    q: 'Is my personal data secure?',
+    a: 'Yes. We follow reasonable data protection practices. Refer to our Privacy Policy for details.',
   },
   {
-    id: 20, cat: 'kyc',
-    q: 'Can I invest without a DEMAT account?',
-    a: 'A DEMAT account is mandatory for investing in unlisted shares and pre-IPO opportunities as shares are held and transferred in dematerialised form through CDSL or NSDL. For bond investments, requirements may vary. If you do not have a DEMAT account, our team can guide you through opening one with a registered depository participant.',
-  },
-
-  // payments
-  {
-    id: 21, cat: 'payments',
-    q: 'What payment methods are accepted?',
-    a: 'We accept NEFT, RTGS, and IMPS bank transfers. All payments must be made directly from your verified bank account registered during KYC. We do not accept cash, third-party payments, or cryptocurrency. Payment details are provided at the time of transaction confirmation.',
+    id: 18,
+    cat: 'general',
+    q: 'Do you work with third parties?',
+    a: 'Yes, we work with KYC agencies, payment processors, and technology providers where necessary.',
   },
   {
-    id: 22, cat: 'payments',
-    q: 'What is the refund policy?',
-    a: 'All subscriptions, advisory service fees, and platform charges are non-refundable once availed. For transaction payments — if a deal falls through before settlement — amounts will be refunded to your registered bank account within 5–7 business days. Please contact support@unlistededge.com for any payment-related queries.',
+    id: 19,
+    cat: 'general',
+    q: 'Who should invest through PlanMoney?',
+    a: 'Investors who understand financial risks, seek alternative opportunities, and are willing to make informed decisions.',
   },
   {
-    id: 23, cat: 'payments',
-    q: 'How are my funds kept safe?',
-    a: 'Client funds are held in designated accounts and are not commingled with company operational funds. All transactions are conducted via regulated banking channels. Our platform uses SSL/TLS encryption for all data transmissions. We do not store your full bank account or card details on our servers.',
+    id: 20,
+    cat: 'onboarding',
+    q: 'How can I get started?',
+    a: 'Contact us via phone/email, submit your details on the website, and connect with our team for onboarding.',
+  },
+  {
+    id: 21,
+    cat: 'contact',
+    q: 'How can I contact you?',
+    a: 'Econexx Wealth Private Limited (PlanMoney), Email: team@econexxwealth.com, Phone: 8108181602, Address: Dombivali East, Thane, Maharashtra - 421204.',
   },
 ];
 
@@ -246,7 +251,7 @@ export default function FAQPage() {
                 <span className="tag-dark">Help Center</span>
                 <span className="tag-sec">
                   <span className="pulse-dot w-1.5 h-1.5 rounded-full bg-secondary-400 inline-block" />
-                  23 questions answered
+                  {FAQS.length || ''} questions answered
                 </span>
               </div>
             </AnimatedSection>
@@ -279,7 +284,7 @@ export default function FAQPage() {
           scrollbarWidth: 'none',
         }}
       >
-        <div className="max-w-7xl mx-auto flex items-center gap-2 min-w-max">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center gap-2">
           {CATEGORIES.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
@@ -295,9 +300,7 @@ export default function FAQPage() {
               >
                 {cat.label}
                 {cat.id !== 'all' && (
-                  <span
-                    className="ml-1.5 text-[.58rem] opacity-70"
-                  >
+                  <span className="ml-1.5 text-[.58rem] opacity-70">
                     {FAQS.filter((f) => f.cat === cat.id).length}
                   </span>
                 )}

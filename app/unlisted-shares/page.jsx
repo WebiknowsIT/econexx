@@ -1,5 +1,10 @@
+"use client";
 
 import "@/styles/unlisted.css";
+
+// import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { fetchUnlistedShares } from "@/store/action/unlistedShareActions";
 
 import HeroDark from "./HeroDark";
 import MarketMarquee from "@/components/MarketMarquee";
@@ -11,6 +16,18 @@ import Testimonials from "@/components/Home/Testimonials";
 import Newsletter from "./Newsletter";
 
 export default function UnlistedShares() {
+
+//   const dispatch = useDispatch();
+//   const { unlistedShares, loading } = useSelector((state) => state.unlistedShares);
+
+//   useEffect(() => {
+//     dispatch(fetchUnlistedShares({ page: 1 }));
+//   }, [dispatch]);
+
+//   if (loading) return <p>Loading...</p>;
+
+//   console.log("unlistedShares", unlistedShares);
+  
 
     const econexxFaqs = [
         {

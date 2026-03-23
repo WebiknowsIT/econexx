@@ -1,6 +1,5 @@
 export let BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-
 export let ROOT = "/"
 export let LOGIN = "/login"
 export let REGISTER = "/register"

@@ -7,6 +7,8 @@ import "./../styles/styles.scss";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
+import { ReduxProvider } from "@/store/provider";
+
 // Poppins font (same as your HTML)
 const poppins = Poppins({
   subsets: ["latin"],
@@ -19,15 +21,21 @@ export const metadata = {
   title: "EconexxWealth | Premium Pre-IPO & Unlisted Share Trading ",
   description:
     "India's most trusted platform for buying and selling unlisted shares, Pre-IPO stocks, and ESOPs. Experience transparency and expert guidance.",
+    robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.variable} antialiased`}>
+        <ReduxProvider>
          <Header />
           {children}
          <Footer />
+         </ReduxProvider>
       </body>
     </html>
   );

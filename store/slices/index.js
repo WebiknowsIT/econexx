@@ -15,14 +15,16 @@ import clientReducer from "./clientSlice";
 import contactReducer from "./contactSlice";
 import testimonialReducer from "./testimonialSlice";
 import servicesReducer from "./servicesSlice";
+import unlistedShareReducer from "./unlistedShareSlice";
 
 const appReducer = combineReducers({
   home: homeReducer,
-  blog: blogReducer,
-  client: clientReducer,
-  contact: contactReducer,
-  testimonials: testimonialReducer,
-  services: servicesReducer,
+  unlistedShares: unlistedShareReducer,
+  // blog: blogReducer,
+  // client: clientReducer,
+  // contact: contactReducer,
+  // testimonials: testimonialReducer,
+  // services: servicesReducer,
   global: globalReducer,
   //company: companyReducer,
   //productDetails: productDetailsReducer,

@@ -43,9 +43,9 @@ export default function ExpertiseSection() {
                 style={{ borderRadius: 28, height: 480 }}
               >
                 <img
-                  src="images/hm-abt.png"
+                  src="images/EnduringWealth.jpg"
                   alt="Financial Advisor"
-                  className="object-cover w-full fit-cover"
+                  className="object-cover w-full h-full fit-cover"
                   style={{ borderRadius: 28 }}
                 />
 
