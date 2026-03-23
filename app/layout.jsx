@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 import { ReduxProvider } from "@/store/provider";
+import AppInitializer from "./_init/AppInitializer";
 
 // Poppins font (same as your HTML)
 const poppins = Poppins({
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.variable} antialiased`}>
         <ReduxProvider>
+          <AppInitializer /> 
          <Header />
           {children}
          <Footer />

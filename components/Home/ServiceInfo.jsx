@@ -166,25 +166,25 @@ const ServiceInfo = () => {
         { name: "Shivalik", rate: "9.11% pa", logo: "/images/partners/shivalik.png" },
       ],
     },
-    {
-      id: 3,
-      color: "blue",
-      title: "Pre-IPO Consultancy",
-      subtitle: "Strategic IPO Investment Advisory",
-      description:
-        "Navigate IPO investments with confidence. Our advisory team provides in-depth analysis, risk assessment, and application support for upcoming public offerings.",
-      features: [
-        "IPO research & ratings",
-        "Application assistance",
-        "Portfolio positioning advice",
-        "Market timing insights",
-      ],
-      cta: "Book IPO Consultation",
-      ctaLink: "/contact-us",
-      bgGradient: "from-white to-gray-50",
-      accentColor: "text-secondary-500",
-      buttonVariant: "se",
-    },
+    // {
+    //   id: 3,
+    //   color: "blue",
+    //   title: "Pre-IPO Consultancy",
+    //   subtitle: "Strategic IPO Investment Advisory",
+    //   description:
+    //     "Navigate IPO investments with confidence. Our advisory team provides in-depth analysis, risk assessment, and application support for upcoming public offerings.",
+    //   features: [
+    //     "IPO research & ratings",
+    //     "Application assistance",
+    //     "Portfolio positioning advice",
+    //     "Market timing insights",
+    //   ],
+    //   cta: "Book IPO Consultation",
+    //   ctaLink: "/contact-us",
+    //   bgGradient: "from-white to-gray-50",
+    //   accentColor: "text-secondary-500",
+    //   buttonVariant: "se",
+    // },
   ];
 
   return (

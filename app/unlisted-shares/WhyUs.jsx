@@ -24,7 +24,7 @@ const advantages = [
     icon: Zap,
     title: "Fast Settlement",
     description:
-      "Shares transferred to your demat within 2–3 business days. No delays, no hidden wait times.",
+      "Shares transferred to your demat T+3 days. Can go upto 07 days for certain stocks.",
   },
   {
     icon: FileBarChart,

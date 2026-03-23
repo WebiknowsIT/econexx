@@ -1,54 +1,70 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCompany } from "../action/companyActions";
-
+import { fetchCompany, fetchFooter } from "../action/companyActions";
 
 const initialState = {
-  companyDetails: null,
-  footerCopyright: '',
-  loading: false,
+  header: null,
+  footer: null,
+
+  headerStatus: "idle",   // idle | loading | succeeded | failed
+  footerStatus: "idle",
+
   error: null,
-  lastFetchedAt: null,
 };
 
 const companySlice = createSlice({
-  name: 'company',
+  name: "company",
   initialState,
   reducers: {
-    setCompany(state, action) {
-      const { company, footerText } = action.payload || {};
-      if (companyDetails !== undefined) state.companyDetails = company;
-      if (footerCopyright !== undefined) state.footerCopyright = footerText;
-      state.error = null;
-    },
     clearCompany(state) {
-      state.company = null;
-      state.footerCopyright = '';
+      state.header = null;
+      state.footer = null;
+
+      state.headerStatus = "idle";
+      state.footerStatus = "idle";
+
       state.error = null;
-      state.loading = false;
-      state.lastFetchedAt = null;
     },
   },
   extraReducers: (builder) => {
     builder
+
+      // =========================
+      // ✅ HEADER (fetchCompany)
+      // =========================
       .addCase(fetchCompany.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.headerStatus = "loading";
       })
       .addCase(fetchCompany.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-        state.companyDetails = action.payload?.data?.company_details;
-        state.footerCopyright = action.payload?.data?.footer_text;
-        //state.lastFetchedAt = Date.now();
+        state.headerStatus = "succeeded";
+        state.header = action.payload || null;
       })
       .addCase(fetchCompany.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message || 'Something went wrong';
+        state.headerStatus = "failed";
+        state.error =
+          action.payload?.message ||
+          action.error?.message ||
+          "Failed to load header";
+      })
+
+      // =========================
+      // ✅ FOOTER (fetchFooter)
+      // =========================
+      .addCase(fetchFooter.pending, (state) => {
+        state.footerStatus = "loading";
+      })
+      .addCase(fetchFooter.fulfilled, (state, action) => {
+        state.footerStatus = "succeeded";
+        state.footer = action.payload || null;
+      })
+      .addCase(fetchFooter.rejected, (state, action) => {
+        state.footerStatus = "failed";
+        state.error =
+          action.payload?.message ||
+          action.error?.message ||
+          "Failed to load footer";
       });
   },
 });
 
-export const { setCompany, clearCompany } = companySlice.actions;
+export const { clearCompany } = companySlice.actions;
 export default companySlice.reducer;
-
-

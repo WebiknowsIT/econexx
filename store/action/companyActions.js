@@ -1,39 +1,68 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { request } from "@/services/Request";
 import * as url from "@/utils/Url";
 
-// ----------------------------
-// Generic API Client
-// ----------------------------
+import { request } from "@/services/Request";
+
+// API Instance
 const API = request(url.BASE_URL);
 
-// ----------------------------
-// Helper: Normalize Errors
-// ----------------------------
-const handleError = (error, fallback = "Something went wrong") =>
-  error?.response?.data?.message || error?.message || fallback;
-
 // ============================
-// ✅ Fetch Company / Common Data
+// ✅ Fetch Company / Footer Data
+// ============================
+// ============================
+// ✅ Fetch Company / Header Data
 // ============================
 export const fetchCompany = createAsyncThunk(
   "company/fetchCompany",
   async (_, { rejectWithValue }) => {
     try {
-      const data  = await API.get("/api/homepage");
-      
-      if (!data?.status) {
+      const data = await API.get("/api/header");
+
+      // ✅ Optional: if your API sends { status: false }
+      // if (data?.status === false) {
+      //   return rejectWithValue({
+      //     message: data?.message || "API returned status=false",
+      //   });
+      // }
+      if (!data) {
         return rejectWithValue({
-          message: "API returned status=false",
-          data,
+          message: "No footer data received",
         });
       }
-      // const { company_details, footer_text } = data.data || {};
-      return data; 
 
-    } catch (err) {
+      return data;
+
+    } catch (error) {
       return rejectWithValue({
-        message: handleError(err, "Network error"),
+        message: error?.message || "Something went wrong",
+        data: error?.data || null,
+      });
+    }
+  }
+);
+
+
+// ============================
+// ✅ Fetch Footer Data
+// ============================
+export const fetchFooter = createAsyncThunk(
+  "company/fetchFooter",
+  async (_, { rejectWithValue }) => {
+    try {
+      const data = await API.get("/api/footer");
+
+      if (!data) {
+        return rejectWithValue({
+          message: "No footer data received",
+        });
+      }
+
+      return data;
+
+    } catch (error) {
+      return rejectWithValue({
+        message: error?.message || "Failed to fetch footer",
+        data: error?.data || null,
       });
     }
   }

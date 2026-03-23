@@ -7,9 +7,10 @@ import AnimatedSection from '@/components/AnimatedSection';
 
 const PILLS = [
   { label: 'Corporate Bonds', color: 'orange' },
-  { label: 'Unlisted Shares', color: 'purple' },
-  { label: 'Pre-IPO Access',  color: 'orange' },
-  { label: 'SEBI Compliant',  color: 'purple' },
+  { label: 'Government Bonds', color: 'purple' },
+  { label: 'Unlisted Shares', color: 'orange' },
+  { label: 'ISIN Support',  color: 'purple' },
+  { label: 'SEBI Compliant',  color: 'orange' },
 ];
 
 // ─── RENDER FUNCTION ──────────────────────────────────────────────────────────

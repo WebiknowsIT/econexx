@@ -6,12 +6,12 @@ import {
   IndianRupee, Calendar, Flag, Layers, Star, Zap, Lock, Wallet,
   Target, Search, BarChart2, CalendarCheck, UserCheck, CreditCard,
   Smile, Send, User, Phone, Mail, Briefcase, MessageCircle,
-  Check, PlayCircle, ArrowRightCircle, FileText,
-  ChevronRight,
+  Check, PlayCircle, ArrowRightCircle, FileText, ClipboardCheck
 } from 'lucide-react';
 
 import AnimatedSection from '@/components/AnimatedSection';
 import SectionTitle from "@/components/SectionTitle";
+import Button from "@/components/ui/Button";
 import '@/styles/Bondspage.css';
 
 /* ─────────────────────────────────────────────
@@ -177,14 +177,10 @@ function BondCard({ bond }) {
           <div className={isHot ? 'fillBarHot' : 'fillBar'} style={{ width: `${bond.sub}%` }} />
         </div>
 
-        {/* CTA */}
-        <button
-          className={`btnCta w-full py-3 rounded-xl text-sm justify-center`}
-          style={{ width: '100%', padding: '0.75rem', borderRadius: '0.75rem', fontSize: '0.875rem', justifyContent: 'center' }}
-        >
+        <Button href="#BuyABond" variant="secondary" className="px-9 py-4 text-base w-full">
           {bond.featured ? <ArrowRightCircle size={14} /> : <FileText size={14} />}
-          Apply Now
-        </button>
+          Buy Now
+        </Button>
       </div>
     </div>
   );
@@ -307,6 +303,88 @@ export default function BondsPage() {
               </button>
             </div>
           </div>
+        </div>
+      </section>
+    );
+  }
+  
+  function HowItWorks() {
+
+    const steps = [
+  {
+    number: "01",
+    icon: Search,
+    title: "Create Your Account",
+    description:
+      "Register quickly and set up your profile securely to begin your investment journey.",
+  },
+  {
+    number: "02",
+    icon: ClipboardCheck,
+    title: "Complete Your KYC",
+    description:
+      "Verify your identity with PAN and Aadhaar to unlock full access to the platform.",
+  },
+  {
+    number: "03",
+    icon: Wallet,
+    title: "Explore Bond Options",
+    description:
+      "Browse curated corporate and government bonds based on your goals and risk profile.",
+  },
+  {
+    number: "04",
+    icon: BarChart2,
+    title: "Invest and Track Easily",
+    description:
+      "Invest securely and monitor your bond portfolio directly from your dashboard.",
+  },
+];
+
+    return (
+      <section
+        id="how"
+        className="bg-purple-50 px-6 lg:px-16 py-24"
+      >
+        <div className="max-w-7xl mx-auto">
+  
+          <SectionTitle
+            eyebrow="Process"
+            title="How It Works"
+            description="A seamless four-step journey—from registration to investing in corporate and government bonds across India."
+          />
+  
+          {/* Steps Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-primary-100">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+  
+              return (
+                <AnimatedSection
+                  key={step.number}
+                  delay={0.4 + index * 0.1}
+                  y={50}
+                >
+                  <div className="bg-white px-8 py-10 h-full hover:shadow-xl transition-all duration-300 group">
+                    <div className="font-serif text-7xl font-bold text-primary-100 leading-none mb-6 select-none">
+                      {step.number}
+                    </div>
+                    <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center mb-5 group-hover:bg-primary-200 transition">
+                      <Icon className="w-5 h-5 text-primary-600" />
+                    </div>
+                    <h3 className="font-semibold text-lg text-gray-900 mb-3">
+                      {step.title}
+                    </h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">
+                      {step.description}
+                    </p>
+  
+                  </div>
+                </AnimatedSection>
+              );
+            })}
+          </div>
+  
         </div>
       </section>
     );
@@ -655,14 +733,14 @@ export default function BondsPage() {
 
   function renderBondsApply() {
     return (
-      <section id="bonds-apply" className="sectionAlt relative overflow-hidden py-24 px-6">
+      <section id="BuyABond" className="sectionAlt relative overflow-hidden py-24 px-6">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_50%,rgba(122,61,154,.04)_0%,transparent_70%)]"></div>
         <div className="max-w-2xl mx-auto relative z-10">
           <AnimatedSection delay={0.1} y={30}>
             <SectionTitle
               align="center"
               eyebrow="Start Investing"
-              title=" Apply for a Bond"
+              title="Buy a Bond"
               description="Express interest and our team will reach out within 4 business hours."
             />
           </AnimatedSection>
@@ -720,9 +798,9 @@ export default function BondsPage() {
                   />
                 </div>
 
-                <button className="btnCta w-full p-4 rounded-xl text-base justify-center">
+                <Button variant="secondary" className="px-9 py-4 text-base w-full">
                   <Send size={16} /> Submit Application
-                </button>
+                </Button>
 
                 <div className="flex items-center justify-center gap-6 mt-5 text-xs text-[#9A5FB5]">
                   <span className="flex items-center gap-1.5">
@@ -749,6 +827,7 @@ export default function BondsPage() {
   return (
     <div className='text-[#1a1025]'>
       {renderBondsHero()}
+      {HowItWorks()}
       {renderBondsList()}
       {renderBondsBenefits()}
       {renderBondsFeatures()}

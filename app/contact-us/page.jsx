@@ -29,8 +29,8 @@ const HERO_DATA = {
     { Icon: UserCheck,   text: 'Speak directly with a',  highlight: 'senior advisor'    },
   ],
   stats: [
-    { value: '8,500+', label: 'Happy Investors' },
-    { value: '<24h',   label: 'Response Time'   },
+    { value: '600+', label: 'Happy Investors' },
+    { value: '< 25  Mins',   label: 'Response Time'   },
   ],
 };
 
@@ -57,7 +57,7 @@ const SIDEBAR_DATA = {
   office: {
     name:    'Headquarters',
     city:    'Mumbai, India',
-    address: ['Level 12,', 'Bandra Kurla Complex,', 'Mumbai – 400 051, Maharashtra'],
+    address: ['Registered Address: 09,', 'Swami Samarth Krupa, Taloja By Pass,', 'Near Hotel Nisarg, Dombivali East, Thane, Maharashtra - 421204'],
   },
   hours: [
     { day: 'Monday – Friday', time: '9:00 AM – 7:00 PM' },
@@ -223,32 +223,20 @@ function renderHero() {
                   <Phone className="w-4 h-4 text-secondary-400" />
                   <span className="text-primary-400 text-xs uppercase tracking-widest">Helpline</span>
                 </div>
-                <div className="text-2xl font-bold text-primary-50">+91 98765 43210</div>
+                <div className="text-2xl font-bold text-primary-50">+91 8108181602</div>
                 <div className="text-primary-500 text-xs mt-1">Mon–Sat · 9 AM – 7 PM IST</div>
               </div>
 
               <div
-                className="p-5 rounded-[.875rem]"
+                className="col-span-2 p-5 rounded-[.875rem]"
                 style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(182,138,204,.1)' }}
               >
-                <div className="flex items-center gap-2 mb-2">
-                  <Mail className="w-4 h-4 text-secondary-400" />
+                <div className="flex items-center gap-3 mb-2">
+                  <Phone className="w-4 h-4 text-secondary-400" />
                   <span className="text-primary-400 text-xs uppercase tracking-widest">Email</span>
                 </div>
-                <div className="font-semibold text-primary-100 text-sm">hello@unlistededge.com</div>
+                <div className="text-2xl font-bold text-primary-50">team@econexxwealth.com</div>
                 <div className="text-primary-500 text-xs mt-1">General enquiries</div>
-              </div>
-
-              <div
-                className="p-5 rounded-[.875rem]"
-                style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(182,138,204,.1)' }}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <Headphones className="w-4 h-4 text-secondary-400" />
-                  <span className="text-primary-400 text-xs uppercase tracking-widest">Support</span>
-                </div>
-                <div className="font-semibold text-primary-100 text-sm">support@unlistededge.com</div>
-                <div className="text-primary-500 text-xs mt-1">Existing investors</div>
               </div>
 
               {HERO_DATA.stats.map((s) => (

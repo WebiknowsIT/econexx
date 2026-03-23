@@ -26,7 +26,9 @@ export function request(baseUrl) {
     withCredentials: false,
   });
 
-  // ✅ Request Interceptor (attach token)
+  // ============================
+  // ✅ REQUEST INTERCEPTOR
+  // ============================
   request.interceptors.request.use((config) => {
     const userInfo = getLocalStorageItem("user-info", {});
     const token = userInfo?.token;
@@ -40,25 +42,26 @@ export function request(baseUrl) {
     return config;
   });
 
-  // ✅ Response Interceptor
+  // ============================
+  // ✅ RESPONSE INTERCEPTOR
+  // ============================
   request.interceptors.response.use(
     (response) => {
-      if (response?.data?.data) {
-        response.data = response.data.data;
-      }
-      return response;
+      return response.data;
     },
+
     async (error) => {
-      let message = "Oops, something went wrong at our end.";
+      let message = "Oops, something went wrong.";
       let data = null;
 
-      // ✅ Network error
+      // ❌ Network error
       if (!error.response) {
         if (error.code === "ECONNABORTED") {
-          message = "Network timeout, please try again.";
+          message = "Request timeout. Please try again.";
         } else {
-          message = "Unable to connect to the server.";
+          message = "Unable to connect to server.";
         }
+
         return Promise.reject({ status: "error", message, data });
       }
 
@@ -68,15 +71,17 @@ export function request(baseUrl) {
       data = errData;
       message = errData?.message || message;
 
-      // ✅ Handle 401 refresh token logic
+      // ============================
+      // 🔐 TOKEN REFRESH
+      // ============================
       if (status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
 
         const userInfo = getLocalStorageItem("user-info", {});
-        const refreshToken = userInfo?.token;
+        const refreshToken = userInfo?.refresh_token; // ✅ FIXED
 
-        // ❌ If no refresh token, logout
         if (!refreshToken) {
+          localStorage.removeItem("user-info");
           return Promise.reject({
             status: "error",
             message: "Session expired. Please login again.",
@@ -84,14 +89,14 @@ export function request(baseUrl) {
           });
         }
 
-        // ✅ If refresh already running, wait in queue
+        // ⏳ Queue system
         if (isRefreshing) {
           return new Promise((resolve, reject) => {
             failedQueue.push({ resolve, reject });
           })
             .then((newToken) => {
               originalRequest.headers.Authorization = `Bearer ${newToken}`;
-              return request(originalRequest);
+              return axios(originalRequest); // ✅ FIXED
             })
             .catch((err) => Promise.reject(err));
         }
@@ -99,16 +104,13 @@ export function request(baseUrl) {
         isRefreshing = true;
 
         try {
-          // ✅ Call refresh token API using NORMAL axios (not request instance)
           const refreshResponse = await axios.post(
             `${baseUrl || url.BASE_URL}/api/v1/student/refresh-token`,
             { refresh_token: refreshToken },
             {
-              //headers: { "Content-Type": "application/json" },
               headers: {
-                Authorization: `Bearer ${refreshToken}`, // refresh token
+                Authorization: `Bearer ${refreshToken}`,
               },
-              
             }
           );
 
@@ -117,23 +119,28 @@ export function request(baseUrl) {
             refreshResponse?.data?.token;
 
           if (!newToken) {
-            throw new Error("Refresh token API did not return token");
+            throw new Error("No token returned");
           }
 
-          // ✅ Update localStorage
-          const updatedUserInfo = { ...userInfo, token: newToken };
-          setLocalStorageItem("user-info", updatedUserInfo);
+          // ✅ Save new token
+          const updatedUser = {
+            ...userInfo,
+            token: newToken,
+          };
+          setLocalStorageItem("user-info", updatedUser);
 
-          // ✅ Update default header for next requests
+          // ✅ Update default header
           request.defaults.headers.common.Authorization = `Bearer ${newToken}`;
 
           processQueue(null, newToken);
 
-          // ✅ Retry original request
+          // 🔁 Retry request
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
-          return request(originalRequest);
+          return axios(originalRequest); // ✅ FIXED
         } catch (err) {
           processQueue(err, null);
+
+          localStorage.removeItem("user-info");
 
           return Promise.reject({
             status: "error",
@@ -145,14 +152,20 @@ export function request(baseUrl) {
         }
       }
 
-      // ✅ Your old error formatting
-      if (status === 500 && message === "No message available") {
+      // ============================
+      // ❗ ERROR HANDLING
+      // ============================
+      if (status === 500) {
         message = "Internal Server Error. Please try again later.";
       } else if (errData?.description) {
         message = errData.description;
       }
 
-      return Promise.reject({ status: "error", message, data });
+      return Promise.reject({
+        status: "error",
+        message,
+        data,
+      });
     }
   );
 

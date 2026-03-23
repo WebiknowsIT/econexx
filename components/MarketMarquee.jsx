@@ -1,65 +1,58 @@
+"use client";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+
+import "swiper/css";
+
 export default function MarketMarquee() {
+  const items = [
+    { name: "NSE India", price: "₹1,950", change: "+1.3%", positive: true },
+    { name: "CSK Unlisted", price: "₹206", change: "-2.8%" },
+    { name: "OYO Stays", price: "₹27", change: "-3.5%" },
+    { name: "HDB Finance", price: "₹1,120", change: "+0.8%", positive: true },
+    { name: "Swiggy Pre-IPO", price: "₹455", change: "+2.1%", positive: true },
+    { name: "CSK Unlisted", price: "₹206", change: "-2.8%" },
+    { name: "OYO Stays", price: "₹27", change: "-3.5%" },
+    { name: "OYO Stays", price: "₹27", change: "-3.5%" },
+    { name: "HDB Finance", price: "₹1,120", change: "+0.8%", positive: true },
+    { name: "Swiggy Pre-IPO", price: "₹455", change: "+2.1%", positive: true },
+  ];
+
   return (
     <section className="border-y border-white/10 bg-primary/5 py-4 overflow-hidden">
-      <div className="relative">
-        <div className="flex w-max gap-12 items-center animate-marquee whitespace-nowrap">
+      
+      <Swiper
+        modules={[Autoplay]}
+        slidesPerView="auto"
+        spaceBetween={30}
+        loop={true}
+        speed={4000} 
+        allowTouchMove={false}
+        autoplay={{
+          delay: 0,
+          disableOnInteraction: false,
+        }}
+        className="marquee-swiper"
+      >
+        {[...items, ...items].map((item, i) => (
+          <SwiperSlide key={i} className="!w-auto">
+            <MarqueeItem {...item} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-          {/* ITEM */}
-          <MarqueeItem
-            name="NSE India"
-            price="₹1,950"
-            change="+1.3%"
-            positive
-          />
-
-          <MarqueeItem
-            name="CSK Unlisted"
-            price="₹206"
-            change="-2.8%"
-          />
-
-          <MarqueeItem
-            name="OYO Stays"
-            price="₹27"
-            change="-3.5%"
-          />
-
-          <MarqueeItem
-            name="HDB Finance"
-            price="₹1,120"
-            change="+0.8%"
-            positive
-          />
-
-          <MarqueeItem
-            name="Swiggy Pre-IPO"
-            price="₹455"
-            change="+2.1%"
-            positive
-          />
-
-          {/* DUPLICATE FOR SEAMLESS LOOP */}
-          <MarqueeItem
-            name="NSE India"
-            price="₹1,950"
-            change="+1.3%"
-            positive
-          />
-
-          <MarqueeItem
-            name="CSK Unlisted"
-            price="₹206"
-            change="-2.8%"
-          />
-
-        </div>
-      </div>
+      <style jsx global>{`
+        .marquee-swiper .swiper-wrapper {
+          transition-timing-function: linear !important;
+        }
+      `}</style>
     </section>
   );
 }
 
 /* ---------------------------------- */
-/* Reusable item */
+/* Marquee Item */
 /* ---------------------------------- */
 
 function MarqueeItem({ name, price, change, positive }) {
@@ -69,11 +62,7 @@ function MarqueeItem({ name, price, change, positive }) {
         {name}
       </span>
 
-      <span
-        className={
-          positive ? "text-primary-400" : "text-rose-400"
-        }
-      >
+      <span className={positive ? "text-primary-400" : "text-rose-400"}>
         {price}
       </span>
 
