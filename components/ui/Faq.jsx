@@ -5,8 +5,7 @@ import SectionTitle from "@/components/SectionTitle";
 import { ChevronDown } from "lucide-react";
 
 const FAQ = ({ 
-  title = "Frequently Asked", 
-  highlightedTitle = "Questions",
+  title = "Frequently Asked Questions", 
   subtitle = "Everything you need to know.",
   data = [] 
 }) => {
@@ -24,7 +23,7 @@ const FAQ = ({
         <SectionTitle
           align="center"
           eyebrow="FAQs"
-          title={`${title} ${highlightedTitle}`}
+          title={`${title}`}
           description={subtitle}
         />
 

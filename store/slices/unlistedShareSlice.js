@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {fetchUnlistedShares,fetchUnlistedShareById,} from "@/store/action/unlistedShareActions";
+import {
+  fetchUnlistedLanding,
+  fetchUnlistedShares,
+  fetchUnlistedShareById,
+} from "@/store/action/unlistedShareActions";
 
 const initialState = {
+  unlistedLanding: null,
   unlistedShares: [],
   unlistedShareDetails: null,
 
@@ -12,7 +17,11 @@ const initialState = {
     per_page: 10,
   },
 
-  loading: false,
+  // ✅ separate statuses
+  landingStatus: "idle",
+  listStatus: "idle",
+  detailsStatus: "idle",
+
   error: null,
 };
 
@@ -22,54 +31,77 @@ const unlistedShareSlice = createSlice({
   reducers: {
     clearUnlistedShareDetails: (state) => {
       state.unlistedShareDetails = null;
+      state.detailsStatus = "idle";
     },
   },
   extraReducers: (builder) => {
     builder
 
-      // ----------------------------
-      // Fetch List
-      // ----------------------------
+      // =========================
+      // ✅ LANDING (FULL DATA)
+      // =========================
+      .addCase(fetchUnlistedLanding.pending, (state) => {
+        state.landingStatus = "loading";
+      })
+
+      .addCase(fetchUnlistedLanding.fulfilled, (state, action) => {
+        state.landingStatus = "succeeded";
+        state.unlistedLanding = action.payload || null;
+      })
+
+      .addCase(fetchUnlistedLanding.rejected, (state, action) => {
+        state.landingStatus = "failed";
+        state.error = action.payload?.message || action.error?.message || "Failed to load landing";
+      })
+
+      // =========================
+      // ✅ LIST
+      // =========================
       .addCase(fetchUnlistedShares.pending, (state) => {
-        state.loading = true;
+        state.listStatus = "loading";
         state.error = null;
       })
+
       .addCase(fetchUnlistedShares.fulfilled, (state, action) => {
-        state.loading = false;
+        state.listStatus = "succeeded";
 
         const payload = action.payload;
 
-        state.unlistedShares = payload.data;
+        state.unlistedShares = payload?.data || [];
 
         state.pagination = {
-          current_page: payload.current_page,
-          last_page: payload.last_page,
-          total: payload.total,
-          per_page: payload.per_page,
+          current_page: payload?.current_page || 1,
+          last_page: payload?.last_page || 1,
+          total: payload?.total || 0,
+          per_page: payload?.per_page || 10,
         };
       })
+
       .addCase(fetchUnlistedShares.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message || "Something went wrong";
+        state.listStatus = "failed";
+        state.error =
+          action.payload?.message || "Failed to load shares";
       })
 
-      // ----------------------------
-      // Fetch Details
-      // ----------------------------
+      // =========================
+      // ✅ DETAILS
+      // =========================
       .addCase(fetchUnlistedShareById.pending, (state) => {
-        state.loading = true;
+        state.detailsStatus = "loading";
       })
+
       .addCase(fetchUnlistedShareById.fulfilled, (state, action) => {
-        state.loading = false;
-        state.unlistedShareDetails = action.payload;
+        state.detailsStatus = "succeeded";
+        state.unlistedShareDetails = action.payload || null;
       })
+
       .addCase(fetchUnlistedShareById.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload?.message;
+        state.detailsStatus = "failed";
+        state.error =
+          action.payload?.message || "Failed to load details";
       });
   },
 });
 
 export const { clearUnlistedShareDetails } = unlistedShareSlice.actions;
-
 export default unlistedShareSlice.reducer;

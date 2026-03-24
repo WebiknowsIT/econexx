@@ -1,73 +1,23 @@
 "use client";
-import {
-  ShieldCheck,
-  Zap,
-  FileBarChart,
-  UserCheck,
-  Headphones,
-  Star,
-} from "lucide-react";
 
 import AnimatedSection from "@/components/AnimatedSection";
 import SectionTitle from "@/components/SectionTitle";
+import { getIcon } from "@/utils/iconMap";
 
-
-
-const advantages = [
-  {
-    icon: ShieldCheck,
-    title: "SEBI Compliant",
-    description:
-      "All transactions are fully compliant with SEBI regulations. Your investments are secured with proper legal documentation.",
-  },
-  {
-    icon: Zap,
-    title: "Fast Settlement",
-    description:
-      "Shares transferred to your demat T+3 days. Can go upto 07 days for certain stocks.",
-  },
-  {
-    icon: FileBarChart,
-    title: "Deep Research",
-    description:
-      "Every company comes with analyst reports, valuation models, and risk ratings so you invest with full confidence.",
-  },
-  {
-    icon: UserCheck,
-    title: "Verified Sellers",
-    description:
-      "We rigorously verify every seller's demat holdings before listing — zero fraud risk for buyers.",
-  },
-  {
-    icon: Headphones,
-    title: "Dedicated Support",
-    description:
-      "One-on-one relationship managers available Mon–Sat for personalized guidance on every investment decision.",
-  },
-  {
-    icon: Star,
-    title: "Exclusive Access",
-    description:
-      "Get early access to pre-IPO rounds, ESOPs, and insider buybacks not available anywhere else.",
-  },
-];
-
-export default function WhyChoose() {
+export default function WhyChoose({data}) {
   return (
     <section id="why" className="bg-purple-50 px-6 lg:px-16 py-24">
       <div className="max-w-7xl mx-auto">
         <SectionTitle
           eyebrow="Advantages"
-          title="Why Choose Econexx?"
-          description="We're not just a marketplace — we're your trusted partner in
-            unlisted market intelligence."
+          title={data?.title}
+          description={data?.subtitle}
         />
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {advantages.map((item, index) => {
-            const Icon = item.icon;
-
+          {data?.items.map((item, index) => {
+            const Icon = getIcon(item.icon);
             return (
               <AnimatedSection
                 key={item.title}

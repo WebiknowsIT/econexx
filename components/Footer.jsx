@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, Phone, Mail, ArrowRight, TrendingUp, Shield } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
-import PageLoader from '@/components/PageLoader';
 import { useSelector } from "react-redux";
 
 
@@ -45,28 +44,19 @@ export default function Footer() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
-  const SOCIALS = [
-    {
-      label: 'LinkedIn',
-      href: footer?.social?.linkedin || '#',
-      paths: <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></>,
-    },
-    {
-      label: 'Twitter',
-      href: footer?.social?.twitter || '#',
-      paths: <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />,
-    },
-    {
-      label: 'Instagram',
-      href: footer?.social?.twitter || '#',
-      paths: <><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></>,
-    },
-    {
-      label: 'youtube',
-      href: footer?.social?.twitter || '#',
-      paths: <><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" /><path d="m10 15 5-3-5-3z" /></>,
-    },
-  ];
+  const SOCIAL_ICONS = {
+  linkedin: <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></>,
+  twitter:  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />,
+  instagram: <><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></>,
+  youtube:  <><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" /><path d="m10 15 5-3-5-3z" /></>,
+  facebook: <><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></>,
+};
+
+const SOCIALS = (footer?.social || []).map((s) => ({
+  label: s.label,
+  href: s.url,
+  paths: SOCIAL_ICONS[s.label.toLowerCase()] ?? null,
+})).filter((s) => s.paths);
 
 
   const renderFooterSkeleton = () => (
@@ -194,7 +184,7 @@ export default function Footer() {
                   <Image src="/images/Logo.png" alt="UnlistedEdge" height={50} width={200} priority className="w-auto h-[44px]" />
                 </div>
                 <p className="text-sm leading-relaxed mb-7 text-primary-300">
-                  {footer?.info || "India's premier gateway to private markets. We help investors discover, buy & sell unlisted shares, access high-potential pre-IPO opportunities, and grow wealth through curated bonds — all in one transparent platform. SEBI compliant, expert-backed, and trusted by 50,000+ investors across India."}
+                  {footer?.site_info?.info || "India's premier gateway to private markets. We help investors discover, buy & sell unlisted shares, access high-potential pre-IPO opportunities, and grow wealth through curated bonds — all in one transparent platform. SEBI compliant, expert-backed, and trusted by 50,000+ investors across India."}
                 </p>
               </div>
             </AnimatedSection>
@@ -231,16 +221,16 @@ export default function Footer() {
                   <div className="space-y-2.5 mb-7">
                     <div className="flex items-start gap-2.5 text-xs text-primary-300">
                       <MapPin className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-primary-300" />
-                      <span>{footer?.office_address || "NA"}</span>
+                      <span>{footer?.site_info?.office_address || "NA"}</span>
                     </div>
 
                     <div className="flex items-start gap-2.5 text-xs text-primary-300">
                       <Phone className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-primary-300" />
-                      <span>{footer?.contact_phone || "NA"}</span>
+                      <span>{footer?.site_info?.contact_phone || "NA"}</span>
                     </div>
                     <div className="flex items-start gap-2.5 text-xs text-primary-300">
                       <Mail className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-primary-300" />
-                      <span>{footer?.contact_email || "NA"}</span>
+                      <span>{footer?.site_info?.contact_email || "NA"}</span>
                     </div>
 
 

@@ -16,14 +16,14 @@ export const fetchCompany = createAsyncThunk(
   "company/fetchCompany",
   async (_, { rejectWithValue }) => {
     try {
-      const data = await API.get("/api/header");
+      const data = await API.get("/api/header");      
 
-      // ✅ Optional: if your API sends { status: false }
-      // if (data?.status === false) {
-      //   return rejectWithValue({
-      //     message: data?.message || "API returned status=false",
-      //   });
-      // }
+      //✅ Optional: if your API sends { status: false }
+      if (!data?.success) {
+        return rejectWithValue({
+          message: data?.message || "API returned status=false",
+        });
+      }
       if (!data) {
         return rejectWithValue({
           message: "No footer data received",
@@ -51,13 +51,15 @@ export const fetchFooter = createAsyncThunk(
     try {
       const data = await API.get("/api/footer");
 
-      if (!data) {
+      console.log("/api/footer", data);
+
+      if (!data.success) {
         return rejectWithValue({
           message: "No footer data received",
         });
       }
 
-      return data;
+      return data.data;
 
     } catch (error) {
       return rejectWithValue({

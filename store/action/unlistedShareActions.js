@@ -5,6 +5,33 @@ import { request } from "@/services/Request";
 // API Instance
 const API = request(url.BASE_URL);
 
+
+// ============================
+// ✅ Fetch Unlisted Landing Page
+// ============================
+export const fetchUnlistedLanding = createAsyncThunk(
+  "unlisted/fetchLanding",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await API.get("/api/unlisted-shares/landing");
+    
+      if (!res.success) {
+        return rejectWithValue({
+          message: "No data received",
+        });
+      }
+
+      return res.data;
+
+    } catch (error) {
+      return rejectWithValue({
+        message: error?.message || "Failed to fetch landing data",
+        data: error?.data || null,
+      });
+    }
+  }
+);
+
 // ----------------------------
 // Get Unlisted Shares List
 // ----------------------------
