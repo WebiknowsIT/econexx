@@ -4,7 +4,16 @@ import { Calendar, MapPin, Users } from "lucide-react";
 import {formatAmount} from "@/utils/helper";
 
 
-export default function DetailHero({ share }) {
+export default function DetailHero({ share,data }) {
+ // console.log("share_name", data);
+  
+const tagStyles = [
+  "bg-blue-500/20 border-blue-400 text-blue-300",
+  "bg-green-500/20 border-green-400 text-green-300",
+  "bg-pink-500/20 border-pink-400 text-pink-300",
+  "bg-yellow-500/20 border-yellow-400 text-yellow-300",
+  "bg-purple-500/20 border-purple-400 text-purple-300",
+];
 
   return (
     <div className="bg-primary-900 py-10 px-6 lg:px-16 relative overflow-hidden">
@@ -21,9 +30,11 @@ export default function DetailHero({ share }) {
         <nav className="flex items-center gap-2 text-primary-400 text-xs mb-6">
           <a href="/" className="hover:text-primary-200 transition-colors">Home</a>
           <span className="text-primary-600">›</span>
-          <a href="/shares" className="hover:text-primary-200 transition-colors">Shares</a>
+          <a href="/unlisted-shares/list" className="hover:text-primary-200 transition-colors">
+          Unlisted Shares
+          </a>
           <span className="text-primary-600">›</span>
-          <span className="text-primary-300">{share.name}</span>
+          <span className="text-primary-300">{data?.share_name}</span>
         </nav>
 
         {/* Hero row */}
@@ -34,25 +45,45 @@ export default function DetailHero({ share }) {
                 height={80}
                 width={80}
                 className="h-full w-full object-contain"
-                src={share.logo ? share.logo : "/images/stocks/nse.png"}
-                alt={share.name}
+                src={data.company.logo ? data.company.logo : "/images/stocks/nse.png"}
+                alt={data.share_name}
               />
             </div>
             <div>
               <div className="flex items-center gap-3 flex-wrap mb-2">
-                <h1 className="font-bold text-white text-4xl lg:text-5xl">
-                  {share.name}
+                <h1 className="font-bold text-white text-4xl lg:text-4xl">
+                  {data?.share_name}
                 </h1>
-                <span className="text-xs bg-red-500/20 border border-red-400/30 text-red-300 px-3 py-1 rounded-full">
-                  🔥 Hot
-                </span>
-                <span className="text-xs bg-primary-700/60 border border-primary-600 text-primary-300 px-3 py-1 rounded-full">
-                  {share.sector}
-                </span>
+                <div className="flex flex-wrap gap-2">
+                  {data.is_featured && (
+                    <span className="text-xs bg-red-500/20 border border-red-400/30 text-red-300 px-3 py-1 rounded-full">
+                      🔥 Hot
+                    </span>
+                  )}
+
+                  {/* ✅ Dynamic Tags */}
+                  {data?.tags &&
+                    data.tags.split(",").map((tag, index) => {
+                      const cleanTag = tag.trim();
+
+                      // 🔥 cycle styles if more tags
+                      const style = tagStyles[index % tagStyles.length];
+
+                      return (
+                        <span
+                          key={index}
+                          className={`text-xs px-3 py-1 rounded-full border ${style}`}
+                        >
+                          {cleanTag}
+                        </span>
+                      );
+                    })}
+                </div>
               </div>
-              <p className="text-primary-300 text-sm max-w-lg leading-relaxed">
-                {share.description}
-              </p>
+                <div className="text-primary-300 text-sm max-w-lg leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: data.description }}
+                  />
+              
               <div className="flex items-center gap-4 mt-3 flex-wrap">
                 <span className="flex items-center gap-1.5 text-xs text-primary-400">
                   <MapPin className="w-4 h-4" /> {share.location}
@@ -79,7 +110,7 @@ export default function DetailHero({ share }) {
               <div className="text-xs text-primary-400 uppercase tracking-widest mb-1">
                 Current Price
               </div>
-              <div className="text-2xl font-bold text-white">{formatAmount(share.price)}</div>
+              <div className="text-2xl font-bold text-white">{formatAmount(data.current_market_price)}</div>
               <div className="text-xs text-white/70">Per Share</div>
             </div>
             <div className="w-px bg-white/10" />
@@ -91,7 +122,7 @@ export default function DetailHero({ share }) {
             <div className="w-px bg-white/10" />
             <div className="text-center">
               <div className="text-xs text-primary-400 uppercase tracking-widest mb-1">Valuation</div>
-              <div className="text-2xl font-bold text-white">{share.valuation}</div>
+              <div className="text-2xl font-bold text-white">{formatAmount(data.market_cap)}</div>
               <div className="text-xs text-white/70">{share.stage}</div>
             </div>
           </div>

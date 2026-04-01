@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { notFound } from "next/navigation";
+import { useParams } from "next/navigation";
 
 import DetailHero        from "./components/DetailHero";
 import TabBar            from "./components/TabBar";
@@ -14,10 +15,14 @@ import FinancialsTab     from "./components/tabs/FinancialsTab";
 import PriceHistoryTab   from "./components/tabs/PriceHistoryTab";
 import DocumentsTab      from "./components/tabs/DocumentsTab";
 
-
-import { razorpayData, razorpayFaqs } from "./Data";
+import PageLoader from "@/components/PageLoader";
 import FAQs from "./components/FAQs";
 
+
+import { useDispatch, useSelector } from "react-redux";
+import {fetchUnlistedShareById} from "@/store/action/unlistedShareActions";
+
+import { razorpayData, razorpayFaqs } from "./Data";
 
 const FaqData = [
     {
@@ -64,24 +69,47 @@ const FaqData = [
     },
 ];
 
-export default function page({ params }) {
+export default function page() {
+
+  const dispatch = useDispatch();
+  const params = useParams();
+  const slug = params?.slug;
+
+  const { unlistedShareDetails, detailsStatus } = useSelector((state) => state.unlistedShares);
+  //const id = params?.id;
+
+  // ✅ extract id
+  const id = slug?.split("-").pop();
 
   const [activeTab, setActiveTab] = useState("overview");
   
   const renderTab = () => {
     switch (activeTab) {
       case "overview":   return <OverviewTab     share={razorpayData} />;
-      case "FundamentalsFinancials": return <FinancialsTab   share={razorpayData} />;
-      case "price":      return <PriceHistoryTab share={razorpayData} />;
-      case "documents":  return <DocumentsTab    share={razorpayData} />;
+      case "FundamentalsFinancials": return <FinancialsTab   share={unlistedShareDetails?.financial_documents} />;
+      case "price":      return <PriceHistoryTab />;
+      case "documents":  return <DocumentsTab    share={unlistedShareDetails} />;
       case "faq":        return (<FAQs data={FaqData} />);
       default:           return null;
     }
   };
 
+   // ✅ Fetch data
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchUnlistedShareById(id));
+    }
+  }, [dispatch, id]);
+
+  console.log("unlistedShareDetails", unlistedShareDetails);
+
+  if (detailsStatus === "loading") return <PageLoader />;
+
+  if (!unlistedShareDetails) {return <p className="text-center py-10">No Data Found</p>;}
+
   return (
     <> 
-          <DetailHero share={razorpayData} />
+          <DetailHero share={razorpayData} data={unlistedShareDetails} />
           <TabBar active={activeTab} onChange={setActiveTab} />
           <div className="max-w-7xl mx-auto px-6 lg:px-16 py-10 flex flex-col lg:flex-row gap-10 items-start bg-white">
             <div className="flex-1 min-w-0">

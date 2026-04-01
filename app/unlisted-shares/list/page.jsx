@@ -1,15 +1,9 @@
 "use client";
-import { useState, useMemo, useEffect } from "react";
-
+import { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUnlistedShares } from "@/store/action/unlistedShareActions";
 
-import "@/styles/unlisted.css";
 import { Search } from "lucide-react";
-
-// import ShareCard from "./components/ShareCard";
-// import SidebarFilters from "./components/SidebarFilters";
-// import Toolbar from "./components/Toolbar";
 import PageLoader from "@/components/PageLoader";
 import PageHeader from "@/components/PageHeaderDark";
 import QuickFilterBar from "./components/QuickFilterBar";
@@ -17,91 +11,64 @@ import Input from "@/components/ui/Input/Input";
 import Pagination from "@/components/Pagination";
 import StockCard from "@/components/StockCard";
 
-import {SHARES} from "../../../utils/data";
-
-
 export default function UnlistedMarketplace() {
-
   const dispatch = useDispatch();
-  const { unlistedShares, loading } = useSelector((state) => state.unlistedShares);
+
+  const { unlistedShares, pagination, listStatus } = useSelector((state) => state.unlistedShares);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filters, setFilters] = useState({
+    search: "",
+  });
+
+  // ✅ Fetch data when page changes
+  useEffect(() => {
+    dispatch(fetchUnlistedShares({ page: currentPage }));
+  }, [dispatch, currentPage]);
 
   useEffect(() => {
-    dispatch(fetchUnlistedShares({ page: 1 }));
-  }, [dispatch]);
+    if (pagination?.current_page) {
+      setCurrentPage(pagination.current_page);
+    }
+  }, [pagination]);
 
-  console.log("unlistedShares", unlistedShares);
+  // ✅ API data
+  const sharesData = unlistedShares || [];
+
+  console.log("sharesData", unlistedShares);
 
 
-  const [search, setSearch] = useState("");
-  const [sector, setSector] = useState([]);
-  const [quickFilter, setQuickFilter] = useState("All");
-  const [sortValue, setSortValue] = useState("default");
-  const [watchlist, setWatchlist] = useState([]);
-
-  
-
-  const [filters, setFilters] = useState({
-  search: "",
-  sectors: [],
-  stages: [],
-  returnFilter: "all",
-  exclusive: false,
-  available: false,
-});
-
-const toggleWatch = (id) => {
-setWatchlist((prev) =>
-    prev.includes(id)
-    ? prev.filter((item) => item !== id)
-    : [...prev, id]
-);
-};
-
-const clearFilters = () => {
-  setFilters({
-    search: "",
-    sectors: [],
-    stages: [],
-    returnFilter: "all",
-    exclusive: false,
-    available: false,
-  });
-};
-
+  // ✅ Search filter (frontend)
   const filteredShares = useMemo(() => {
-    let result = [...SHARES];
+    console.log("sharesData:", sharesData);
+    console.log("search value:", filters.search);
 
-    if (search) {
-      result = result.filter(
-        (s) =>
-          s.name.toLowerCase().includes(search.toLowerCase()) ||
-          s.sector.toLowerCase().includes(search.toLowerCase())
+    if (!Array.isArray(sharesData) || sharesData.length === 0) {
+      return [];
+    }
+
+    const searchValue = (filters.search || "").trim().toLowerCase();
+
+    if (!searchValue) {
+      return sharesData; // ✅ should return 10 items
+    }
+
+    return sharesData.filter((s) => {
+      const shareName = s.share_name?.toLowerCase() || "";
+      const companyName = s.company_name?.toLowerCase() || "";
+
+      return (
+        shareName.includes(searchValue) ||
+        companyName.includes(searchValue)
       );
-    }
+    });
+  }, [sharesData, filters.search]);
 
-    if (sector.length > 0) {
-      result = result.filter((s) => sector.includes(s.sector));
-    }
-
-    if (sortValue === "price-asc")
-      result.sort((a, b) => a.price - b.price);
-
-    if (sortValue === "price-desc")
-      result.sort((a, b) => b.price - a.price);
-
-    if (sortValue === "return-desc")
-      result.sort((a, b) => b.return6m - a.return6m);
-
-    return result;
-  }, [search, sector, sortValue]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const perPage = 12;
-  const start = (currentPage - 1) * perPage;
-  const pageItems = filteredShares.slice(start, start + perPage);
+  console.log("search value:", filters.search);
+  console.log("filteredShares", filteredShares);
 
 
-  if (loading) return <PageLoader />;
+
+  if (listStatus == 'loading') return <PageLoader />;
 
   return (
     <>
@@ -114,88 +81,60 @@ const clearFilters = () => {
         title="Unlisted"
         highlight="Shares"
         description="Browse pre-IPO and unlisted opportunities across India’s fastest growing sectors."
-        stats={[
-          { value: "200+", label: "Companies" },
-          { value: "12K+", label: "Investors" },
-          { value: "₹480Cr", label: "Traded" },
-        ]}
       />
 
-      <QuickFilterBar
-        active={quickFilter}
-        onChange={(val) => {
-          setQuickFilter(val);
-          setCurrentPage(1);
-        }}
-      />
+      <QuickFilterBar />
 
       <div className="max-w-7xl bg-white mx-auto px-6 lg:px-16 py-8 flex gap-8">
-
-        {/* Sidebar */}
-        {/* <SidebarFilters
-        filters={filters}
-        setFilters={setFilters}
-        clearFilters={clearFilters}
-        /> */}
-
-        {/* Main Content */}
         <div className="flex-1">
-          <div className="flex items-center justify-between gap-4 pb-4 ">
+
+          {/* Top Bar */}
+          <div className="flex items-center justify-between gap-4 pb-4">
             <p className="text-sm">
               <span className="font-semibold">
-                {filteredShares.length}
-              </span>{" "}companies found
+                {pagination?.total || 0}
+              </span>{" "}
+              companies found
             </p>
-            <div className="">
-              <Input
-                type="text"
-                placeholder="Company name..."
-                value={filters.search}
-                onChange={(e) =>
-                  setFilters((prev) => ({
-                    ...prev,
-                    search: e.target.value,
-                  }))
-                }
-                className="!pr-8"
-                icon={<Search size={16} />}
-              />
-            </div>
 
-
+            <Input
+              type="text"
+              placeholder="Company name..."
+              value={filters.search}
+              onChange={(e) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  search: e.target.value,
+                }))
+              }
+              className="!pr-8"
+              icon={<Search size={16} />}
+            />
           </div>
-            {/* <Toolbar
-                totalCount={filteredShares.length}
-                sortValue={sortValue}
-                setSortValue={setSortValue}
-                view={view}
-                setView={setView}
-                onOpenDrawer={() => setIsDrawerOpen(true)}
-            /> */}
 
-          <div className={`grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-3 gap-6`}>
-            {unlistedShares.map((share) => (
+          {/* Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            {filteredShares.map((share) => (
               <StockCard
                 key={share.id}
                 id={share.id}
                 title={share.share_name}
-                category={share.risk_factors}
-                price= {share.buy_price}
-                change= "+1.3%"
-                duration= "15D"
-                badge= {share.tags}
-                logo= "/images/stocks/nse.png"
+                category={share.company_sector}
+                price={share.sell_price}
+                change={`${share.pe_ratio || 0}%`}
+                duration="15D"
+                badge={share.share_type}
+                logo="/images/stocks/nse.png"
               />
             ))}
           </div>
 
+          {/* Pagination */}
           <Pagination
-            totalItems={filteredShares.length}
-            perPage={perPage}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
+            currentPage={pagination.current_page}
+            totalPages={pagination.last_page}
+            onPageChange={(page) => setCurrentPage(page)}
           />
-
         </div>
       </div>
     </>

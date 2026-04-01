@@ -35,21 +35,40 @@ export const fetchUnlistedLanding = createAsyncThunk(
 // ----------------------------
 // Get Unlisted Shares List
 // ----------------------------
+// export const fetchUnlistedShares = createAsyncThunk(
+//   "unlistedShares/fetchUnlistedShares",
+//   async (params = {}, { rejectWithValue }) => {
+//     try {
+//       const { page = 1 } = params;
+
+//       const data = await API.get(`/api/shares?page=${page}`);
+      
+//       //console.log("data", data);
+      
+//       return data;
+//     } catch (error) {
+//       const errData = error?.data;
+//       return rejectWithValue({
+//         message: errData?.message || "Failed to fetch unlisted shares",
+//       });
+//     }
+//   }
+// );
+
 export const fetchUnlistedShares = createAsyncThunk(
   "unlistedShares/fetchUnlistedShares",
-  async (params = {}, { rejectWithValue }) => {
+  async ({ page = 1 } = {}, { rejectWithValue }) => {
     try {
-      const { page = 1 } = params;
+      const response = await API.get(`/api/shares?page=${page}`);
 
-      const data = await API.get(`/api/shares?page=${page}`);
-      
-      //console.log("data", data);
-      
-      return data;
+      // ✅ Return clean API data
+      return response;
+
     } catch (error) {
-      const errData = error?.data;
       return rejectWithValue({
-        message: errData?.message || "Failed to fetch unlisted shares",
+        message:
+          error?.response?.data?.message ||
+          "Failed to fetch unlisted shares",
       });
     }
   }
@@ -62,9 +81,9 @@ export const fetchUnlistedShareById = createAsyncThunk(
   "unlistedShares/fetchUnlistedShareById",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await API.get(`/api/shares/${id}`);
+      const response = await API.get(`/api/shares/${id}`);
 
-      return data;
+      return response;
     } catch (error) {
       const errData = error?.data;
       return rejectWithValue({

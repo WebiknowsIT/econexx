@@ -38,7 +38,7 @@ export default function FeaturedUnlistedShares({data}) {
                 change={items.price_change_percent || 'NA'}
                 duration={items.price_change_period || 'NA'}
                 badge="STABLE"
-                logo={items.image_url || "/images/stocks/nse.png"}
+                logo={items.image_url}
               />
             </AnimatedSection>
           ))}

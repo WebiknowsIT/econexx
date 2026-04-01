@@ -2,7 +2,7 @@
 import { useState } from "react";
 import ShareChartSection from "../ShareChartSection";
 
-export default function PriceHistoryTab({ share }) {
+export default function PriceHistoryTab() {
 
   return (
     <div className="space-y-8">

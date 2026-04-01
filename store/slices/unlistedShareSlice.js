@@ -17,7 +17,6 @@ const initialState = {
     per_page: 10,
   },
 
-  // ✅ separate statuses
   landingStatus: "idle",
   listStatus: "idle",
   detailsStatus: "idle",
@@ -38,7 +37,7 @@ const unlistedShareSlice = createSlice({
     builder
 
       // =========================
-      // ✅ LANDING (FULL DATA)
+      // ✅ LANDING
       // =========================
       .addCase(fetchUnlistedLanding.pending, (state) => {
         state.landingStatus = "loading";
@@ -51,11 +50,14 @@ const unlistedShareSlice = createSlice({
 
       .addCase(fetchUnlistedLanding.rejected, (state, action) => {
         state.landingStatus = "failed";
-        state.error = action.payload?.message || action.error?.message || "Failed to load landing";
+        state.error =
+          action.payload?.message ||
+          action.error?.message ||
+          "Failed to load landing";
       })
 
       // =========================
-      // ✅ LIST
+      // ✅ LIST (FIXED)
       // =========================
       .addCase(fetchUnlistedShares.pending, (state) => {
         state.listStatus = "loading";
@@ -67,13 +69,15 @@ const unlistedShareSlice = createSlice({
 
         const payload = action.payload;
 
+        // ✅ DATA
         state.unlistedShares = payload?.data || [];
 
+        // ✅ FIXED PAGINATION (IMPORTANT)
         state.pagination = {
-          current_page: payload?.current_page || 1,
-          last_page: payload?.last_page || 1,
-          total: payload?.total || 0,
-          per_page: payload?.per_page || 10,
+          current_page: payload?.pagination?.current_page || 1,
+          last_page: payload?.pagination?.last_page || 1,
+          total: payload?.pagination?.total || 0,
+          per_page: payload?.pagination?.per_page || 10,
         };
       })
 
@@ -92,7 +96,7 @@ const unlistedShareSlice = createSlice({
 
       .addCase(fetchUnlistedShareById.fulfilled, (state, action) => {
         state.detailsStatus = "succeeded";
-        state.unlistedShareDetails = action.payload || null;
+        state.unlistedShareDetails = action.payload?.data || null;
       })
 
       .addCase(fetchUnlistedShareById.rejected, (state, action) => {

@@ -1,34 +1,31 @@
 'use client';
 
-import { useState } from "react";
-
-const DATA = {
-  2022: {
-    promoters: 99.99,
-    others: 0.01,
-  },
-  2023: {
-    promoters: 98.5,
-    others: 1.5,
-  },
-  2024: {
-    promoters: 97.2,
-    others: 2.8,
-  },
-};
+import { useState, useMemo } from "react";
+import { useSelector } from "react-redux";
 
 export default function ShareholdingPattern() {
-  const [year, setYear] = useState(2022);
+  
+  const { unlistedShareDetails } = useSelector((state) => state.unlistedShares);
+  const shareholding = unlistedShareDetails?.shareholding_pattern || {};
 
-  const { promoters, others } = DATA[year];
+  // ✅ Get years dynamically
+  const years = useMemo(() => Object.keys(shareholding).sort(), [shareholding]);
+
+  // ✅ Default selected year
+  const [year, setYear] = useState(years[0]);
+
+  // ✅ Get data for selected year
+  const yearData = shareholding[year] || [];
 
   return (
     <div className="border border-slate-200 rounded-xl p-6">
       <h2 className="text-xl font-semibold mb-4">
         Shareholding Pattern
       </h2>
-      <div className="flex gap-4 mb-6">
-        {[2022, 2023, 2024].map((y) => (
+
+      {/* ✅ Year Tabs */}
+      <div className="flex gap-4 mb-6 flex-wrap">
+        {years.map((y) => (
           <button
             key={y}
             onClick={() => setYear(y)}
@@ -44,31 +41,29 @@ export default function ShareholdingPattern() {
         ))}
       </div>
 
-      <div className="mb-5">
-        <div className="flex justify-between text-sm mb-1">
-          <span className="font-medium">Promoters</span>
-          <span>{promoters}%</span>
-        </div>
-        <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-primary-500 rounded-full"
-            style={{ width: `${promoters}%` }}
-          />
-        </div>
-      </div>
+      {/* ✅ Dynamic Entities */}
+      <div className="space-y-4">
+        {yearData.map((item, index) => {
+          const percentage = Number(item.percentage) || 0;
 
-      {/* Others */}
-      <div>
-        <div className="flex justify-between text-sm mb-1">
-          <span className="font-medium">Others</span>
-          <span>{others}%</span>
-        </div>
-        <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gray-400 rounded-full"
-            style={{ width: `${others}%` }}
-          />
-        </div>
+          return (
+            <div key={index}>
+              <div className="flex justify-between text-sm mb-1">
+                <span className="font-medium">
+                  {item.entity_name}
+                </span>
+                <span>{percentage.toFixed(2)}%</span>
+              </div>
+
+              <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-primary-500 rounded-full"
+                  style={{ width: `${percentage}%` }}
+                />
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

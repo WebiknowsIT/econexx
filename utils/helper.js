@@ -73,9 +73,12 @@ export function splitText(element, type = 'chars') {
 
 
 export function filterChartData(data, range) {
+  if (!data?.length) return [];
+
   if (range === "MAX") return data;
 
-  const now = new Date(data[data.length - 1].date + "-01");
+  // ✅ Use actual date directly
+  const now = new Date(data[data.length - 1].date);
 
   const monthsMap = {
     "1M": 1,
@@ -86,11 +89,14 @@ export function filterChartData(data, range) {
   };
 
   const months = monthsMap[range];
+
+  if (!months) return data;
+
   const cutoff = new Date(now);
   cutoff.setMonth(now.getMonth() - months);
 
   return data.filter((d) => {
-    const date = new Date(d.date + "-01");
+    const date = new Date(d.date); // ✅ FIXED
     return date >= cutoff;
   });
 }

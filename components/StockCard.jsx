@@ -4,6 +4,7 @@ import Link from "next/link";
 import StatusTag from "@/components/ui/StatusTag/StatusTag";
 
 export default function StockCard({
+  id,
   title,
   category,
   price,
@@ -25,18 +26,21 @@ export default function StockCard({
   return map[badge] || badge;
 };
 
+const slug = `${title?.toLowerCase().replace(/\s+/g, "-")}-${id}`;
+
 
   return (
     <div className="StockCard group p-6 rounded-2xl border border-gray-100 bg-white hover:shadow-xl transition-all hover:border-primary-100">
       <div className="relative z-5">
       <div className="flex justify-between items-start mb-3">
-        <Link href="/unlisted-shares/arohan-financial-services-unlisted-shares" className="w-14 h-14 p-1 rounded-md flex items-center justify-center border border-gray-100 overflow-hidden cursor-pointer">
-          <Image
-            src={logo}
+        <Link href={`/unlisted-shares/${slug}`} className="w-14 h-14 p-1 rounded-md flex items-center justify-center border border-gray-100 overflow-hidden cursor-pointer">
+          <img
+            src={logo && logo !== "null" && logo !== undefined? logo : "/images/stocks/nse.png"}
             alt={title}
             width={56}
             height={56}
             className="object-cover"
+            onError={(e) => {e.currentTarget.src = "/images/stocks/nse.png"}}
           />
         </Link>
 
@@ -45,7 +49,7 @@ export default function StockCard({
         )}
       </div>
 
-      <Link href="/unlisted-shares/arohan-financial-services-unlisted-shares" className="font-bold text-sm text-gray-900 mb-1 group-hover:text-primary-600 transition-colors cursor-pointer">
+      <Link href={`/unlisted-shares/${id}`} className="font-bold text-sm text-gray-900 mb-1 group-hover:text-primary-600 transition-colors cursor-pointer">
         {title}
       </Link>
 

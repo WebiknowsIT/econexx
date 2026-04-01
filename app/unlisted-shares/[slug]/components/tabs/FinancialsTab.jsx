@@ -1,10 +1,17 @@
+
+'use client';
+import {useSelector } from "react-redux";
+
 // components/detail/tabs/FinancialsTab.jsx
 import Fundamentals from "./../Fundamentals"
 import FinancialsSection from "./../FinancialsSection"
 import ShareholdingPattern from "./../ShareholdingPattern"
 import PromotersManagement from "./../PromotersManagement"
 
-export default function FinancialsTab({ share }) {
+export default function FinancialsTab() {
+
+  const { unlistedShareDetails } = useSelector((state) => state.unlistedShares);
+  const promoters = unlistedShareDetails?.promoters || [];
 
   const fundamentalData = [
     { label: "APL Metals Unlisted Shares Price", value: "₹ 18" },
@@ -40,28 +47,7 @@ export default function FinancialsTab({ share }) {
       <Fundamentals data={fundamentalData} />
       <FinancialsSection />
       <ShareholdingPattern />
-      <PromotersManagement
-        data={[
-          {
-            name: "Sanjiv Nandan Sahaya",
-            designation: "Chairman & MD",
-            experience: "20+",
-            linkedin: "https://linkedin.com",
-          },
-          {
-            name: "Rajendra Sahay",
-            designation: "Director",
-            experience: "20+",
-            linkedin: "https://linkedin.com",
-          },
-          {
-            name: "Prakash Kumar Damani",
-            designation: "Director",
-            experience: "15+",
-            linkedin: "https://linkedin.com",
-          },
-        ]}
-      />
+      <PromotersManagement data={promoters} />
 
     </div>
   );

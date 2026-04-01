@@ -4,31 +4,25 @@ import { combineReducers } from 'redux';
 //import authReducer from './authSlice'
 import globalReducer from './globalSlice';
 import companyReducer from './companySlice';
-// import wishlistReducer from './wishlistSlice';
-// import addressReducer from './addressSlice';
-// import cartReducer from './cartSlice';
-//import productDetailsReducer from "./productDetailsSlice";
-//import reviewReducer from "./prodReviewSlice";
 import homeReducer from "./homeSlice";
-import blogReducer from "./blogSlice";
-import clientReducer from "./clientSlice";
-import contactReducer from "./contactSlice";
-import testimonialReducer from "./testimonialSlice";
-import servicesReducer from "./servicesSlice";
 import unlistedShareReducer from "./unlistedShareSlice";
+// import blogReducer from "./blogSlice";
+// import clientReducer from "./clientSlice";
+// import contactReducer from "./contactSlice";
+// import testimonialReducer from "./testimonialSlice";
+
 
 const appReducer = combineReducers({
   home: homeReducer,
   unlistedShares: unlistedShareReducer,
+  global: globalReducer,
+  company: companyReducer,
   // blog: blogReducer,
   // client: clientReducer,
   // contact: contactReducer,
   // testimonials: testimonialReducer,
   // services: servicesReducer,
-  global: globalReducer,
-  company: companyReducer,
-  //productDetails: productDetailsReducer,
-  //reviews: reviewReducer,
+
 });
 
 const removeState = (state) => {
