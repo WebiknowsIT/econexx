@@ -35,33 +35,22 @@ export const fetchUnlistedLanding = createAsyncThunk(
 // ----------------------------
 // Get Unlisted Shares List
 // ----------------------------
-// export const fetchUnlistedShares = createAsyncThunk(
-//   "unlistedShares/fetchUnlistedShares",
-//   async (params = {}, { rejectWithValue }) => {
-//     try {
-//       const { page = 1 } = params;
-
-//       const data = await API.get(`/api/shares?page=${page}`);
-      
-//       //console.log("data", data);
-      
-//       return data;
-//     } catch (error) {
-//       const errData = error?.data;
-//       return rejectWithValue({
-//         message: errData?.message || "Failed to fetch unlisted shares",
-//       });
-//     }
-//   }
-// );
-
 export const fetchUnlistedShares = createAsyncThunk(
   "unlistedShares/fetchUnlistedShares",
-  async ({ page = 1 } = {}, { rejectWithValue }) => {
+  async (
+    { page = 1, per_page = 12, q = "", sector_id = "" } = {},
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await API.get(`/api/shares?page=${page}`);
+      const query = new URLSearchParams({
+        page,
+        per_page,
+        ...(q && { q }),
+        ...(sector_id && { sector_id }),
+      }).toString();
 
-      // ✅ Return clean API data
+      const response = await API.get(`/api/unlisted-shares/list?${query}`);
+
       return response;
 
     } catch (error) {

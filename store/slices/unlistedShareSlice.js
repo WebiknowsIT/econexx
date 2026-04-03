@@ -8,6 +8,9 @@ import {
 const initialState = {
   unlistedLanding: null,
   unlistedShares: [],
+  unlistedBanner: [],
+  categories: [],
+
   unlistedShareDetails: null,
 
   pagination: {
@@ -23,6 +26,7 @@ const initialState = {
 
   error: null,
 };
+
 
 const unlistedShareSlice = createSlice({
   name: "unlistedShares",
@@ -67,17 +71,15 @@ const unlistedShareSlice = createSlice({
       .addCase(fetchUnlistedShares.fulfilled, (state, action) => {
         state.listStatus = "succeeded";
 
-        const payload = action.payload;
-
-        // ✅ DATA
-        state.unlistedShares = payload?.data || [];
-
-        // ✅ FIXED PAGINATION (IMPORTANT)
+        const payload = action.payload?.data;
+        state.unlistedShares = payload?.shares?.items || [];
+        state.categories = payload?.categories || [];
+        state.unlistedBanner = payload?.banner || [];
         state.pagination = {
-          current_page: payload?.pagination?.current_page || 1,
-          last_page: payload?.pagination?.last_page || 1,
-          total: payload?.pagination?.total || 0,
-          per_page: payload?.pagination?.per_page || 10,
+          current_page: payload?.shares?.pagination?.current_page || 1,
+          last_page: payload?.shares?.pagination?.last_page || 1,
+          total: payload?.shares?.pagination?.total || 0,
+          per_page: payload?.shares?.pagination?.per_page || 12,
         };
       })
 

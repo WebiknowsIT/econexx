@@ -3,25 +3,27 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Pagination({
-  totalItems,
-  perPage,
-  currentPage,
-  setCurrentPage,
+  currentPage = 1,
+  totalPages = 1,
+  onPageChange,
 }) {
-  const totalPages = Math.ceil(totalItems / perPage);
-
   if (totalPages <= 1) return null;
 
   const changePage = (page) => {
     if (page < 1 || page > totalPages) return;
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    onPageChange(page);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
     <div className="flex items-center justify-center gap-2 mt-12">
 
-      {/* Previous */}
+      {/* ◀ Previous */}
       <button
         onClick={() => changePage(currentPage - 1)}
         disabled={currentPage === 1}
@@ -30,7 +32,7 @@ export default function Pagination({
         <ChevronLeft className="w-4 h-4" />
       </button>
 
-      {/* Page Numbers */}
+      {/* 🔢 Page Numbers */}
       {Array.from({ length: totalPages }, (_, i) => i + 1).map(
         (page) => (
           <button
@@ -47,7 +49,7 @@ export default function Pagination({
         )
       )}
 
-      {/* Next */}
+      {/* ▶ Next */}
       <button
         onClick={() => changePage(currentPage + 1)}
         disabled={currentPage === totalPages}
