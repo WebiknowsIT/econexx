@@ -6,6 +6,7 @@ import globalReducer from './globalSlice';
 import companyReducer from './companySlice';
 import homeReducer from "./homeSlice";
 import unlistedShareReducer from "./unlistedShareSlice";
+import preIpoShareReducer from "./preIpoSlice";
 // import blogReducer from "./blogSlice";
 // import clientReducer from "./clientSlice";
 // import contactReducer from "./contactSlice";
@@ -15,6 +16,7 @@ import unlistedShareReducer from "./unlistedShareSlice";
 const appReducer = combineReducers({
   home: homeReducer,
   unlistedShares: unlistedShareReducer,
+  preIpoShares: preIpoShareReducer,
   global: globalReducer,
   company: companyReducer,
   // blog: blogReducer,

@@ -11,26 +11,29 @@ import StatusTag from "@/components/ui/StatusTag/StatusTag";
 
 export default function DrhpStockCard({ company, onInterest }) {
 
-  const Icon = company.icon;
-
     const getVariant = (badge) => {
     const map = {
         DRHP: "Submitted",
         Hot: "warning",
+        Filed: "warning",
         New: "Paid",
         STABLE: "Submitted",
+        Updated: "info",
         ACTIVE: "info",
     };
   return map[badge] || badge;
 };
 
+
   return (
     <div className="scard p-6">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl bg-primary-50 border border-primary-100 flex items-center justify-center">
-            <Icon size={20} className="text-primary-500" />
-          </div>
+          <a 
+          class="w-14 h-14 p-1 rounded-md flex items-center justify-center border border-gray-100 overflow-hidden cursor-pointer" 
+          href="/unlisted-shares/undefined-49">
+          <img width="56" height="56" class="object-cover" src={company.logo_url || "/images/stocks/nse.png"} />
+          </a>
           <div>
             <div className="font-semibold text-primary-900 text-sm">{company.name}</div>
             <div className="text-primary-400 text-xs">{company.sector}</div>
@@ -86,7 +89,7 @@ export default function DrhpStockCard({ company, onInterest }) {
       <div className="mb-1 flex items-center justify-between text-xs">
         <span className="text-primary-500">Subscription</span>
         <span className="font-semibold text-secondary-600">
-          {company.sub}%
+          {company.sub ? `${company.sub}%` : "NA"}
         </span>
       </div>
 
