@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUnlistedShares } from "@/store/action/unlistedShareActions";
 
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import PageLoader from "@/components/PageLoader";
 import PageHeader from "@/components/PageHeaderDark";
 import QuickFilterBar from "./components/QuickFilterBar";
@@ -87,8 +87,9 @@ useEffect(() => {
             </p>
 
             {/* 🔍 SEARCH */}
-            <div>
-              <Input
+            <div className="relative flex items-center gap-3">
+              <div className="relative">
+                <Input
                 type="text"
                 placeholder="Company name..."
                 value={filters.search}
@@ -103,6 +104,39 @@ useEffect(() => {
                 className="!pr-8"
                 icon={<Search size={16} />}
               />
+              {filters.search && (
+                <button
+                  onClick={() => {
+                    setFilters((prev) => ({
+                      ...prev,
+                      search: "",
+                    }));
+                    setCurrentPage(1);
+                  }}
+                  className="bg-white p-1 absolute right-2 top-[10px]  text-gray-400 hover:text-black"
+                >
+                  <X size={16} />
+                </button>
+              )}
+
+              </div>
+              
+              
+              {/* ❌ CLEAR ALL */}
+              {(filters.search || filters.category) && (
+                <button
+                  onClick={() => {
+                    setFilters({
+                      search: "",
+                      category: "",
+                    });
+                    setCurrentPage(1);
+                  }}
+                  className="px-3 py-3 text-xs bg-red-50 text-red-600 rounded-md hover:bg-red-100 mb-2"
+                >
+                  Clear Filters
+                </button>
+              )}
               {filters.search.length > 0 && filters.search.length < 3 && (
                 <p className="text-xs text-gray-400 mt-1">
                   Type at least 3 characters to search

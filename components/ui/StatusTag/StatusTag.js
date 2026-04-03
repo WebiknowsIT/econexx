@@ -11,10 +11,11 @@ const badgeStyles = {
   error: 'bg-red-50 text-red-700 ring-1 ring-red-600/20 ring-inset',
   primary: 'bg-indigo-50 text-indigo-700 ',
   secondary: 'bg-purple-50 text-purple-700 ',
+  default: 'bg-blue-50 text-blue-500 ring-1 ring-blue-600/20 ring-inset',
 };
 
-const StatusTag = ({ variant = 'New', className = '', children }) => {
-const variantStyles = badgeStyles[variant] || "";
+const StatusTag = ({ variant = 'default', className = '', children }) => {
+const variantStyles = badgeStyles[variant] || badgeStyles.default;
 
   return (
     <span className={`StatusTag inline-flex items-center px-2 py-1 text-xs font-medium ${variantStyles} ${className}`}>

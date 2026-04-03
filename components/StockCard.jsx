@@ -49,7 +49,9 @@ const slug = `${title?.toLowerCase().replace(/\s+/g, "-")}-${id}`;
         )}
       </div>
 
-      <Link href={`/unlisted-shares/${id}`} className="font-bold text-sm text-gray-900 mb-1 group-hover:text-primary-600 transition-colors cursor-pointer">
+      <Link 
+        href={`/unlisted-shares/${slug}`} 
+        className="font-bold text-sm text-gray-900 mb-1 group-hover:text-primary-600 transition-colors cursor-pointer">
         {title}
       </Link>
 
