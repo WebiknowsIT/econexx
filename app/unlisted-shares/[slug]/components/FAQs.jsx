@@ -1,12 +1,11 @@
 import Accordion from "@/components/ui/Accordion";
 
-export default function FAQs({ data = [] }) {
+export default function FAQs({ data = [] , className}) {
   return (
-    <div className="mt-12">
+    <div className={`mt-12 ${className}`}>
       <h2 className="text-xl font-semibold mb-4">
         FAQs
       </h2>
-
       <Accordion items={data} />
     </div>
   );

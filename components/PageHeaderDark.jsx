@@ -11,10 +11,23 @@ export default function PageHeaderDark({
   description = "",
   stats = [],
 }) {
+
+  const renderTitle = () => {
+    if (!title) return title;
+    const words = title.split(" ");
+    const lastWord = words.pop();
+
+    return (
+      <>
+        {words.join(" ")}{" "}
+        <span className="grad-brand">{lastWord}</span>
+      </>
+    );
+  };
+
+
   return (
     <div className="bg-primary-900 py-12 px-6 lg:px-16 relative overflow-hidden">
-
-      {/* Background Glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -24,8 +37,6 @@ export default function PageHeaderDark({
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
-
-        {/* Breadcrumb */}
         {breadcrumb.length > 0 && (
           <div className="flex items-center gap-2 text-primary-400 text-xs mb-5">
             {breadcrumb.map((item, index) => (
@@ -52,8 +63,6 @@ export default function PageHeaderDark({
         )}
 
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-
-          {/* Left Content */}
           <div>
             {tag && (
               <p className="text-secondary-400 text-xs tracking-[0.18em] uppercase mb-3">
@@ -61,17 +70,15 @@ export default function PageHeaderDark({
               </p>
             )}
 
-            <h1
-              className="font-bold text-white mb-3"
-              style={{ fontSize: "clamp(1.2rem,4vw,2.5rem)" }}
-            >
-              {title}{" "}
-              {highlight && (
-                <span className="grad-hero">
-                  {highlight}
-                </span>
-              )}
-            </h1>
+            {title && (
+              <h1 className="font-bold text-white mb-3"
+                style={{ fontSize: "clamp(1.2rem,4vw,2.5rem)" }}
+              >
+                {renderTitle()}
+              </h1>
+            )}
+
+            
 
             {description && (
               <p className="text-primary-300 max-w-lg leading-relaxed text-sm">
@@ -86,10 +93,10 @@ export default function PageHeaderDark({
               {stats.map((item, index) => (
                 <div key={index} className="text-center">
                   <div className="text-3xl font-bold grad-hero">
-                    {item.value}
+                    {item.number}
                   </div>
                   <div className="text-primary-400 text-xs tracking-wider uppercase mt-1">
-                    {item.label}
+                    {item.title}
                   </div>
                 </div>
               ))}

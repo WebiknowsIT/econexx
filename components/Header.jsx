@@ -68,7 +68,7 @@ export default function Header() {
             />
           </div> */}
 
-          <Button variant="outline" href="login" className={`shrink-0 ${isActive("/login")} `}>
+          <Button variant="outline" href="/login" className={`shrink-0 ${isActive("/login")} `}>
             <LogIn size={14} className="mr-2" /> Sign In
           </Button>
           <Button href="/contact-us" variant="secondary">Get Started</Button>

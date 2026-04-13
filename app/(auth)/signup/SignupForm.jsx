@@ -1,26 +1,72 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input/Input";
 import { Building, Plane } from "lucide-react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { registerUser } from "@/store/action/authActions";
+import toast from "react-hot-toast";
+import Checkbox from "../../../components/ui/Checkbox";
+
 export default function SignupForm() {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const { loading, error, signUpResponse } = useSelector((state) => state.auth);
+
   const [step, setStep] = useState(1);
-  const [accountType, setAccountType] = useState(null); // "resident" | "nri"
+  const [accountType, setAccountType] = useState(null);
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     phone: "",
+    password: "",
+    password_confirmation: "",
     country: "",
-    acceptedTerms: false,
+    terms_accepted: false,
   });
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  // ================= SUBMIT =================
+  const handleSubmit = () => {
+    // if (formData.password !== formData.password_confirmation) {
+    //   toast.error("Passwords do not match");
+    //   return;
+    // }
+
+    const payload = {
+      ...formData,
+      account_type: accountType === "nri" ? "non_resident" : "resident",
+    };
+
+    dispatch(registerUser(payload));
+  };
+
+  // ================= EFFECTS =================
+  useEffect(() => {
+    if (signUpResponse) {
+      toast.success("Registration successful");
+      router.push("/");
+    }
+  }, [signUpResponse, router]);
+
+  // useEffect(() => {
+  //   if (error) {
+  //     toast.error(error);
+  //   }
+  // }, [error]);
+
+  const getError = (field) => {
+    return error?.errors?.[field]?.[0] || null;
   };
 
   /* ================= STEP 1 ================= */
@@ -33,6 +79,7 @@ export default function SignupForm() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+          {/* Resident */}
           <div
             onClick={() => setAccountType("resident")}
             className={`cursor-pointer bg-white rounded-xl border p-4 text-left transition
@@ -42,15 +89,19 @@ export default function SignupForm() {
               }`}
           >
             <div className="flex items-center gap-2">
-              <div className={`p-2 w-10 h-10 rounded-md flex items-center justify-center ${accountType === "resident"
-                ? "bg-primary-500 text-white"
-                : "bg-gray-50"
-                }`}>
+              <div
+                className={`p-2 w-10 h-10 rounded-md flex items-center justify-center ${accountType === "resident"
+                    ? "bg-primary-500 text-white"
+                    : "bg-gray-50"
+                  }`}
+              >
                 <Building />
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Resident</h3>
-                <p className="text-sm text-gray-500">Indian Citizen</p>
+                <p className="text-sm text-gray-500">
+                  Indian Citizen
+                </p>
               </div>
             </div>
             <ul className="mt-4 space-y-2 text-sm">
@@ -69,16 +120,24 @@ export default function SignupForm() {
               }`}
           >
             <div className="flex items-center gap-2">
-              <div className={`p-2 w-10 h-10 rounded-md flex items-center justify-center ${accountType === "nri"
-                ? "bg-primary-500 text-white"
-                : "bg-gray-50 "
-                }`}>
+              <div
+                className={`p-2 w-10 h-10 rounded-md flex items-center justify-center ${accountType === "nri"
+                    ? "bg-primary-500 text-white"
+                    : "bg-gray-50"
+                  }`}
+              >
                 <Plane />
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Non-Resident</h3>
-                <p className="text-sm text-gray-500">NRI / Foreign</p>
+                <h3 className="font-semibold text-lg">
+                  Non-Resident
+                </h3>
+                <p className="text-sm text-gray-500">
+                  NRI / Foreign
+                </p>
+
               </div>
+
             </div>
             <ul className="mt-4 space-y-2 text-sm">
               <li className="text-primary-600">✔ International transactions</li>
@@ -95,12 +154,10 @@ export default function SignupForm() {
         >
           Continue
         </Button>
-        <p className="my-3 text-center text-gray-600">
+
+        <p className="my-3 text-gray-600">
           Already have an account?{" "}
-          <Link
-            href="/login"
-            className="text-primary hover:text-primary-700 font-medium"
-          >
+          <Link href="/login" className="text-primary font-medium">
             Login
           </Link>
         </p>
@@ -120,108 +177,153 @@ export default function SignupForm() {
       </button>
 
       <h2 className="text-2xl font-bold">Your Details</h2>
-      <p className="text-gray-500 mt-1">
-        Fill in your information to create your account
-      </p>
 
       <div className="mt-6 space-y-4">
+        {/* Name */}
         <div className="grid grid-cols-2 gap-4">
-          <Input
-            label="First Name"
-            placeholder="First Name"
-            value={formData.firstName}
-            onChange={(e) => handleChange("firstName", e.target.value)}
-          />
-          <Input
-            label="Last Name"
-            placeholder="Last Name"
-            value={formData.lastName}
-            onChange={(e) => handleChange("lastName", e.target.value)}
-          />
+          <div>
+            <Input
+              label="First Name"
+              value={formData.first_name}
+              onChange={(e) =>
+                handleChange("first_name", e.target.value)
+              }
+            />
+
+          </div>
+          <div>
+            <Input
+              label="Last Name"
+              value={formData.last_name}
+              onChange={(e) =>
+                handleChange("last_name", e.target.value)
+              }
+            />
+            {getError("last_name") && (
+              <p className="text-red-500 text-sm">
+                {getError("last_name")}
+              </p>
+            )}
+
+          </div>
         </div>
 
-        {/* Country field only for NRI */}
+        {/* Country */}
         {accountType === "nri" && (
-          <div className="w-full form-group ">
-            <label className="form-label">Country of Residence</label>
-            <select
-              value={formData.country}
-              onChange={(e) => handleChange("country", e.target.value)}
-              className="w-full bg-white rounded-lg border border-gray-300 px-4 py-3 text-sm
-               focus:outline-none focus:ring-2 focus:ring-primary"
-            >
-              <option value="">Select country</option>
-              <option value="US">United States</option>
-              <option value="UK">United Kingdom</option>
-              <option value="CA">Canada</option>
-              <option value="AU">Australia</option>
-              <option value="UAE">United Arab Emirates</option>
-              <option value="SG">Singapore</option>
-              <option value="OTHER">Other</option>
-            </select>
-          </div>
-
+          <select
+            value={formData.country}
+            onChange={(e) =>
+              handleChange("country", e.target.value)
+            }
+            className="w-full border p-3 rounded"
+          >
+            <option value="">Select country</option>
+            <option value="United States">
+              United States
+            </option>
+            <option value="United Kingdom">
+              United Kingdom
+            </option>
+          </select>
         )}
 
-        <div className="flex items-center w-full gap-3">
-          <div className="flex-1">
-            <Input
-              label="Email"
-              className="w-full"
-              placeholder="Email"
-              value={formData.email}
-              onChange={(e) => handleChange("email", e.target.value)}
-            />
-          </div>
-
-          <Button variant="primary" className="shrink-0 h-[42px] mt-4">
-            Verify
-          </Button>
-        </div>
-
-        <div className="flex items-center w-full gap-3">
-          <div className="flex-1">
-            <Input
-              label="Phone"
-              className="w-full"
-              placeholder="Phone"
-              value={formData.phone}
-              onChange={(e) => handleChange("phone", e.target.value)}
-            />
-          </div>
-
-          <Button variant="primary" className="shrink-0 h-[42px] mt-4">
-            Verify
-          </Button>
-        </div>
-
-        <div className="flex items-start gap-2 text-sm">
-          <input
-            type="checkbox"
-            checked={formData.acceptedTerms}
+        {/* Email */}
+        <div>
+          <Input
+            label="Email"
+            value={formData.email}
             onChange={(e) =>
-              handleChange("acceptedTerms", e.target.checked)
+              handleChange("email", e.target.value)
             }
-            className="mt-1"
+          />
+          {getError("email") && (
+            <p className="text-red-500 text-sm">
+              {getError("email")}
+            </p>
+          )}
+        </div>
+
+
+        {/* Phone */}
+        <div>
+          <Input
+            label="Phone"
+            value={formData.phone}
+            onChange={(e) =>
+              handleChange("phone", e.target.value)
+            }
+          />
+          {getError("phone") && (
+            <p className="text-red-500 text-sm">
+              {getError("phone")}
+            </p>
+          )}
+        </div>
+
+
+        {/* Password */}
+        <div>
+          <Input
+            label="Password"
+            type="password"
+            value={formData.password}
+            onChange={(e) =>
+              handleChange("password", e.target.value)
+            }
+          />
+
+          {getError("password") && (
+            <p className="text-red-500 text-sm">
+              {getError("password")}
+            </p>
+          )}
+
+        </div>
+        <div>
+          <Input
+            label="Confirm Password"
+            type="password"
+            value={formData.password_confirmation}
+            onChange={(e) =>
+              handleChange(
+                "password_confirmation",
+                e.target.value
+              )
+            }
+          />
+          {getError("password_confirmation") && (
+            <p className="text-red-500 text-sm">
+              {getError("password_confirmation")}
+            </p>
+          )}
+        </div>
+
+
+
+
+        {/* Terms */}
+        <div className="flex items-center gap-2">
+          <Checkbox
+            name="terms_accepted"
+            checked={formData.terms_accepted}
+            onChange={(e) => handleChange("terms_accepted", e.target.checked)}
           />
           <span>
-            I accept the{" "}
-            <Link href="#" className="text-primary-600 font-medium">
-              Terms & Conditions
-            </Link>{" "}
-            and{" "}
-            <Link href="#" className="text-primary-600 font-medium">
-              Privacy Policy
-            </Link>
+            I accept the {' '}
+            <Link className="text-primary-600 font-bold" href="/terms-and-conditions">
+              Terms &amp; Conditions</Link> and {' '}
+            <Link className="text-primary-600 font-bold" href="/privacy-policy">
+              Privacy Policy</Link>
           </span>
         </div>
-
         <Button
+          size="lg"
           className="w-full mt-4"
-          variant="primary"
-          disabled={!formData.acceptedTerms}
+          variant="secondary"
+          disabled={!formData.terms_accepted || loading}
+          onClick={handleSubmit}
         >
-          Create Account
+          {loading ? "Creating..." : "Create Account"}
         </Button>
       </div>
     </div>

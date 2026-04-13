@@ -18,11 +18,9 @@ import DocumentsTab      from "./components/tabs/DocumentsTab";
 import PageLoader from "@/components/PageLoader";
 import FAQs from "./components/FAQs";
 
-
 import { useDispatch, useSelector } from "react-redux";
 import {fetchUnlistedShareById} from "@/store/action/unlistedShareActions";
 
-import { razorpayData, razorpayFaqs } from "./Data";
 
 const FaqData = [
     {
@@ -85,11 +83,11 @@ export default function page() {
   
   const renderTab = () => {
     switch (activeTab) {
-      case "overview":   return <OverviewTab     share={razorpayData} />;
-      case "FundamentalsFinancials": return <FinancialsTab   share={unlistedShareDetails?.financial_documents} />;
+      case "overview":   return <OverviewTab  share={unlistedShareDetails} />;
+      case "FundamentalsFinancials": return <FinancialsTab />;
       case "price":      return <PriceHistoryTab />;
       case "documents":  return <DocumentsTab    share={unlistedShareDetails} />;
-      case "faq":        return (<FAQs data={FaqData} />);
+      case "faq":        return (<div className="bg-white border border-primary-100 rounded-2xl p-7"><FAQs className='!mt-0' data={FaqData} /></div>);
       default:           return null;
     }
   };
@@ -108,21 +106,21 @@ export default function page() {
   if (!unlistedShareDetails) {return <p className="text-center py-10">No Data Found</p>;}
 
   return (
-    <> 
-          <DetailHero share={razorpayData} data={unlistedShareDetails} />
+    <div className="bg-white"> 
+          <DetailHero data={unlistedShareDetails} />
           <TabBar active={activeTab} onChange={setActiveTab} />
-          <div className="max-w-7xl mx-auto px-6 lg:px-16 py-10 flex flex-col lg:flex-row gap-10 items-start bg-white">
+          <div className="max-w-7xl mx-auto px-6 lg:px-16 py-10 flex flex-col lg:flex-row gap-10 items-start">
             <div className="flex-1 min-w-0">
               {renderTab()}
             </div>
             <div className="w-full lg:w-80 shrink-0 space-y-6">
-              <BuySellBox share={razorpayData} />
+              <BuySellBox share={unlistedShareDetails} />
               <CreateAlertCard />
-              <ValuationCard />
+              {/* <ValuationCard /> */}
             </div>
            
           </div>
           {/* <SimilarShares similar={razorpayData.similar} /> */}
-        </>
+        </div>
   );
 }

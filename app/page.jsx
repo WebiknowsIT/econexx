@@ -13,10 +13,6 @@ import CTASection from "@/components/Home/CTASection";
 
 export default function Home() {
 
-
-
-
-  
   const faqs = [
     {
       id: 1,

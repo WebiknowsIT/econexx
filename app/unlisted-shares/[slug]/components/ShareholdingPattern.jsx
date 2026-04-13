@@ -1,21 +1,37 @@
 'use client';
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export default function ShareholdingPattern() {
-  
-  const { unlistedShareDetails } = useSelector((state) => state.unlistedShares);
-  const shareholding = unlistedShareDetails?.shareholding_pattern || {};
+  const { unlistedShareDetails } = useSelector(
+    (state) => state.unlistedShares
+  );
 
-  // ✅ Get years dynamically
-  const years = useMemo(() => Object.keys(shareholding).sort(), [shareholding]);
+  // ✅ FIX: correct API path (array)
+  const shareholding = unlistedShareDetails?.shareholding || [];
 
-  // ✅ Default selected year
-  const [year, setYear] = useState(years[0]);
+  // ✅ Convert array → sorted years
+  const years = useMemo(
+    () =>
+      shareholding
+        .map((item) => item.year)
+        .sort((a, b) => b - a), // latest first
+    [shareholding]
+  );
 
-  // ✅ Get data for selected year
-  const yearData = shareholding[year] || [];
+  // ✅ Default selected year (safe)
+  const [year, setYear] = useState(null);
+
+  useEffect(() => {
+    if (years.length > 0) {
+      setYear(years[0]);
+    }
+  }, [years]);
+
+  // ✅ Get selected year data
+  const yearData =
+    shareholding.find((item) => item.year === year)?.items || [];
 
   return (
     <div className="border border-slate-200 rounded-xl p-6">
@@ -41,7 +57,7 @@ export default function ShareholdingPattern() {
         ))}
       </div>
 
-      {/* ✅ Dynamic Entities */}
+      {/* ✅ Data */}
       <div className="space-y-4">
         {yearData.map((item, index) => {
           const percentage = Number(item.percentage) || 0;

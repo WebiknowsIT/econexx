@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { setLocalStorageItem } from "@/utils/localStorage";
 import { registerUser, userLogin, getProfile, userLogout  } from '../action/authActions';
 
 
@@ -41,38 +42,41 @@ const authSlice = createSlice({
 
     },
     extraReducers: (builder) =>  {
-         // login user
-         builder
-          .addCase(userLogin.pending, (state, action) => {
+      // login user
+      builder
+         .addCase(userLogin.pending, (state, action) => {
             state.loading = true
             state.error = null
-          })
-          .addCase(userLogin.fulfilled, (state, action) => {
-            state.loading = false
-            state.userInfo = action.payload
-            state.loginResponse = true
-            //state.userToken = payload.userToken
-          })
-          .addCase(userLogin.rejected, (state, action) => {
-            state.loading = false
-            state.error = action.payload
-          });
-
-          // Register user
-         builder
-         .addCase(registerUser.pending, (state, action) => {
-            state.loading = true;
-            state.error = null;
          })
-         .addCase(registerUser.fulfilled, (state, action) => {
+         .addCase(userLogin.fulfilled, (state, action) => {
             state.loading = false;
             state.userInfo = action.payload;
-            state.success = true;
+            state.loginResponse = true;
          })
-         .addCase(registerUser.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
+         .addCase(userLogin.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.payload
          });
+       // Register user
+       builder
+          .addCase(registerUser.pending, (state) => {
+             state.loading = true;
+             state.error = null;
+             state.signUpResponse = null;
+          })
+
+          .addCase(registerUser.fulfilled, (state, action) => {
+             state.loading = false;
+             state.userInfo = action.payload;
+             state.success = true;
+             state.signUpResponse = true;
+          })
+
+          .addCase(registerUser.rejected, (state, action) => {
+             state.loading = false;
+             state.error = action.payload;
+             state.signUpResponse = false;
+          });
 
          // getProfile User
          builder
@@ -112,5 +116,4 @@ const authSlice = createSlice({
 })
 
 export const { setUser, resetLoginData } = authSlice.actions;
-
 export default authSlice.reducer;

@@ -4,8 +4,9 @@ import { Calendar, MapPin, Users } from "lucide-react";
 import {formatAmount} from "@/utils/helper";
 
 
-export default function DetailHero({ share,data }) {
- // console.log("share_name", data);
+export default function DetailHero({ data }) {
+ 
+//console.log("share_name", data);
   
 const tagStyles = [
   "bg-blue-500/20 border-blue-400 text-blue-300",
@@ -34,46 +35,37 @@ const tagStyles = [
           Unlisted Shares
           </a>
           <span className="text-primary-600">›</span>
-          <span className="text-primary-300">{data?.share_name}</span>
+          <span className="text-primary-300">{data?.share?.name}</span>
         </nav>
 
         {/* Hero row */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
           <div className="flex items-start gap-5">
             <div className="w-16 h-16 border border-white bg-white p-1 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-              <Image
+              <img
                 height={80}
                 width={80}
                 className="h-full w-full object-contain"
-                src={data.company.logo ? data.company.logo : "/images/stocks/nse.png"}
-                alt={data.share_name}
+                src={data.company.logo_url ? data.company.logo_url : "/images/stocks/nse.png"}
+                alt={data?.share?.name}
               />
             </div>
             <div>
               <div className="flex items-center gap-3 flex-wrap mb-2">
-                <h1 className="font-bold text-white text-4xl lg:text-4xl">
-                  {data?.share_name}
-                </h1>
+                <h1 className="font-bold text-white text-4xl lg:text-4xl">{data?.share?.name}</h1>
                 <div className="flex flex-wrap gap-2">
-                  {data.is_featured && (
+                  {data?.is_featured?.is_featured && (
                     <span className="text-xs bg-red-500/20 border border-red-400/30 text-red-300 px-3 py-1 rounded-full">
                       🔥 Hot
                     </span>
                   )}
 
-                  {/* ✅ Dynamic Tags */}
                   {data?.tags &&
                     data.tags.split(",").map((tag, index) => {
                       const cleanTag = tag.trim();
-
-                      // 🔥 cycle styles if more tags
                       const style = tagStyles[index % tagStyles.length];
-
                       return (
-                        <span
-                          key={index}
-                          className={`text-xs px-3 py-1 rounded-full border ${style}`}
-                        >
+                        <span key={index} className={`text-xs px-3 py-1 rounded-full border ${style}`}>
                           {cleanTag}
                         </span>
                       );
@@ -81,51 +73,50 @@ const tagStyles = [
                 </div>
               </div>
                 <div className="text-primary-300 text-sm max-w-lg leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: data.description }}
+                    dangerouslySetInnerHTML={{ __html: data?.content?.description_html }}
                   />
               
               <div className="flex items-center gap-4 mt-3 flex-wrap">
                 <span className="flex items-center gap-1.5 text-xs text-primary-400">
-                  <MapPin className="w-4 h-4" /> {share.location}
+                  <MapPin className="w-4 h-4" /> {data.location || "NA"}
                 </span>
                 <span className="flex items-center gap-1.5 text-xs text-primary-400">
-                  <Calendar className="w-4 h-4" /> Founded {share.founded}
+                  <Calendar className="w-4 h-4" /> Founded {data?.share?.dates?.registration_date?.split("-")[0] || "NA"}
                 </span>
-                <span className="flex items-center gap-1.5 text-xs text-primary-400">
-                  <Users className="w-4 h-4" /> {share.employees} employees
-                </span>
-                {/* {share.available && (
+                {/* <span className="flex items-center gap-1.5 text-xs text-primary-400">
+                  <Users className="w-4 h-4" /> {data.employees || "NA"} employees
+                </span> */}
+                {data.share.is_available && (
                   <span className="flex items-center gap-1 text-xs text-secondary-300">
                     <span className="w-1.5 h-1.5 rounded-full bg-secondary-400 inline-block animate-pulse" />
                     &nbsp;Available Now
                   </span>
-                )} */}
+                )}
               </div>
             </div>
           </div>
 
           {/* Right — quick price pill */}
+
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-7 py-5 flex gap-8 shrink-0">
-            <div className="text-center">
-              <div className="text-xs text-primary-400 uppercase tracking-widest mb-1">
-                Current Price
-              </div>
-              <div className="text-2xl font-bold text-white">{formatAmount(data.current_market_price)}</div>
-              <div className="text-xs text-white/70">Per Share</div>
-            </div>
-            <div className="w-px bg-white/10" />
-            <div className="text-center">
-              <div className="text-xs text-primary-400 uppercase tracking-widest mb-1">6M Return</div>
-              <div className="text-2xl font-bold text-white">+{share.return6m}%</div>
-              <div className="text-xs text-white/70">Since Jan 2025</div>
-            </div>
-            <div className="w-px bg-white/10" />
-            <div className="text-center">
-              <div className="text-xs text-primary-400 uppercase tracking-widest mb-1">Valuation</div>
-              <div className="text-2xl font-bold text-white">{formatAmount(data.market_cap)}</div>
-              <div className="text-xs text-white/70">{share.stage}</div>
-            </div>
+            {data.banner.items.map((item, index) => (
+              <>
+                {index !== 0 && <div className="w-px bg-white/10" />}
+                <div key={item.index} className="text-center">
+                  <div className="text-xs text-primary-400 uppercase tracking-widest mb-1">
+                    {item.title}
+                  </div>
+                  <div className="text-2xl font-bold text-white">
+                    {item.number}
+                  </div>
+                </div>
+              </>
+            ))}
           </div>
+
+
+
+          
         </div>
       </div>
     </div>

@@ -7,155 +7,130 @@ import FinancialTable from "@/components/FinancialTable";
 
 export default function FinancialsSection() {
 
-  const { unlistedShareDetails, detailsStatus } = useSelector((state) => state.unlistedShares);
+const { unlistedShareDetails, detailsStatus } = useSelector((state) => state.unlistedShares);
 
-  function IncomeStatement() {
+function IncomeStatement() {
+  const financials = unlistedShareDetails?.financials || {};
 
-  const incomeData = unlistedShareDetails?.income_statements || {};
-  const years = Object.keys(incomeData); 
+  const pnlData = financials?.income_statement?.p_and_l_statement || [];
+  const ratioData = financials?.income_statement?.financial_ratios || [];
+
   const format = (num) => {
     if (num === null || num === undefined) return "-";
     return Number(num).toFixed(2);
   };
 
-  const rows = [
-  {
-    label: "Revenue", 
-    values: years.map((year) => format(incomeData[year]?.revenue)),
-  },
-  {
-    label: "Cost of Material Consumed",
-    values: years.map((year) =>
-      format(incomeData[year]?.cost_of_material_consumed)
-    ),
-  },
-  {
-    label: "Gross Margin",
-    values: years.map((year) =>
-      format(incomeData[year]?.gross_margin)
-    ),
-  },
-  {
-    label: "EBITDA",
-    values: years.map((year) =>
-      format(incomeData[year]?.ebitda)
-    ),
-  },
-  {
-    label: "PBT",
-    values: years.map((year) =>
-      format(incomeData[year]?.pbt)
-    ),
-  },
-  {
-    label: "PAT",
-    values: years.map((year) =>
-      format(incomeData[year]?.pat)
-    ),
-  },
-  {
-    label: "EPS",
-    values: years.map((year) =>
-      format(incomeData[year]?.eps)
-    ),
-  },
-];
+  // ✅ reusable dynamic generator
+  const generateRows = (data) => {
+    if (!data || data.length === 0) return [];
+
+    return Object.keys(data[0])
+      .filter((key) => key !== "year")
+      .map((key) => ({
+        label: key
+          .replace(/_/g, " ")
+          .replace(/\b\w/g, (c) => c.toUpperCase()),
+        values: data.map((item) => format(item[key])),
+      }));
+  };
+
+  const yearsPnl = pnlData.map((i) => i.year);
+  const yearsRatio = ratioData.map((i) => i.year);
 
   return (
     <div className="space-y-6">
+
+      {/* ✅ ONLY P&L */}
       <FinancialTable
         title="P&L Statement"
-        columns={["P&L Statement", ...years]}
-        rows={rows}
+        columns={["P&L Statement", ...yearsPnl]}
+        rows={generateRows(pnlData)}
       />
 
-      <FinancialTable
-        title="Financial Ratios"
-        columns={["Ratios", "2022", "2023", "2024"]}
-        rows={[
-          { label: "Operating Profit Margin", values: [2.9, 3.4, 1.99] },
-          { label: "Net Profit Margin", values: [0.69, 0.41, -1.42] },
-          { label: "EPS (Diluted)", values: [4.66, 2.8, -9.33] },
-        ]}
-      />
+      {/* ✅ ONLY RATIOS (if exists) */}
+      {ratioData.length > 0 && (
+        <FinancialTable
+          title="Financial Ratios"
+          columns={["Ratios", ...yearsRatio]}
+          rows={generateRows(ratioData)}
+        />
+      )}
     </div>
   );
 }
 
 function BalanceSheet() {
+  const data = unlistedShareDetails?.financials?.balance_sheet?.combined || [];
+
+  const years = data.map((item) => item.year);
+
+  const format = (num) => {
+    if (num === null || num === undefined) return "-";
+    return Number(num).toFixed(2);
+  };
+
+  // ✅ Get keys dynamically
+  const assetKeys =
+    data.length > 0 ? Object.keys(data[0].assets || {}) : [];
+
+  const liabilityKeys =
+    data.length > 0 ? Object.keys(data[0].liabilities || {}) : [];
+
+  // ✅ Build rows
+  const assetRows = assetKeys.map((key) => ({
+    label: key
+      .replace(/_/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase()),
+    values: data.map((item) => format(item.assets?.[key])),
+  }));
+
+  const liabilityRows = liabilityKeys.map((key) => ({
+    label: key
+      .replace(/_/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase()),
+    values: data.map((item) => format(item.liabilities?.[key])),
+  }));
+
   return (
     <div className="space-y-6">
       <FinancialTable
         title="Assets"
-        columns={["Assets", "2022", "2023", "2024"]}
-        rows={[
-          { label: "Fixed Assets", values: [22.4, 23, 25] },
-          { label: "Inventory", values: [152, 166, 244] },
-          { label: "Other Assets", values: [33.46, 17, 38] },
-          { label: "Total Assets", values: [213, 217, 314] },
-        ]}
+        columns={["Assets", ...years]}
+        rows={assetRows}
       />
 
       <FinancialTable
         title="Liabilities"
-        columns={["Liabilities", "2022", "2023", "2024"]}
-        rows={[
-          { label: "Share Capital", values: [10.72, 10.72, 10.72] },
-          { label: "Borrowings", values: [139, 161, 134] },
-          { label: "Trade Payables", values: [42, 19, 120] },
-          { label: "Total Liabilities", values: [213, 217, 314] },
-        ]}
+        columns={["Liabilities", ...years]}
+        rows={liabilityRows}
       />
     </div>
   );
 }
 
 function CashFlow() {
-  const cashFlowData = unlistedShareDetails?.cash_flows || {};
-  const years = Object.keys(cashFlowData).sort();
+  const cashFlowData = unlistedShareDetails?.financials?.cash_flow?.cash_flow_statement || [];
+
+  const years = cashFlowData.map((item) => item.year);
+
   const format = (num) => {
     if (num === null || num === undefined) return "-";
     return Number(num).toFixed(2);
   };
 
-  const rows = [
-    {
-      label: "Cash Flow From Operations",
-      values: years.map((year) =>
-        format(cashFlowData[year]?.cash_flow_from_operations)
-      ),
-    },
-    {
-      label: "Cash Flow From Investment",
-      values: years.map((year) =>
-        format(cashFlowData[year]?.cash_flow_from_investment)
-      ),
-    },
-    {
-      label: "Cash Flow From Financing",
-      values: years.map((year) =>
-        format(cashFlowData[year]?.cash_flow_from_financing)
-      ),
-    },
-    {
-      label: "Net Cash Generated",
-      values: years.map((year) =>
-        format(cashFlowData[year]?.net_cash_generated)
-      ),
-    },
-    {
-      label: "Cash at Start",
-      values: years.map((year) =>
-        format(cashFlowData[year]?.cash_at_start)
-      ),
-    },
-    {
-      label: "Cash at End",
-      values: years.map((year) =>
-        format(cashFlowData[year]?.cash_at_end)
-      ),
-    },
-  ];
+  const rows =
+    cashFlowData.length > 0
+      ? Object.keys(cashFlowData[0])
+          .filter((key) => key !== "year")
+          .map((key) => ({
+            label: key
+              .replace(/_/g, " ")
+              .replace(/\b\w/g, (c) => c.toUpperCase()),
+            values: cashFlowData.map((item) =>
+              format(item[key])
+            ),
+          }))
+      : [];
 
   return (
     <FinancialTable

@@ -1,4 +1,5 @@
 import { Poppins } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 
 
 import "./globals.css";
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.variable} antialiased`}>
         <ReduxProvider>
+          <Toaster position="bottom-right" />
           <AppInitializer /> 
          <Header />
           {children}

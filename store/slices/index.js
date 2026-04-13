@@ -1,7 +1,7 @@
 // redux/reducer/index.js
 import { combineReducers } from 'redux';
 
-//import authReducer from './authSlice'
+import authReducer from './authSlice'
 import globalReducer from './globalSlice';
 import companyReducer from './companySlice';
 import homeReducer from "./homeSlice";
@@ -19,7 +19,7 @@ const appReducer = combineReducers({
   preIpoShares: preIpoShareReducer,
   global: globalReducer,
   company: companyReducer,
-  // blog: blogReducer,
+  auth: authReducer,
   // client: clientReducer,
   // contact: contactReducer,
   // testimonials: testimonialReducer,

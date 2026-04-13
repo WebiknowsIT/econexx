@@ -1,10 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as url from "../../utils/Url";
-import {
-  clearLocalStorage,
-  getLocalStorageItem,
-  setLocalStorageItem,
-} from "@/utils/localStorage";
+import {clearLocalStorage,getLocalStorageItem,setLocalStorageItem,} from "@/utils/localStorage";
 import { request } from "@/services/Request";
 
 // ----------------------------
@@ -24,12 +20,32 @@ const handleError = (error, fallback = "Something went wrong") => {
 // ============================
 export const registerUser = createAsyncThunk(
   "auth/register",
-  async (payload, { rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     try {
-      const response = await API.post("/api/customer/register", payload);
-      return response.data;
+      const res = await API.post("/api/register", formData);
+      const data = res;
+      if (!data?.success) {
+        if (data?.errors) {
+          const firstError = Object.values(data.errors)[0]?.[0];
+          return rejectWithValue(firstError || "Signup failed");
+        }
+
+        return rejectWithValue(data?.message || "Signup failed");
+      }
+      const authData = {
+        token: data?.data?.access_token,
+        tokenType: data?.data?.token_type,
+        user: data?.data?.user,
+      };
+      setLocalStorageItem("user-info", authData);
+      return authData;
     } catch (error) {
-      return rejectWithValue(handleError(error, "Registration failed"));
+      return rejectWithValue({
+        type: error?.data?.errors ? "validation" : "general",
+        message: error?.message || "Signup failed",
+        errors: error?.data?.errors || null, // ✅ FIXED
+      });
+
     }
   }
 );
@@ -41,9 +57,21 @@ export const userLogin = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const { data } = await API.post("/api/customer/login", { email, password });
-      setLocalStorageItem("user-info", data);
-      return data;
+      const  res = await API.post("/api/login", {login: email, password,});
+
+      console.log("dataAc", res)
+
+      if (!res?.success) {
+        return rejectWithValue(res?.message || "Login failed");
+      }
+      const authData = {
+        token: res?.data?.access_token,
+        tokenType: res?.data?.token_type,
+        user: res?.data?.user,
+      };
+      setLocalStorageItem("user-info", authData);
+
+      return authData;
     } catch (error) {
       return rejectWithValue(handleError(error, "Login failed"));
     }

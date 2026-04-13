@@ -1,17 +1,18 @@
 import axios from "axios";
 import * as url from "@/utils/Url";
-import { getLocalStorageItem, setLocalStorageItem } from "@/utils/localStorage";
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+  removeLocalStorageItem,
+} from "@/utils/localStorage";
 
 let isRefreshing = false;
 let failedQueue = [];
 
 const processQueue = (error, token = null) => {
   failedQueue.forEach((prom) => {
-    if (error) {
-      prom.reject(error);
-    } else {
-      prom.resolve(token);
-    }
+    if (error) prom.reject(error);
+    else prom.resolve(token);
   });
   failedQueue = [];
 };
@@ -23,7 +24,6 @@ export function request(baseUrl) {
     headers: {
       "Content-Type": "application/json",
     },
-    withCredentials: false,
   });
 
   // ============================
@@ -35,8 +35,6 @@ export function request(baseUrl) {
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-    } else {
-      delete config.headers.Authorization;
     }
 
     return config;
@@ -46,57 +44,52 @@ export function request(baseUrl) {
   // ✅ RESPONSE INTERCEPTOR
   // ============================
   request.interceptors.response.use(
-    (response) => {
-      return response.data;
-    },
+    (response) => response.data,
 
     async (error) => {
-      let message = "Oops, something went wrong.";
-      let data = null;
-
-      // ❌ Network error
       if (!error.response) {
-        if (error.code === "ECONNABORTED") {
-          message = "Request timeout. Please try again.";
-        } else {
-          message = "Unable to connect to server.";
-        }
-
-        return Promise.reject({ status: "error", message, data });
+        return Promise.reject({
+          status: "error",
+          message: "Network error",
+        });
       }
 
-      const originalRequest = error.config;
       const { status, data: errData } = error.response;
-
-      data = errData;
-      message = errData?.message || message;
+      const originalRequest = error.config;
 
       // ============================
-      // 🔐 TOKEN REFRESH
+      // 🔐 HANDLE 401
       // ============================
       if (status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
 
         const userInfo = getLocalStorageItem("user-info", {});
-        const refreshToken = userInfo?.refresh_token; // ✅ FIXED
+        const refreshToken = userInfo?.refresh_token;
 
+        // ❌ No refresh_token → logout (current behavior)
         if (!refreshToken) {
-          localStorage.removeItem("user-info");
+          removeLocalStorageItem("user-info");
+
+          if (typeof window !== "undefined") {
+            window.location.href = "/login";
+          }
+
           return Promise.reject({
             status: "error",
             message: "Session expired. Please login again.",
-            data,
           });
         }
 
-        // ⏳ Queue system
+        // ============================
+        // ⏳ QUEUE HANDLING
+        // ============================
         if (isRefreshing) {
           return new Promise((resolve, reject) => {
             failedQueue.push({ resolve, reject });
           })
             .then((newToken) => {
               originalRequest.headers.Authorization = `Bearer ${newToken}`;
-              return axios(originalRequest); // ✅ FIXED
+              return request(originalRequest);
             })
             .catch((err) => Promise.reject(err));
         }
@@ -104,29 +97,22 @@ export function request(baseUrl) {
         isRefreshing = true;
 
         try {
-          const refreshResponse = await axios.post(
-            `${baseUrl || url.BASE_URL}/api/v1/student/refresh-token`,
-            { refresh_token: refreshToken },
-            {
-              headers: {
-                Authorization: `Bearer ${refreshToken}`,
-              },
-            }
+          // 🔁 FUTURE REFRESH API
+          const res = await axios.post(
+            `${baseUrl || url.BASE_URL}/api/refresh-token`,
+            { refresh_token: refreshToken }
           );
 
-          const newToken =
-            refreshResponse?.data?.data?.token ||
-            refreshResponse?.data?.token;
+          const newToken = res?.data?.data?.access_token;
 
-          if (!newToken) {
-            throw new Error("No token returned");
-          }
+          if (!newToken) throw new Error("No token returned");
 
-          // ✅ Save new token
+          // ✅ Update storage
           const updatedUser = {
             ...userInfo,
             token: newToken,
           };
+
           setLocalStorageItem("user-info", updatedUser);
 
           // ✅ Update default header
@@ -134,37 +120,32 @@ export function request(baseUrl) {
 
           processQueue(null, newToken);
 
-          // 🔁 Retry request
+          // 🔁 Retry original request
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
-          return axios(originalRequest); // ✅ FIXED
+          return request(originalRequest);
+
         } catch (err) {
           processQueue(err, null);
 
-          localStorage.removeItem("user-info");
+          removeLocalStorageItem("user-info");
+
+          if (typeof window !== "undefined") {
+            window.location.href = "/login";
+          }
 
           return Promise.reject({
             status: "error",
             message: "Session expired. Please login again.",
-            data: err?.response?.data || null,
           });
         } finally {
           isRefreshing = false;
         }
       }
 
-      // ============================
-      // ❗ ERROR HANDLING
-      // ============================
-      if (status === 500) {
-        message = "Internal Server Error. Please try again later.";
-      } else if (errData?.description) {
-        message = errData.description;
-      }
-
       return Promise.reject({
         status: "error",
-        message,
-        data,
+        message: errData?.message || "Something went wrong",
+        data: errData,
       });
     }
   );

@@ -61,6 +61,7 @@ useEffect(() => {
         title={unlistedBanner?.title || 'Unlisted Shares'}
         //highlight=""
         description={unlistedBanner?.subtitle || 'Browse pre-IPO and unlisted opportunities across India’s fastest growing sectors.'}
+        stats={unlistedBanner?.items}
       />
       <QuickFilterBar
         categories={categories}
@@ -76,8 +77,6 @@ useEffect(() => {
 
       <div className="max-w-7xl bg-white mx-auto px-6 lg:px-16 py-8 flex gap-8">
         <div className="flex-1">
-
-          {/* 🔝 Top Bar */}
           <div className="flex items-center justify-between gap-4 pb-4">
             <p className="text-sm">
               <span className="font-semibold">
@@ -113,10 +112,15 @@ useEffect(() => {
                     }));
                     setCurrentPage(1);
                   }}
-                  className="bg-white p-1 absolute right-2 top-[10px]  text-gray-400 hover:text-black"
+                  className="bg-white p-1 absolute right-2 top-[10px] text-gray-400 hover:text-black"
                 >
                   <X size={16} />
                 </button>
+              )}
+              {filters.search.length > 0 && filters.search.length < 3 && (
+                <p className="text-xs text-gray-400 mt-1">
+                  Type at least 3 characters to search
+                </p>
               )}
 
               </div>
@@ -137,11 +141,7 @@ useEffect(() => {
                   Clear Filters
                 </button>
               )}
-              {filters.search.length > 0 && filters.search.length < 3 && (
-                <p className="text-xs text-gray-400 mt-1">
-                  Type at least 3 characters to search
-                </p>
-              )}
+              
             </div>
             
           </div>
