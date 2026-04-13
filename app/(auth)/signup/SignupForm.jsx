@@ -12,6 +12,13 @@ import { registerUser } from "@/store/action/authActions";
 import toast from "react-hot-toast";
 import Checkbox from "../../../components/ui/Checkbox";
 
+import { request } from "@/services/Request";
+
+// ----------------------------
+// Create Auth API Instance
+// ----------------------------
+const API = request(url.BASE_URL);
+
 export default function SignupForm() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -20,6 +27,8 @@ export default function SignupForm() {
 
   const [step, setStep] = useState(1);
   const [accountType, setAccountType] = useState(null);
+  const [countries, setCountries] = useState([]);
+  const [loadingCountries, setLoadingCountries] = useState(false);
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -59,11 +68,26 @@ export default function SignupForm() {
     }
   }, [signUpResponse, router]);
 
-  // useEffect(() => {
-  //   if (error) {
-  //     toast.error(error);
-  //   }
-  // }, [error]);
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        setLoadingCountries(true);
+
+        const res = await API.get("/api/countries");
+
+        if (res?.success) {
+          setCountries(res.data); // ✅ array
+        }
+      } catch (err) {
+        console.error("Country API error", err);
+      } finally {
+        setLoadingCountries(false);
+      }
+    };
+
+    fetchCountries();
+  }, []);
 
   const getError = (field) => {
     return error?.errors?.[field]?.[0] || null;
@@ -91,8 +115,8 @@ export default function SignupForm() {
             <div className="flex items-center gap-2">
               <div
                 className={`p-2 w-10 h-10 rounded-md flex items-center justify-center ${accountType === "resident"
-                    ? "bg-primary-500 text-white"
-                    : "bg-gray-50"
+                  ? "bg-primary-500 text-white"
+                  : "bg-gray-50"
                   }`}
               >
                 <Building />
@@ -122,8 +146,8 @@ export default function SignupForm() {
             <div className="flex items-center gap-2">
               <div
                 className={`p-2 w-10 h-10 rounded-md flex items-center justify-center ${accountType === "nri"
-                    ? "bg-primary-500 text-white"
-                    : "bg-gray-50"
+                  ? "bg-primary-500 text-white"
+                  : "bg-gray-50"
                   }`}
               >
                 <Plane />
@@ -178,7 +202,7 @@ export default function SignupForm() {
 
       <h2 className="text-2xl font-bold">Your Details</h2>
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 space-y-3">
         {/* Name */}
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -210,24 +234,35 @@ export default function SignupForm() {
 
         {/* Country */}
         {accountType === "nri" && (
-          <select
-            value={formData.country}
-            onChange={(e) =>
-              handleChange("country", e.target.value)
-            }
-            className="w-full border p-3 rounded"
-          >
-            <option value="">Select country</option>
-            <option value="United States">
-              United States
-            </option>
-            <option value="United Kingdom">
-              United Kingdom
-            </option>
-          </select>
+          <div className="w-full form-group">
+            <label className="form-label">Country of Residence</label>
+
+            <select
+              value={formData.country}
+              onChange={(e) => handleChange("country", e.target.value)}
+              className="w-full bg-white rounded-lg border border-gray-300 px-4 py-3 text-sm"
+            >
+              <option value="">
+                {loadingCountries ? "Loading..." : "Select country"}
+              </option>
+
+              {countries.map((country) => (
+                <option key={country.id} value={country.name}>
+                  {country.name}
+                </option>
+              ))}
+            </select>
+
+            {/* 🔴 Error */}
+            {getError("country") && (
+              <p className="text-red-500 text-sm">
+                {getError("country")}
+              </p>
+            )}
+          </div>
         )}
 
-        {/* Email */}
+        <div className="grid grid-cols-2 gap-4">
         <div>
           <Input
             label="Email"
@@ -242,9 +277,6 @@ export default function SignupForm() {
             </p>
           )}
         </div>
-
-
-        {/* Phone */}
         <div>
           <Input
             label="Phone"
@@ -259,47 +291,46 @@ export default function SignupForm() {
             </p>
           )}
         </div>
-
-
-        {/* Password */}
-        <div>
-          <Input
-            label="Password"
-            type="password"
-            value={formData.password}
-            onChange={(e) =>
-              handleChange("password", e.target.value)
-            }
-          />
-
-          {getError("password") && (
-            <p className="text-red-500 text-sm">
-              {getError("password")}
-            </p>
-          )}
-
-        </div>
-        <div>
-          <Input
-            label="Confirm Password"
-            type="password"
-            value={formData.password_confirmation}
-            onChange={(e) =>
-              handleChange(
-                "password_confirmation",
-                e.target.value
-              )
-            }
-          />
-          {getError("password_confirmation") && (
-            <p className="text-red-500 text-sm">
-              {getError("password_confirmation")}
-            </p>
-          )}
         </div>
 
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Input
+              label="Password"
+              type="password"
+              value={formData.password}
+              onChange={(e) =>
+                handleChange("password", e.target.value)
+              }
+            />
 
+            {getError("password") && (
+              <p className="text-red-500 text-sm">
+                {getError("password")}
+              </p>
+            )}
 
+          </div>
+          <div>
+            <Input
+              label="Confirm Password"
+              type="password"
+              value={formData.password_confirmation}
+              onChange={(e) =>
+                handleChange(
+                  "password_confirmation",
+                  e.target.value
+                )
+              }
+            />
+            {getError("password_confirmation") && (
+              <p className="text-red-500 text-sm">
+                {getError("password_confirmation")}
+              </p>
+            )}
+          </div>
+
+        </div>
 
         {/* Terms */}
         <div className="flex items-center gap-2">
