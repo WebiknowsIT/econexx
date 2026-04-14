@@ -391,8 +391,6 @@ function renderRightSidebar () {
     <div className="w-full text-gray-800">
       {renderHero()}
       {renderArticles()}
-
-      
     </div>
   );
 }

@@ -39,7 +39,7 @@ const FAQ = ({
                   aria-expanded={openIndex === index}
                 >
                   <span className="text-lg font-semibold pr-4">
-                    {faq.question}
+                    {faq.question || faq.Question}
                   </span>
                   <ChevronDown
                     className={`w-5 h-5 text-gray-600 flex-shrink-0 transition-transform duration-300 ${
@@ -55,7 +55,7 @@ const FAQ = ({
                   }`}
                 >
                   <div className="px-6 pb-6 text-gray-600 leading-relaxed">
-                    {faq.answer}
+                    {faq.answer || faq.Answer}
                   </div>
                 </div>
               </div>
