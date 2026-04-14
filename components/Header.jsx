@@ -1,15 +1,36 @@
 // components/Header.tsx
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import Button from "@/components/ui/Button";
-import { usePathname } from "next/navigation";
-import { LogIn } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { LogIn, User, LogOut } from "lucide-react";
+
+
+
+import { isLoggedIn , logoutUser } from "@/utils/auth";
+import { getLocalStorageItem } from "@/utils/localStorage";
+import { useDispatch } from "react-redux";
+
+
 
 export default function Header() {
-  const pathname = usePathname();
+
+const dispatch = useDispatch();
+const router = useRouter();
+
+const [open, setOpen] = useState(false);
+
+const userInfo = getLocalStorageItem("user-info", {});
+const user = userInfo?.user;
+
+const name = user?.name || "";
+const initial = name ? name.charAt(0).toUpperCase() : "U";
+
+const pathname = usePathname();
 
   const isActive = (path) =>
     pathname === path ? "text-primary-600 font-semibold" : "text-gray-500 hover:text-primary-600";
@@ -52,10 +73,10 @@ export default function Header() {
 
         {/* RIGHT */}
         <div className="flex items-center gap-4 shrink-0">
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
+            {/* <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="7" cy="7" r="6" />
               <path d="m15 15-3-3" />
-            </svg>
+            </svg> */}
           {/* <div className="hidden md:flex items-center bg-gray-100 rounded-full px-4 py-2 gap-2">
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="7" cy="7" r="6" />
@@ -68,9 +89,58 @@ export default function Header() {
             />
           </div> */}
 
-          <Button variant="outline" href="/login" className={`shrink-0 ${isActive("/login")} `}>
-            <LogIn size={14} className="mr-2" /> Sign In
-          </Button>
+          {!isLoggedIn() ? (
+            <Button
+              variant="outline"
+              href="/login"
+              className={`shrink-0 ${isActive("/login")}`}
+            >
+              <LogIn size={14} className="mr-2" />
+              Sign In
+            </Button>
+          ) : (
+            <div className="relative">
+
+              {/* USER BUTTON */}
+              <button
+                onClick={() => setOpen(!open)}
+                className="flex items-center"
+              >
+                <div className="w-8 h-8 rounded-full bg-primary-500 text-white flex items-center justify-center text-sm font-bold shadow">
+                  {initial}
+                </div>
+              </button>
+
+              {/* DROPDOWN */}
+              {open && (
+                <div className="absolute right-0 mt-2 w-48 bg-white overflow-hidden rounded-lg shadow-lg z-50">
+
+                  {/* <button
+                    onClick={() => {
+                      setOpen(false);
+                      router.push("/profile");
+                    }}
+                    className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2"
+                  >
+                    <User size={14} /> Profile
+                  </button> */}
+
+                  <button
+                    onClick={() => {
+                      setOpen(false);
+                      logoutUser(dispatch, router.push);
+                    }}
+                    className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2 text-red-500"
+                  >
+                    <LogOut size={14} /> Logout
+                  </button>
+
+                </div>
+              )}
+            </div>
+          )}
+
+
           <Button href="/contact-us" variant="secondary">Get Started</Button>
         </div>
       </div>
