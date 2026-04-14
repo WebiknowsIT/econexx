@@ -1,7 +1,7 @@
 
 const AuthRight = ({ imgSrc, heading, description }) => {
   return (
-    <div className="auth-right !bg-secondary-50 col-span-12 md:col-span-6 text-center">
+    <div className="auth-right hero-glow gridBgDark noise bg-primary-900 relative col-span-12 md:col-span-6 text-center">
       <div className="info-section">
         <img
             className="mx-auto"
@@ -12,8 +12,8 @@ const AuthRight = ({ imgSrc, heading, description }) => {
             loading="eager"
             fetchpriority="high"
           />
-        <h4 className="font-medium">{heading}</h4>
-        <p className="text-sm">{description}</p>
+        <h4 className="font-medium text-white">{heading}</h4>
+        <p className="text-sm text-white">{description}</p>
       </div>
     </div>
   );

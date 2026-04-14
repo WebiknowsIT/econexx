@@ -12,6 +12,7 @@ import { registerUser } from "@/store/action/authActions";
 import toast from "react-hot-toast";
 import Checkbox from "../../../components/ui/Checkbox";
 
+import * as url from "@/utils/Url";
 import { request } from "@/services/Request";
 
 // ----------------------------
@@ -171,8 +172,9 @@ export default function SignupForm() {
         </div>
 
         <Button
-          className="w-full mt-8"
-          variant="primary"
+          size="lg"
+          className="w-full mt-4"
+          variant="secondary"
           disabled={!accountType}
           onClick={() => setStep(2)}
         >

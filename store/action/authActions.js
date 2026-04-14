@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import * as url from "../../utils/Url";
 import {clearLocalStorage,getLocalStorageItem,setLocalStorageItem,} from "@/utils/localStorage";
+import * as url from "@/utils/Url";
 import { request } from "@/services/Request";
 
 // ----------------------------

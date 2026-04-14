@@ -1,6 +1,8 @@
 "use client";
-import { useState } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBlogs } from "@/store/action/blogActions";
+import * as url from "@/utils/Url";
 
 import { Bookmark, Calendar, Clock, Eye ,Flame, Mail, Send, Users, Tag } from "lucide-react";
 
@@ -8,71 +10,26 @@ import Button from "@/components/ui/Button";
 import Pagination from "@/components/Pagination";
 import AnimatedSection from "@/components/AnimatedSection";
 
+export default function MediaCoverage() {
 
+  const dispatch = useDispatch();
 
+  const { blogs, pagination } = useSelector((state) => state.blog);
 
-const articles = [
-  {
-    title: "Razorpay's IPO Path: What the ₹50,000 Cr Valuation Actually Implies",
-    category: "Pre-IPO",
-    read: "8 min",
-    date: "Mar 4, 2025",
-    author: "Asha Verma",
-    views: "3,210",
-    saves: "189",
-    image: "/images/blog1.jpg",
-  },
-  {
-    title: "NCDs vs FDs in 2025: The Real After-Tax Comparison",
-    category: "Bonds",
-    read: "6 min",
-    date: "Mar 1, 2025",
-    author: "Suresh Mehta",
-    views: "5,044",
-    saves: "411",
-    image: "/images/blog2.jpg",
-  },
-  {
-    title: "India's Secondary Unlisted Market: How Price Discovery Works",
-    category: "Market Analysis",
-    read: "10 min",
-    date: "Feb 27, 2025",
-    author: "Rohit Kapoor",
-    views: "2,788",
-    saves: "203",
-    image: "/images/blog3.jpg",
-  },
-   {
-    title: "Razorpay's IPO Path: What the ₹50,000 Cr Valuation Actually Implies",
-    category: "Pre-IPO",
-    read: "8 min",
-    date: "Mar 4, 2025",
-    author: "Asha Verma",
-    views: "3,210",
-    saves: "189",
-    image: "/images/blog1.jpg",
-  },
-  {
-    title: "NCDs vs FDs in 2025: The Real After-Tax Comparison",
-    category: "Bonds",
-    read: "6 min",
-    date: "Mar 1, 2025",
-    author: "Suresh Mehta",
-    views: "5,044",
-    saves: "411",
-    image: "/images/blog2.jpg",
-  },
-  {
-    title: "India's Secondary Unlisted Market: How Price Discovery Works",
-    category: "Market Analysis",
-    read: "10 min",
-    date: "Feb 27, 2025",
-    author: "Rohit Kapoor",
-    views: "2,788",
-    saves: "203",
-    image: "/images/blog3.jpg",
-  }
-];
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 12;
+
+  useEffect(() => {
+    dispatch(fetchBlogs(currentPage));
+  }, [dispatch, currentPage]);
+
+  const totalPages = pagination?.last_page || Math.ceil((blogs?.length || 0) / perPage);
+
+  const sourceData = blogs && blogs.length > 0 ? blogs : [];
+
+  const start = (currentPage - 1) * perPage;
+  const pageItems = sourceData.slice(start, start + perPage);
+
 
 function renderHero() {
   return (
@@ -165,91 +122,127 @@ function renderHero() {
 }
 
 function renderArticles() {
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const perPage = 4;
-  const start = (currentPage - 1) * perPage;
-  const pageItems = articles.slice(start, start + perPage);
-
-
   return (
     <section className="px-6 lg:px-16 py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          
           {/* LEFT COLUMN */}
           <div className="lg:col-span-2">
             <div className="space-y-5">
-              {pageItems.map((article, i) => (
-                <AnimatedSection key={i} delay={0.15 + i * 0.1} y={40}>
 
-                  <a
-                    href="#"
-                    className="no-underline block bg-white border border-primary-100 rounded-2xl overflow-hidden transition-all duration-300 hover:border-primary-300 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(122,61,154,.1)]"
-                  >
-                    <div className="grid grid-cols-1 sm:grid-cols-3">
-                      <div className="sm:col-span-1 relative min-h-40">
-                        <Image
-                          src={article.image}
-                          alt={article.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="sm:col-span-2 p-6">
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="inline-block bg-primary-50 border border-primary-100 text-primary-500 font-semibold uppercase tracking-[.1em] text-[.6rem] px-2.5 py-0.5 rounded-full">
-                            {article.category}
-                          </span>
-                          <span className="w-1 h-1 rounded-full bg-primary-200"></span>
-                          <span className="flex items-center gap-1 text-primary-400 text-xs">
-                            <Clock size={12} /> {article.read}
-                          </span>
-                          <span className="w-1 h-1 rounded-full bg-primary-200"></span>
-                          <span className="flex items-center gap-1 text-primary-400 text-xs">
-                            <Calendar size={12} /> {article.date}
-                          </span>
+              {pageItems.map((article, i) => {
+                // ✅ Safe mapping (API + static fallback)
+                const title = article.title;
+                const image = article.featured_image
+                  ? `${url.BASE_URL}/storage/${article.featured_image}`
+                  : article.image;
 
+                const date = article.created_at
+                  ? new Date(article.created_at).toDateString()
+                  : article.date;
+
+                const views = article.view_count || article.views;
+                const author = article.author_name || article.author;
+                const excerpt = article.excerpt;
+
+                return (
+                  <AnimatedSection key={i} delay={0.15 + i * 0.1} y={40}>
+                    <a
+                      href={article.slug ? `/blogs/${article.slug}` : "#"}
+                      className="no-underline block bg-white border border-primary-100 rounded-2xl overflow-hidden transition-all duration-300 hover:border-primary-300 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(122,61,154,.1)]"
+                    >
+                      <div className="grid grid-cols-1 sm:grid-cols-3">
+                        <div className="sm:col-span-1 relative min-h-40">
+                          <img
+                            src={image || '/images/blog1.jpg'}
+                            alt={title}
+                            className="object-cover h-full w-full"
+                            onError={(e) => {
+                              e.target.src = '/images/blog1.jpg';
+                            }}
+                          />
                         </div>
-
-                        <h3 className="font-bold text-primary-900 mb-2 text-xl">
-                          {article.title}
-                        </h3>
-                        <p class="text-sm leading-relaxed mb-4 line-clamp-2">Dissecting Razorpay's financials, competitive moat, and realistic listing price range — with a framework for evaluating pre-IPO entry points.</p>
-                        <div className="flex justify-between text-xs">
-                          <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 p-1 rounded-full bg-secondary-100 flex items-center justify-center text-secondary-700 text-xs">AV</div>
-                            <span class="text-primary-500 text-xs">{article.author}</span>
-                          </div>
-                          <div className="flex gap-3">
-                            <span className="flex items-center gap-1">
-                              <Eye size={12} />
-                              {article.views}
+                        <div className="sm:col-span-2 p-6">
+                          <div className="flex items-center gap-2 mb-3">
+                            <span className="inline-block bg-primary-50 border border-primary-100 text-primary-500 font-semibold uppercase tracking-[.1em] text-[.6rem] px-2.5 py-0.5 rounded-full">
+                              {article.category || "Blog"}
                             </span>
 
-                            <span className="flex items-center gap-1">
-                              <Bookmark size={12} />
-                              {article.saves}
+                            <span className="w-1 h-1 rounded-full bg-primary-200"></span>
+
+                            <span className="flex items-center gap-1 text-primary-400 text-xs">
+                              <Clock size={12} /> {article.read || "5 min"}
                             </span>
+
+                            <span className="w-1 h-1 rounded-full bg-primary-200"></span>
+
+                            <span className="flex items-center gap-1 text-primary-400 text-xs">
+                              <Calendar size={12} /> {date}
+                            </span>
+                          </div>
+
+                          <h3 className="font-bold text-primary-900 mb-2 text-xl">
+                            {title}
+                          </h3>
+
+                          <p className="text-sm leading-relaxed mb-4 line-clamp-2">
+                            {excerpt ||
+                              "Dissecting financials and market trends..."}
+                          </p>
+
+                          <div className="flex justify-between text-xs">
+                            <div className="flex items-center gap-2">
+                              <div className="w-6 h-6 p-1 rounded-full bg-secondary-100 flex items-center justify-center text-secondary-700 text-xs">
+                                {author?.[0] || "A"}
+                              </div>
+                              <span className="text-primary-500 text-xs">
+                                {author || "Admin"}
+                              </span>
+                            </div>
+
+                            <div className="flex gap-3">
+                              <span className="flex items-center gap-1">
+                                <Eye size={12} />
+                                {views || "0"}
+                              </span>
+
+                              <span className="flex items-center gap-1">
+                                <Bookmark size={12} />
+                                {article.like_count || "0"}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </a>
-                </AnimatedSection>
-              ))}
-
-
+                    </a>
+                  </AnimatedSection>
+                );
+              })}
 
             </div>
-            <Pagination
-              totalItems={articles.length}
-              perPage={perPage}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
 
+            {/* PAGINATION */}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={(page) => setCurrentPage(page)}
+            />
           </div>
-          {/* RIGHT SIDEBAR */}
+
+          {/* RIGHT SIDEBAR (UNCHANGED) */}
+          {renderRightSidebar()}
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function renderRightSidebar () {
+  return (
+    <>
+    {/* RIGHT SIDEBAR */}
           <div className="lg:col-span-1 space-y-6">
             <AnimatedSection>
               <div className="bg-white border border-primary-100 rounded-2xl p-6">
@@ -261,16 +254,11 @@ function renderArticles() {
 
                 <div>
 
-                  {[
-                    { title: "Razorpay IPO Path Analysis", views: "3,210" },
-                    { title: "Weekly Market Roundup — Feb 14", views: "7,204" },
-                    { title: "PhysicsWallah $2.8B Valuation Deep Dive", views: "6,391" },
-                    { title: "NCDs vs FDs: After-Tax Comparison", views: "5,044" },
-                  ].map((item, i) => (
+                  {pageItems?.map((item, i) => (
 
                     <a
                       key={i}
-                      href="#"
+                      href={item.slug ? `/blogs/${item.slug}` : "#"}
                       className="no-underline flex items-start gap-4 p-3 -mx-3 rounded-lg transition-colors hover:bg-primary-50 border-b border-primary-50 last:border-none"
                     >
 
@@ -286,7 +274,7 @@ function renderArticles() {
 
                         <div className="text-xs text-primary-400 flex items-center gap-1.5">
                           <Eye size={12} />
-                          {item.views} reads
+                          {item.view_count} reads
                         </div>
 
                       </div>
@@ -394,14 +382,9 @@ function renderArticles() {
             </AnimatedSection>
 
           </div>
-        </div>
-      </div>
-    </section>
-  );
+    </>
+  )
 }
-
-export default function MediaCoverage() {
-
 
 
   return (

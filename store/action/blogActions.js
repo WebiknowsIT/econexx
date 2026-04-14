@@ -1,24 +1,51 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import * as url from "@/utils/Url";
 import { request } from "@/services/Request";
-import * as url from "../../utils/Url";
 
-
-/* -------------------- FETCH BLOGS -------------------- */
+const API = request(url.BASE_URL);
 
 export const fetchBlogs = createAsyncThunk(
   "blog/fetchBlogs",
-  async (_, { rejectWithValue }) => {
+  async (page = 1, { rejectWithValue }) => {
     try {
-      const res = await fetch(`${url.BASE_URL}/api/blogs`);
-      const data = await res.json();
+      const res = await API.get(`/api/blogs?page=${page}`);
 
-      if (!data.status) {
-        return rejectWithValue(data.message);
+      if (!res?.success) {
+        return rejectWithValue({
+          message: res?.message || "Failed to fetch blogs",
+        });
       }
 
-      return data.data; // array of blogs
+      return {
+        blogs: res.data || [],
+        pagination: res.pagination || {},
+      };
     } catch (error) {
-      return rejectWithValue("Failed to fetch blogs");
+      return rejectWithValue({
+        message: error?.message || "Something went wrong",
+      });
+    }
+  }
+);
+
+export const fetchBlogBySlug = createAsyncThunk(
+  "blog/fetchBlogBySlug",
+  async (slug, { rejectWithValue }) => {
+    try {
+      const res = await API.get(`/api/blogs/${slug}`);
+
+      if (!res?.success) {
+        return rejectWithValue({
+          message: res?.message || "Failed to fetch blog",
+        });
+      }
+
+      // ✅ success
+      return res.data; 
+    } catch (error) {
+      return rejectWithValue({
+        message: error?.message || "Something went wrong",
+      });
     }
   }
 );

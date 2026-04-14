@@ -7,7 +7,7 @@ import companyReducer from './companySlice';
 import homeReducer from "./homeSlice";
 import unlistedShareReducer from "./unlistedShareSlice";
 import preIpoShareReducer from "./preIpoSlice";
-// import blogReducer from "./blogSlice";
+import blogReducer from "./blogSlice";
 // import clientReducer from "./clientSlice";
 // import contactReducer from "./contactSlice";
 // import testimonialReducer from "./testimonialSlice";
@@ -20,7 +20,7 @@ const appReducer = combineReducers({
   global: globalReducer,
   company: companyReducer,
   auth: authReducer,
-  // client: clientReducer,
+  blog: blogReducer,
   // contact: contactReducer,
   // testimonials: testimonialReducer,
   // services: servicesReducer,
