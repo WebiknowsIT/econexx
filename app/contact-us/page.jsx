@@ -6,17 +6,16 @@ import {
   Phone, Mail, Headphones, User, MapPin, Tag,
   IndianRupee, MessageSquare, Send, Lock,
   Building2, Users, Share2, Linkedin, Twitter,
-  Instagram, Youtube, CheckCircle,
+  Instagram, Youtube, CheckCircle, Facebook
 } from 'lucide-react';
+
+import { useDispatch, useSelector } from "react-redux";
 
 import AnimatedSection from '@/components/AnimatedSection';
 import SectionTitle from '@/components/SectionTitle';
-import FAQ from "@/components/ui/Faq";
 import Button from "@/components/ui/Button";
-
 import '@/styles/contact.css';
 
-// ─── DUMMY DATA ────────────────────────────────────────────────────────────────
 
 const HERO_DATA = {
   tagline:  'Get In Touch',
@@ -24,13 +23,12 @@ const HERO_DATA = {
   subtext:
     "Whether you're an investor with a question, a partner looking to collaborate, or just curious about unlisted equities — our team is here and happy to help.",
   promises: [
-    { Icon: Clock,       text: 'Typical response time:', highlight: 'under 24 hours'    },
-    { Icon: ShieldCheck, text: 'Your details are',       highlight: '100% confidential' },
-    { Icon: UserCheck,   text: 'Speak directly with a',  highlight: 'senior advisor'    },
+    { Icon: ShieldCheck, text: 'Your details are', highlight: '100% confidential' },
+    { Icon: UserCheck,   text: 'Speak directly with a', highlight: 'senior advisor'    },
   ],
   stats: [
     { value: '600+', label: 'Happy Investors' },
-    { value: '< 25  Mins',   label: 'Response Time'   },
+    { value: '24 hours',   label: 'Response Time'   },
   ],
 };
 
@@ -54,11 +52,6 @@ const FORM_DATA = {
 };
 
 const SIDEBAR_DATA = {
-  office: {
-    name:    'Headquarters',
-    city:    'Mumbai, India',
-    address: ['Registered Address: 09,', 'Swami Samarth Krupa, Taloja By Pass,', 'Near Hotel Nisarg, Dombivali East, Thane, Maharashtra - 421204'],
-  },
   hours: [
     { day: 'Monday – Friday', time: '9:00 AM – 7:00 PM' },
     { day: 'Saturday',        time: '10:00 AM – 5:00 PM' },
@@ -69,93 +62,32 @@ const SIDEBAR_DATA = {
     { initials: 'PA', name: 'Partner Alliances',  email: 'partner@econexx.com', color: 'orange' },
     { initials: 'CS', name: 'Customer Support',   email: 'support@econexx.com', color: 'purple' },
   ],
-  socials: [
-    { Icon: Linkedin,  label: 'LinkedIn'    },
-    { Icon: Twitter,   label: 'Twitter / X' },
-    { Icon: Instagram, label: 'Instagram'   },
-    { Icon: Youtube,   label: 'YouTube'     },
-  ],
 };
 
-const contactFaqs = [
-  {
-    id: 1,
-    question: "How can I contact Econexx?",
-    answer: (
-      <p>
-        You can contact the Econexx team through the contact form on this
-        page, by email, or by calling our support number. Our team will
-        respond to your inquiry and guide you with the appropriate
-        information regarding investments, partnerships, or general
-        assistance.
-      </p>
-    ),
-  },
-  {
-    id: 2,
-    question: "How quickly will I receive a response?",
-    answer: (
-      <p>
-        We typically respond to all inquiries within 24 hours during
-        business days. For urgent investment or transaction-related
-        queries, our team may reach out even sooner to assist you.
-      </p>
-    ),
-  },
-  {
-    id: 3,
-    question: "Can I schedule a consultation with your team?",
-    answer: (
-      <p>
-        Yes. You can request a consultation through the contact form.
-        One of our investment specialists will connect with you to
-        discuss pre-IPO opportunities, bonds, or other investment
-        options based on your requirements.
-      </p>
-    ),
-  },
-  {
-    id: 4,
-    question: "What information should I include in my inquiry?",
-    answer: (
-      <p>
-        When submitting a contact request, it is helpful to include your
-        name, phone number, email, and a brief description of your
-        query. This helps our team understand your requirements and
-        provide a more accurate response.
-      </p>
-    ),
-  },
-  {
-    id: 5,
-    question: "Can I contact Econexx for partnership or business inquiries?",
-    answer: (
-      <p>
-        Absolutely. If you are interested in partnerships, collaborations,
-        or institutional opportunities, you can mention it in your message.
-        Our partnership team will review your request and get in touch
-        with you.
-      </p>
-    ),
-  },
-  {
-    id: 6,
-    question: "Is my information kept confidential?",
-    answer: (
-      <p>
-        Yes. All information submitted through our contact form is kept
-        strictly confidential and used only to respond to your inquiry.
-        We do not share your personal information with third parties
-        without your consent.
-      </p>
-    ),
-  },
-];
+const SOCIAL_ICONS = {
+  facebook:  { Icon: Facebook,   label: "Facebook"    },
+  twitter:   { Icon: Twitter,    label: "Twitter / X" },
+  linkedin:  { Icon: Linkedin,   label: "LinkedIn"    },
+  instagram: { Icon: Instagram,  label: "Instagram"   },
+  youtube:   { Icon: Youtube,    label: "YouTube"     },
+};
+
+export default function ContactPage() {
+
+  const dispatch = useDispatch();
+  const { footer, footerStatus } = useSelector((state) => state.company);
+
+  console.log(footer);
+  
 
 
+  const [form, setForm]                   = useState({ name: '', phone: '', email: '', city: '', topic: '', budget: '', message: '' });
+  const [errors, setErrors]               = useState({});
+  const [submitted, setSubmitted]         = useState(false);
+  const [selectedTime, setSelectedTime]   = useState('Afternoon (12–4)');
+  const [openIndex, setOpenIndex]         = useState(null);
 
-
-function renderHero() {
+  function renderHero() {
   return (
     <section className="heroSection hero-glow gridBgDark noise bg-primary-900 relative py-14 px-6 lg:px-16 overflow-hidden">
       <div className="absolute top-20 right-0 w-96 h-96 rounded-full border float-anim"
@@ -204,7 +136,7 @@ function renderHero() {
                     >
                       <p.Icon className="w-4 h-4" />
                     </div>
-                    {p.text}{' '}
+                    {p.text}{''}
                     <span className="text-secondary-400 font-semibold ml-1">{p.highlight}</span>
                   </div>
                 ))}
@@ -221,9 +153,13 @@ function renderHero() {
               >
                 <div className="flex items-center gap-3 mb-2">
                   <Phone className="w-4 h-4 text-secondary-400" />
-                  <span className="text-primary-400 text-xs uppercase tracking-widest">Helpline</span>
+                  <span className="text-primary-400 text-xs uppercase tracking-widest">
+                    Helpline
+                  </span>
                 </div>
-                <div className="text-2xl font-bold text-primary-50">+91 8108181602</div>
+                <div className="text-2xl font-bold text-primary-50">
+                  {footer?.site_info?.contact_phone || "+91 8010009625"}
+                </div>
                 <div className="text-primary-500 text-xs mt-1">Mon–Sat · 9 AM – 7 PM IST</div>
               </div>
 
@@ -235,7 +171,9 @@ function renderHero() {
                   <Phone className="w-4 h-4 text-secondary-400" />
                   <span className="text-primary-400 text-xs uppercase tracking-widest">Email</span>
                 </div>
-                <div className="text-2xl font-bold text-primary-50">team@econexxwealth.com</div>
+                <div className="text-2xl font-bold text-primary-50">
+                  {footer?.site_info?.contact_email || "info@econexxwealth.com"}
+                  </div>
                 <div className="text-primary-500 text-xs mt-1">General enquiries</div>
               </div>
 
@@ -369,21 +307,6 @@ function renderContactForm({
                     </select>
                   </div>
 
-                  {/* budget */}
-                  <div className="mb-5">
-                    <label className="block text-xs text-primary-500 uppercase tracking-widest mb-2 flex items-center gap-1.5">
-                      <IndianRupee className="w-3 h-3" /> Investment Budget (optional)
-                    </label>
-                    <select
-                      value={form.budget}
-                      onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                      className="inp"
-                    >
-                      <option value="">Select range…</option>
-                      {FORM_DATA.budgets.map((b) => <option key={b}>{b}</option>)}
-                    </select>
-                  </div>
-
                   {/* message */}
                   <div className="mb-7">
                     <label className="block text-xs text-primary-500 uppercase tracking-widest mb-2 flex items-center gap-1.5">
@@ -436,11 +359,7 @@ function renderContactForm({
               )}
             </AnimatedSection>
           </div>
-
-          {/* ── RIGHT: INFO SIDEBAR ── */}
           <div className="space-y-5">
-
-            {/* office */}
             <AnimatedSection>
               <div className="office-card !bg-white/70 p-7">
                 <div className="flex items-center gap-3 mb-5">
@@ -451,21 +370,15 @@ function renderContactForm({
                     <Building2 className="w-5 h-5 text-primary-500" />
                   </div>
                   <div>
-                    <div className="font-semibold text-primary-800 text-sm">{SIDEBAR_DATA.office.name}</div>
-                    <div className="text-primary-400 text-xs">{SIDEBAR_DATA.office.city}</div>
+                    <div className="font-semibold text-primary-800 text-sm">
+                      {footer?.site_info?.site_name || "EconexxWealth"}
+                      </div>
+                    <div className="text-primary-400 text-xs">Mumbai, India</div>
                   </div>
                 </div>
                 <p className="text-primary-600 text-sm leading-relaxed mb-4">
-                  {SIDEBAR_DATA.office.address.map((line, i) => (
-                    <span key={i}>
-                      {line}
-                      {i < SIDEBAR_DATA.office.address.length - 1 && <br />}
-                    </span>
-                  ))}
+                  Registered Address: {" "}{footer?.site_info?.office_address || "NA"}
                 </p>
-                {/* <a href="#map" className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-500 hover:text-primary-700 transition-colors no-underline">
-                  <MapPin className="w-3 h-3" /> View on map ↓
-                </a> */}
               </div>
             </AnimatedSection>
 
@@ -530,11 +443,16 @@ function renderContactForm({
                   <Share2 className="w-4 h-4 text-primary-400" /> Follow Us
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {SIDEBAR_DATA.socials.map((s) => (
-                    <a key={s.label} href="#" className="social-pill">
-                      <s.Icon className="w-3.5 h-3.5" /> {s.label}
-                    </a>
-                  ))}
+                  {footer?.social?.map(({ label, url }) => {
+                    const social = SOCIAL_ICONS[label.toLowerCase()];
+                    if (!social) return null; 
+                    const { Icon, label: displayLabel } = social;
+                    return (
+                      <a key={label} href={url} target="_blank" rel="noopener noreferrer" className="social-pill">
+                        <Icon className="w-3.5 h-3.5" /> {displayLabel}
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </AnimatedSection>
@@ -546,23 +464,10 @@ function renderContactForm({
   );
 }
 
-export default function ContactPage() {
-  const [form, setForm]                   = useState({ name: '', phone: '', email: '', city: '', topic: '', budget: '', message: '' });
-  const [errors, setErrors]               = useState({});
-  const [submitted, setSubmitted]         = useState(false);
-  const [selectedTime, setSelectedTime]   = useState('Afternoon (12–4)');
-  const [openIndex, setOpenIndex]         = useState(null);
-
   return (
     <main>
       {renderHero()}
       {renderContactForm({ form, setForm, errors, setErrors, submitted, setSubmitted, selectedTime, setSelectedTime })}
-      <FAQ 
-        title="Frequently Asked"
-        highlightedTitle="Questions"
-        subtitle="Everything you need to know before investing with Econexx Wealth."
-        data={contactFaqs} 
-      />
     </main>
   );
 }

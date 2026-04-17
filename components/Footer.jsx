@@ -1,11 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect  } from 'react';
+import toast from "react-hot-toast";
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, Phone, Mail, ArrowRight, TrendingUp, Shield } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
-import { useSelector } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
+import { resetSubscribeState } from '@/store/slices/companySlice';
+import { subscribeLanding } from '@/store/action/companyActions';
 
 
 const NAV_COLS = [
@@ -39,10 +44,13 @@ const LEGAL = [
 
 export default function Footer() {
 
-  const { footer, footerStatus } = useSelector((state) => state.company);
+  const dispatch = useDispatch();
 
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
+  const { footer, footerStatus,subscribeLoading,
+  subscribeSuccess,
+  subscribeError } = useSelector((state) => state.company);
+
+  const [email, setEmail] = useState("");
 
   const SOCIAL_ICONS = {
   linkedin: <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></>,
@@ -52,12 +60,43 @@ export default function Footer() {
   facebook: <><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></>,
 };
 
+const isValidEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
 const SOCIALS = (footer?.social || []).map((s) => ({
   label: s.label,
   href: s.url,
   paths: SOCIAL_ICONS[s.label.toLowerCase()] ?? null,
 })).filter((s) => s.paths);
 
+const handleSubscribe = () => {
+  const trimmedEmail = email.trim();
+
+  if (!trimmedEmail) {
+    toast.error("Email is required");
+    return;
+  }
+  if (!isValidEmail(trimmedEmail)) {
+    toast.error("Please enter a valid email address");
+    return;
+  }
+
+  dispatch(subscribeLanding(trimmedEmail));
+};
+
+useEffect(() => {
+  if (subscribeSuccess) {
+    toast.success("Subscribed successfully");
+    setEmail("");
+    dispatch(resetSubscribeState());
+  }
+
+  if (subscribeError) {
+    toast.error(subscribeError); 
+    dispatch(resetSubscribeState());
+  }
+}, [subscribeSuccess, subscribeError]);
 
   const renderFooterSkeleton = () => (
     <>
@@ -233,13 +272,6 @@ const SOCIALS = (footer?.social || []).map((s) => ({
                       <span>{footer?.site_info?.contact_email || "NA"}</span>
                     </div>
 
-
-                    {/* {CONTACT.map((c) => (
-                    <div key={c.text} className="flex items-start gap-2.5 text-xs text-primary-300">
-                      <c.Icon className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-primary-300" />
-                      <span>{c.text}</span>
-                    </div>
-                  ))} */}
                   </div>
 
                   <div className="flex gap-2">
@@ -279,35 +311,35 @@ const SOCIALS = (footer?.social || []).map((s) => ({
                   Weekly pulse on new arrivals, price moves &amp; IPO openings.
                 </p>
               </div>
-              {!subscribed ? (
-                <div className="flex gap-2 w-full md:w-auto">
-                  <input
-                    type="email"
-                    placeholder="Your email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="flex-1 md:w-60 rounded-xl px-4 py-2.5 text-sm outline-none"
-                    style={{
-                      background: 'rgba(255,255,255,.05)',
-                      border: '1px solid rgba(182,138,204,.18)',
-                      color: '#E6D9F0',
-                      fontFamily: 'inherit',
-                    }}
-                  />
-                  <button
-                    onClick={() => email.trim() && setSubscribed(true)}
-                    className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-sm font-bold flex-shrink-0 transition-opacity hover:opacity-90"
-                    style={{ background: 'linear-gradient(135deg,#C47222,#F9A24F)', color: '#0D0812', fontFamily: 'inherit' }}
-                  >
-                    Subscribe <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              ) : (
-                <div className="px-5 py-2.5 rounded-xl text-sm font-semibold"
-                  style={{ background: 'rgba(34,197,94,.1)', border: '1px solid rgba(34,197,94,.2)', color: '#4ade80' }}>
-                  ✓ You're subscribed!
-                </div>
-              )}
+              <div className="flex gap-2 w-full md:w-auto">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 md:w-60 rounded-xl px-4 py-2.5 text-sm outline-none"
+                  style={{
+                    background: 'rgba(255,255,255,.05)',
+                    border: '1px solid rgba(182,138,204,.18)',
+                    color: '#E6D9F0',
+                    fontFamily: 'inherit',
+                  }}
+                />
+
+                <button
+                  onClick={handleSubscribe}
+                  disabled={subscribeLoading}
+                  className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-sm font-bold flex-shrink-0 transition-opacity hover:opacity-90 disabled:opacity-60"
+                  style={{
+                    background: 'linear-gradient(135deg,#C47222,#F9A24F)',
+                    color: '#0D0812',
+                    fontFamily: 'inherit'
+                  }}
+                >
+                  {subscribeLoading ? "Submitting..." : "Subscribe"}
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
           </AnimatedSection>
 

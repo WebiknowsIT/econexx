@@ -1,7 +1,8 @@
 // components/detail/DetailHero.jsx
 import Image from "next/image";
 import { Calendar, MapPin, Users } from "lucide-react";
-import {formatAmount} from "@/utils/helper";
+
+import { highlightLastWords, formatAmount } from "@/utils/helper"
 
 
 export default function DetailHero({ data }) {
@@ -52,7 +53,9 @@ const tagStyles = [
             </div>
             <div>
               <div className="flex items-center gap-3 flex-wrap mb-2">
-                <h1 className="font-bold text-white text-4xl lg:text-4xl">{data?.share?.name}</h1>
+                <h1 className="font-bold text-white text-4xl lg:text-4xl">
+                  {highlightLastWords(data?.share?.name, "gradBrand", 2)}
+                  </h1>
                 <div className="flex flex-wrap gap-2">
                   {data?.is_featured?.is_featured && (
                     <span className="text-xs bg-red-500/20 border border-red-400/30 text-red-300 px-3 py-1 rounded-full">

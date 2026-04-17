@@ -18,6 +18,8 @@ import {fetchPreIpoLanding, expressPreIpoInterest, fetchPreIpoCompanies
 } from "@/store/action/preIpoActions";
 import { resetInterestState } from "@/store/slices/preIpoSlice";
 
+import { highlightLastWords } from "@/utils/helper"
+
 
 
 
@@ -129,7 +131,7 @@ export default function DrhpFiled() {
                 </div>
 
                 <h1 className="heroTitle font-bold leading-[1.05] mb-6 text-primary-50">
-                  {banner?.title}
+                  {highlightLastWords(banner?.title, "gradBrand", 1)}
                 </h1>
 
                 <p className="text-primary-400 text-lg leading-relaxed max-w-lg mb-6">

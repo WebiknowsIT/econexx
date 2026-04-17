@@ -39,6 +39,12 @@ import FAQ from "@/components/ui/Faq";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPartnerPage, applyPartner, } from "@/store/action/partnerActions";
+import { resetApplyState } from "@/store/slices/partnerSlice";
+
+
+
+
+import { highlightLastWords } from "@/utils/helper"
 
 
 export default function PartnerPage() {
@@ -46,7 +52,7 @@ export default function PartnerPage() {
   const dispatch = useDispatch();
   const { pageData, loading, applying, applySuccess, applyError, applyErrors } =
     useSelector((state) => state.partner);
-    
+
   const [formData, setFormData] = useState({
     full_name: "",
     phone: "",
@@ -86,8 +92,18 @@ export default function PartnerPage() {
   useEffect(() => {
     if (applySuccess) {
       toast.success("Application submitted successfully");
+      setFormData({
+        full_name: "",
+        phone: "",
+        email: "",
+        current_profession: "",
+        program: "",
+        estimated_client_base: "",
+        message: "",
+      });
+      dispatch(resetApplyState());
     }
-  }, [applySuccess]);
+  }, [applySuccess, dispatch]);
 
 
   const earningCards = [
@@ -155,14 +171,17 @@ export default function PartnerPage() {
                 </div>
 
                 <h1 className="heroTitle font-bold leading-[1.05] mb-6 text-primary-50">
-                  {title.split("EconexxWealth")[0]}
-                  <span className="gradBrand">
-                    EconexxWealth
-                  </span>
+                  {highlightLastWords(title, "gradBrand", 1) || (
+                    <>Grow Together with {" "}
+                      <span className="gradBrand">
+                        EconexxWealth
+                      </span>
+                    </>
+                  )}
                 </h1>
 
                 <p className="text-primary-400 text-lg leading-relaxed max-w-lg mb-6">
-                  {subtitle}
+                  {subtitle || "Partner with us and unlock exclusive tools, insights, and opportunities designed for serious wealth builders."}
                 </p>
 
                 <AnimatedSection delay={0.3} y={30}>

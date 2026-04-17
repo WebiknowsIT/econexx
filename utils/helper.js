@@ -100,3 +100,18 @@ export function filterChartData(data, range) {
     return date >= cutoff;
   });
 }
+
+
+// utils/textUtils.js
+
+export function highlightLastWords(title, className, count = 1) {
+  const words = (title || "").trim().split(" ");
+  const highlighted = words.splice(-count);
+
+  return (
+    <>
+      {words.join(" ")}{" "}
+      <span className={className}>{highlighted.join(" ")}</span>
+    </>
+  );
+}

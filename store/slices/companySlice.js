@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCompany, fetchFooter } from "../action/companyActions";
+import { fetchCompany, fetchFooter, subscribeLanding } from "../action/companyActions";
 
 const initialState = {
   header: null,
@@ -9,6 +9,12 @@ const initialState = {
   footerStatus: "idle",
 
   error: null,
+
+  // SUBSCRIBE STATE
+  subscribeLoading: false,
+  subscribeSuccess: false,
+  subscribeError: null,
+
 };
 
 const companySlice = createSlice({
@@ -23,6 +29,11 @@ const companySlice = createSlice({
       state.footerStatus = "idle";
 
       state.error = null;
+    },
+    resetSubscribeState: (state) => {
+      state.subscribeLoading = false;
+      state.subscribeSuccess = false;
+      state.subscribeError = null;
     },
   },
   extraReducers: (builder) => {
@@ -62,9 +73,30 @@ const companySlice = createSlice({
           action.payload?.message ||
           action.error?.message ||
           "Failed to load footer";
+      })
+
+      .addCase(subscribeLanding.pending, (state) => {
+        state.subscribeLoading = true;
+        state.subscribeError = null;
+        state.subscribeSuccess = false;
+      })
+
+      .addCase(subscribeLanding.fulfilled, (state) => {
+        state.subscribeLoading = false;
+        state.subscribeSuccess = true;
+      })
+
+      .addCase(subscribeLanding.rejected, (state, action) => {
+        state.subscribeLoading = false;
+        state.subscribeError =
+          action.payload?.message || "Subscription failed";
       });
+
+
+
+
   },
 });
 
-export const { clearCompany } = companySlice.actions;
+export const { clearCompany,resetSubscribeState } = companySlice.actions;
 export default companySlice.reducer;

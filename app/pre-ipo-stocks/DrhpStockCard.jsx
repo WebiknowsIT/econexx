@@ -9,6 +9,8 @@ import {
 import Button from "@/components/ui/Button";
 import StatusTag from "@/components/ui/StatusTag/StatusTag";
 
+
+
 export default function DrhpStockCard({ company, onInterest }) {
 
     const getVariant = (badge) => {
