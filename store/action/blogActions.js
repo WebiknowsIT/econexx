@@ -38,7 +38,7 @@ export const fetchBlogBySlug = createAsyncThunk(
   "blog/fetchBlogBySlug",
   async (slug, { rejectWithValue }) => {
     try {
-      const res = await API.get(`/api/blogs/${slug}`);
+      const res = await API.get(`/api/news-and-insights/${slug}`);
 
       if (!res?.success) {
         return rejectWithValue({message: res?.message || "Failed to fetch blog",});

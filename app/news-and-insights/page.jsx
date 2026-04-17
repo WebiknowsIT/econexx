@@ -179,7 +179,7 @@ export default function MediaCoverage() {
                   return (
                     <AnimatedSection key={i} delay={0.15 + i * 0.1} y={40}>
                       <a
-                        href={article.slug ? `/blogs/${article.slug}` : "#"}
+                        href={article.slug ? `/news-and-insights/${article.slug}` : "#"}
                         className="no-underline block bg-white border border-primary-100 rounded-2xl overflow-hidden transition-all duration-300 hover:border-primary-300 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(122,61,154,.1)]"
                       >
 
@@ -287,7 +287,7 @@ export default function MediaCoverage() {
                 {(blogs?.length ? blogs : []).map((item, i) => (
                   <a
                     key={i}
-                    href={item.slug ? `/blogs/${item.slug}` : "#"}
+                    href={item.slug ? `/news-and-insights/${item.slug}` : "#"}
                     className="no-underline flex items-start gap-4 p-3 -mx-3 rounded-lg transition-colors hover:bg-primary-50 border-b border-primary-50 last:border-none"
                   >
                     <span className="font-serif font-bold text-3xl text-primary-100 leading-none mt-0.5 min-w-[2rem]">
