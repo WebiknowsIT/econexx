@@ -101,7 +101,7 @@ export default function BlogDetail() {
                     <img
                         src={image}
                         alt={title}
-                        className="w-full h-[280px] md:h-[460px] object-cover"
+                        className="w-full h-auto"
                         onError={(e) => { e.target.src = "/images/blog1.jpg"; }}
                     />
                 </div>
