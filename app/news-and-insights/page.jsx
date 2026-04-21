@@ -168,13 +168,9 @@ export default function MediaCoverage() {
               <div className="space-y-5">
 
                 {(pageItems.length ? pageItems : []).map((article, i) => {
-                  const image = article.featured_image
-                    ? `${url.BASE_URL}/storage/${article.featured_image}`
-                    : "/images/blog1.jpg";
+                  const image = article.featured_image ? `${article.featured_image}` : "/images/blog1.jpg";
 
-                  const date = article.published_at
-                    ? new Date(article.published_at).toDateString()
-                    : "Recent";
+                  const date = article.published_at ? new Date(article.published_at).toDateString() : "Recent";
 
                   return (
                     <AnimatedSection key={i} delay={0.15 + i * 0.1} y={40}>
