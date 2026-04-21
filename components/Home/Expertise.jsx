@@ -313,7 +313,7 @@ export default function ExpertiseSection() {
             <AnimatedSection delay={0.46}>
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href="/shares"
+                  href="/unlisted-shares"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-[14px] text-[.85rem] font-bold no-underline transition-opacity hover:opacity-90"
                   style={{
                     background: 'linear-gradient(135deg,#C47222,#F9A24F)',
@@ -324,7 +324,7 @@ export default function ExpertiseSection() {
                   Explore Investments <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/contact-us"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-[14px] text-[.85rem] font-bold no-underline transition-all hover:border-[#B68ACC] hover:bg-[#F8F3FC]"
                   style={{
                     background: '#fff',

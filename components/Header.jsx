@@ -9,8 +9,6 @@ import Button from "@/components/ui/Button";
 import { usePathname, useRouter } from "next/navigation";
 import { LogIn, User, LogOut } from "lucide-react";
 
-
-
 import { isLoggedIn , logoutUser } from "@/utils/auth";
 import { getLocalStorageItem } from "@/utils/localStorage";
 import { useDispatch } from "react-redux";
@@ -114,8 +112,13 @@ const pathname = usePathname();
               {/* DROPDOWN */}
               {open && (
                 <div className="absolute right-0 mt-2 w-48 bg-white overflow-hidden rounded-lg shadow-lg z-50">
+                  <div className="w-full border-b border-gray-100 text-left px-4 text-sm py-2 hover:bg-gray-100">
+                    <span className=""></span>Hi,
+                    <h6 className="font-bold">{name}</h6>
+                  </div>
 
-                  {/* <button
+
+                  <button
                     onClick={() => {
                       setOpen(false);
                       router.push("/profile");
@@ -123,7 +126,7 @@ const pathname = usePathname();
                     className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2"
                   >
                     <User size={14} /> Profile
-                  </button> */}
+                  </button>
 
                   <button
                     onClick={() => {

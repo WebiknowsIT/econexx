@@ -59,8 +59,6 @@ export const userLogin = createAsyncThunk(
     try {
       const  res = await API.post("/api/login", {login: email, password,});
 
-      console.log("dataAc", res)
-
       if (!res?.success) {
         return rejectWithValue(res?.message || "Login failed");
       }
@@ -135,6 +133,125 @@ export const userLogout = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(handleError(error, "Logout failed"));
+    }
+  }
+);
+
+// ============================
+// ✅ Send OTP (Forgot Password - Step 1)
+// ============================
+export const sendOtp = createAsyncThunk(
+  "auth/sendOtp",
+  async ({ login, channel = "auto" }, { rejectWithValue }) => {
+    try {
+      const res = await API.post("/api/forgot-password/send-otp", {
+        login,
+        channel,
+      });
+
+      if (!res?.success) {
+        return rejectWithValue({
+          message: res?.message || "Failed to send OTP",
+          errors: res?.errors || null,
+        });
+      }
+
+      return {
+        message: res?.message || "OTP sent successfully",
+        data: res?.data,
+      };
+    } catch (error) {
+      return rejectWithValue({
+        type: error?.data?.errors ? "validation" : "general",
+        message: handleError(error, "Failed to send OTP"),
+        errors: error?.data?.errors || null,
+      });
+    }
+  }
+);
+
+// ============================
+// ✅ Verify OTP (Forgot Password - Step 2)
+// ============================
+export const verifyOtp = createAsyncThunk(
+  "auth/verifyOtp",
+  async ({ login, otp }, { rejectWithValue }) => {
+    try {
+      const res = await API.post("/api/forgot-password/verify-otp", {
+        login,
+        otp,
+      });
+
+      if (!res?.success) {
+        return rejectWithValue({
+          message: res?.message || "Invalid OTP",
+          errors: res?.errors || null,
+        });
+      }
+
+      return {
+        message: res?.message || "OTP verified successfully",
+        data: res?.data,
+      };
+    } catch (error) {
+      return rejectWithValue({
+        type: error?.data?.errors ? "validation" : "general",
+        message: handleError(error, "OTP verification failed"),
+        errors: error?.data?.errors || null,
+      });
+    }
+  }
+);
+
+// ============================
+// ✅ Reset Password (Forgot Password - Step 3)
+// ============================
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async (
+    { login, otp, password, password_confirmation },
+    { rejectWithValue }
+  ) => {
+    try {
+      const res = await API.post("/api/forgot-password/reset", {
+        login,
+        otp,
+        password,
+        password_confirmation,
+      });
+
+      if (!res?.success) {
+        return rejectWithValue({
+          message: res?.message || "Password reset failed",
+          errors: res?.errors || null,
+        });
+      }
+
+      // If backend returns new token (auto-login), store it
+      if (res?.data?.access_token) {
+        const authData = {
+          token: res?.data?.access_token,
+          tokenType: res?.data?.token_type || "Bearer",
+          user: res?.data?.user,
+        };
+        setLocalStorageItem("user-info", authData);
+        return {
+          message: res?.message || "Password reset successfully",
+          authData,
+          autoLogin: true,
+        };
+      }
+
+      return {
+        message: res?.message || "Password reset successfully",
+        autoLogin: false,
+      };
+    } catch (error) {
+      return rejectWithValue({
+        type: error?.data?.errors ? "validation" : "general",
+        message: handleError(error, "Password reset failed"),
+        errors: error?.data?.errors || null,
+      });
     }
   }
 );

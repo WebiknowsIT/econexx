@@ -115,3 +115,13 @@ export function highlightLastWords(title, className, count = 1) {
     </>
   );
 }
+
+
+export function getInitials(name) {
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}

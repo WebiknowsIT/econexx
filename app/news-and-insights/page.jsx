@@ -46,7 +46,7 @@ export default function MediaCoverage() {
   useEffect(() => {
   if (subscribeSuccess) {
     toast.success("Subscribed successfully!");
-    setEmail(""); // optional clear input
+    setEmail("");
     dispatch(resetSubscribeState());
   }
 
