@@ -41,10 +41,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPartnerPage, applyPartner, } from "@/store/action/partnerActions";
 import { resetApplyState } from "@/store/slices/partnerSlice";
 
-
-
-
-import { highlightLastWords } from "@/utils/helper"
+import { highlightLastWords } from "@/utils/helper";
+import {isLoggedIn} from "@/utils/auth";
 
 
 export default function PartnerPage() {
@@ -63,6 +61,8 @@ export default function PartnerPage() {
     message: "",
   });
 
+  const loggedIn = isLoggedIn();
+
   const handleChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -79,6 +79,11 @@ export default function PartnerPage() {
   };
 
   const handleSubmit = () => {
+
+    // if (!loggedIn) {
+    //   toast.error("Please login first")
+    //   return;
+    // }
     dispatch(applyPartner(formData));
   };
 

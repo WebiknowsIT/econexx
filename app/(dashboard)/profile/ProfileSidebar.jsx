@@ -26,15 +26,15 @@ const navItems = [
       </svg>
     ),
   },
-  {
-    label: "Watchlist",
-    href: "/profile/watchlist",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M8 2l1.8 3.6L14 6.3l-3 2.9.7 4.1L8 11.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7z" />
-      </svg>
-    ),
-  },
+  // {
+  //   label: "Watchlist",
+  //   href: "/profile/watchlist",
+  //   icon: (
+  //     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+  //       <path d="M8 2l1.8 3.6L14 6.3l-3 2.9.7 4.1L8 11.1l-3.7 2.2.7-4.1-3-2.9 4.2-.7z" />
+  //     </svg>
+  //   ),
+  // },
   {
     label: "Transaction History",
     href: "/profile/transactions",
@@ -45,17 +45,17 @@ const navItems = [
       </svg>
     ),
   },
-  {
-    section: "Settings",
-    label: "Account Settings",
-    href: "/profile/settings",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="8" cy="8" r="2.5" />
-        <path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.6 3.6l1.4 1.4M11 11l1.4 1.4M3.6 12.4l1.4-1.4M11 5l1.4-1.4" />
-      </svg>
-    ),
-  },
+  // {
+  //   section: "Settings",
+  //   label: "Account Settings",
+  //   href: "/profile/settings",
+  //   icon: (
+  //     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+  //       <circle cx="8" cy="8" r="2.5" />
+  //       <path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.6 3.6l1.4 1.4M11 11l1.4 1.4M3.6 12.4l1.4-1.4M11 5l1.4-1.4" />
+  //     </svg>
+  //   ),
+  // },
   {
     label: "Change Password",
     href: "/profile/change-password",
@@ -66,16 +66,16 @@ const navItems = [
       </svg>
     ),
   },
-  {
-    label: "KYC / Documents",
-    href: "/profile/kyc",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="2" y="1" width="12" height="14" rx="1.5" />
-        <path d="M5 5h6M5 8h6M5 11h3" />
-      </svg>
-    ),
-  },
+  // {
+  //   label: "KYC / Documents",
+  //   href: "/profile/kyc",
+  //   icon: (
+  //     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+  //       <rect x="2" y="1" width="12" height="14" rx="1.5" />
+  //       <path d="M5 5h6M5 8h6M5 11h3" />
+  //     </svg>
+  //   ),
+  // },
 ];
 
 export default function ProfileSidebar({ user }) {

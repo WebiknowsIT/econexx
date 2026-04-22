@@ -25,6 +25,9 @@ export default function UnlistedMarketplace() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({search: "",category: "",});
 
+  console.log("unlistedShares", unlistedShares);
+  
+
   // ✅ Fetch API (with filters)
 useEffect(() => {
 
@@ -164,7 +167,7 @@ useEffect(() => {
                   change={`${share.pe_ratio || 0}%`}
                   duration="15D"
                   badge={share.share_type}
-                  logo="/images/stocks/nse.png"
+                  logo={share.company_logo || "/images/stocks/nse.png"}
                 />
               ))}
             </div>

@@ -55,7 +55,7 @@ const tagStyles = [
               <div className="flex items-center gap-3 flex-wrap mb-2">
                 <h1 className="font-bold text-white text-4xl lg:text-4xl">
                   {highlightLastWords(data?.share?.name, "gradBrand", 2)}
-                  </h1>
+                </h1>
                 <div className="flex flex-wrap gap-2">
                   {data?.is_featured?.is_featured && (
                     <span className="text-xs bg-red-500/20 border border-red-400/30 text-red-300 px-3 py-1 rounded-full">
@@ -75,17 +75,20 @@ const tagStyles = [
                     })}
                 </div>
               </div>
-                <div className="text-primary-300 text-sm max-w-lg leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: data?.content?.description_html }}
-                  />
+
+              {data?.content?.notes && (<div className="text-primary-300 text-sm max-w-lg leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: data?.content?.notes }}
+                  />)}
+                
               
               <div className="flex items-center gap-4 mt-3 flex-wrap">
                 <span className="flex items-center gap-1.5 text-xs text-primary-400">
-                  <MapPin className="w-4 h-4" /> {data.location || "NA"}
-                </span>
-                <span className="flex items-center gap-1.5 text-xs text-primary-400">
                   <Calendar className="w-4 h-4" /> Founded {data?.share?.dates?.registration_date?.split("-")[0] || "NA"}
                 </span>
+                <span className="flex items-center gap-1.5 text-xs text-primary-400">
+                  <strong>ISIN :</strong> {data?.share?.identifiers?.isin || "NA"}
+                </span>
+                
                 {/* <span className="flex items-center gap-1.5 text-xs text-primary-400">
                   <Users className="w-4 h-4" /> {data.employees || "NA"} employees
                 </span> */}

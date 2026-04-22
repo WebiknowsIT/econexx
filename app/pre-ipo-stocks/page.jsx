@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
 import { getIcon } from "@/utils/iconMap";
 
 import { Search, Info, AlertTriangle, UserCheck, CheckCircle, Clock, ShieldCheck, Lock, Rocket, Send, User, Phone, Mail, Building, IndianRupee } from "lucide-react";
@@ -20,6 +22,8 @@ import { resetInterestState } from "@/store/slices/preIpoSlice";
 
 import { highlightLastWords } from "@/utils/helper"
 
+import {isLoggedIn} from "@/utils/auth";
+
 
 
 
@@ -28,8 +32,8 @@ export default function DrhpFiled() {
   const store = useSelector(connectToStore, shallowEqual);
   const dispatch = useDispatch()
   const router = useRouter();
-
-  const isLoggedIn = true;
+  
+  const loggedIn = isLoggedIn();
 
   const [activeFilter, setActiveFilter] = useState("all");
   const [form, setForm] = useState({
@@ -49,14 +53,14 @@ export default function DrhpFiled() {
   };
 
   const handleSubmit = () => {
-    if (!isLoggedIn) {
-      alert("Please login first");
+    if (!loggedIn) {
+      toast.error("Please login first")
       return;
     }
 
     // Basic validation
     if (!form.company_id || !form.full_name || !form.phone) {
-      alert("Please fill required fields");
+      toast.error("Please fill required fields")
       return;
     }
 
