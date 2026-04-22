@@ -6,6 +6,8 @@ import {getInitials} from "@/utils/helper"
 import ProfileSidebar from "./ProfileSidebar";
 import Button from "@/components/ui/Button";
 
+import { getProfile} from '@/store/action/authActions';
+
 // ─── Replace with your real auth/session data ───────────────────────────────
 const mockUser = {
   id: 6,
@@ -281,8 +283,20 @@ function EditProfileModal({ user, onClose, onSave }) {
 
 /* ── Main Profile Page ──────────────────────────────────────────────────────── */
 export default function ProfilePage() {
+
+  const dispatch = useDispatch();
+  const { userProfile } = useSelector((state) => state.auth);
+
+
   const [user, setUser] = useState(mockUser);
   const [showEditModal, setShowEditModal] = useState(false);
+
+
+   useEffect(() => {
+    dispatch(getProfile());
+  }, [dispatch]);
+
+
 
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans">

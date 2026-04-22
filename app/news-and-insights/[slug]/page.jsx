@@ -95,8 +95,6 @@ export default function BlogDetail() {
 
             {/* Article content */}
             <section className="max-w-5xl mx-auto px-6 py-4 md:py-6">
-                {/* Meta row */}
-
                 <div className="rounded-2xl overflow-hidden border border-primary-100 shadow-md mb-6">
                     <img
                         src={image}
