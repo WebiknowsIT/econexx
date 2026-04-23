@@ -1,12 +1,8 @@
 import ClientPage from "./ClientPage";
 import * as url from "@/utils/Url";
-//import { getMetaData } from "@/lib/getMeta";
 
 async function getBlog(slug) {
 
-  console.log("Slug:", slug);
-  console.log("API URL:", `${url.BASE_URL}/api/news-and-insights/${slug}`);
-   
   try {
     const res = await fetch(`${url.BASE_URL}/api/news-and-insights/${slug}`, {
       cache: "no-store",
@@ -27,32 +23,44 @@ async function getBlog(slug) {
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params; // 🔥 FIX
+  const { slug } = await params;
+
   const blog = await getBlog(slug);
-  console.log(blog);
-  
+
+  if (!blog) {
+    return {
+      title: "Blog Not Found",
+      description: "This blog does not exist",
+    };
+  }
+
   return {
-    title: blog?.title,
-    description: blog?.short_description || "Blog details",
+    title: blog.title,
+    description: blog.excerpt, // ✅ correct
+
     openGraph: {
-      title: blog?.title,
-      description: blog?.short_description,
-      url: `https://econexxwealth.com/news-and-insights/${params.slug}`,
+      title: blog.title,
+      description: blog.excerpt,
+      url: `https://econexxwealth.com/news-and-insights/${slug}`,
       siteName: "EconexxWealth",
+
       images: [
         {
-          url: blog?.featured_image,
+          url: blog.featured_image,
           width: 1200,
           height: 630,
+          alt: blog.title,
         },
       ],
+
       type: "article",
     },
+
     twitter: {
       card: "summary_large_image",
-      title: blog?.title,
-      description: blog?.short_description,
-      images: [blog?.featured_image],
+      title: blog.title,
+      description: blog.excerpt,
+      images: [blog.featured_image],
     },
   };
 }

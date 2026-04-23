@@ -23,10 +23,10 @@ export const metadata = {
   title: "EconexxWealth | Premium Pre-IPO & Unlisted Share Trading ",
   description:
     "India's most trusted platform for buying and selling unlisted shares, Pre-IPO stocks, and ESOPs. Experience transparency and expert guidance.",
-    robots: {
-    index: false,
-    follow: false,
-  },
+  //   robots: {
+  //   index: false,
+  //   follow: false,
+  // },
 };
 
 export default function RootLayout({ children }) {

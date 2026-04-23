@@ -181,8 +181,8 @@ export default function MediaCoverage() {
 
                         {/* SAME UI — untouched */}
 
-                        <div className="grid grid-cols-1 sm:grid-cols-3">
-                          <div className="sm:col-span-1 relative min-h-40">
+                        <div className="grid grid-cols-1 sm:grid-cols-9">
+                          <div className="sm:col-span-4 relative min-h-40">
                             <img
                               src={image}
                               alt={article.title}
@@ -190,7 +190,7 @@ export default function MediaCoverage() {
                             />
                           </div>
 
-                          <div className="sm:col-span-2 p-6">
+                          <div className="sm:col-span-5 p-6">
                             <div className="flex items-center gap-2 mb-3">
 
                               <span className="inline-block bg-primary-50 border border-primary-100 text-primary-500 font-semibold uppercase tracking-[.1em] text-[.6rem] px-2.5 py-0.5 rounded-full">
