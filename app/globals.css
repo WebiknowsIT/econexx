@@ -63,3 +63,43 @@
   animation: fadeSlideUp 0.6s ease-out forwards;
 }
 
+
+
+.share-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  border: none;
+  cursor: pointer;
+}
+
+/* Brand colors */
+.whatsapp {
+  background: #25d366;
+}
+
+.facebook {
+  background: #1877f2;
+}
+
+.twitter {
+  background: #000000;
+}
+
+.linkedin {
+  background: #0a66c2;
+}
+
+.copy {
+  background: #6b7280;
+}
+
+/* Hover effect 🔥 */
+.share-btn:hover {
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
