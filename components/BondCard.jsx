@@ -37,13 +37,10 @@ export default function BondCard({
       {/* Bottom Section - White Background */}
       <div className="p-6 bg-white">
         <div className="grid grid-cols-2 gap-4">
-          {/* YTM */}
           <div>
             <p className="text-xs text-gray-500 mb-1">YTM</p>
             <p className="text-2xl font-bold text-gray-900">{ytm}</p>
           </div>
-
-          {/* Maturity Left */}
           <div className="text-right">
             <p className="text-xs text-gray-500 mb-1">Maturity left</p>
             <p className="text-lg font-semibold text-gray-900">{maturityLeft}</p>
@@ -51,7 +48,7 @@ export default function BondCard({
         </div>
 
         {/* Arrow Icon */}
-        <div className="flex justify-end mt-4">
+        {/* <div className="flex justify-end mt-4">
           <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-secondary-200 flex items-center justify-center transition-colors">
             <svg
               className="w-4 h-4 text-gray-600 group-hover:text-secondary-600"
@@ -67,7 +64,7 @@ export default function BondCard({
               />
             </svg>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Badge - Positioned Absolutely */}

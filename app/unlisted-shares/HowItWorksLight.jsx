@@ -9,7 +9,7 @@ export default function HowItWorks({data}) {
   return (
     <section
       id="HowItWorks"
-      className="bg-purple-50 px-6 lg:px-16 py-24"
+      className="bg-purple-100 px-6 lg:px-16 py-24"
     >
       <div className="max-w-7xl mx-auto">
 

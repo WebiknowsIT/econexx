@@ -86,7 +86,7 @@ export default function ProfileSidebar({ user }) {
 
       {/* User mini card */}
       <div className="px-5 py-6 border-b border-purple-100">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-amber-400 flex items-center justify-center text-base font-bold text-white mb-3 shadow-md shadow-orange-200">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary-400 to-secondary-400 flex items-center justify-center text-base font-bold text-white mb-3 shadow-md shadow-secondary-200">
           {getInitials(user.name)}
         </div>
         <p className="text-sm font-semibold text-slate-800 leading-tight mb-1">{user.name}</p>
@@ -116,7 +116,7 @@ export default function ProfileSidebar({ user }) {
                 href={item.href}
                 className={`flex items-center gap-2.5 px-5 py-2.5 text-[13px] border-l-2 transition-all duration-150 no-underline
                   ${isActive
-                    ? "border-orange-400 bg-orange-50 text-orange-500 font-semibold"
+                    ? "border-secondary-400 bg-secondary-50 text-secondary-500 font-semibold"
                     : "border-transparent text-slate-500 hover:bg-purple-50 hover:text-slate-700 font-normal"
                   }`}
               >

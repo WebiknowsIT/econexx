@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import { setLocalStorageItem } from "@/utils/localStorage";
-import { registerUser, userLogin, getProfile, userLogout, sendOtp, verifyOtp, resetPassword } from '../action/authActions';
+import { registerUser, userLogin, getProfile, updateProfile, userLogout, sendOtp, verifyOtp, resetPassword } from '../action/authActions';
 
 
 const initialState = {
@@ -145,6 +145,22 @@ const authSlice = createSlice({
             state.userProfile = action.payload
          })
          .addCase(getProfile.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.payload
+         });
+
+         // updateProfile User
+         builder
+         .addCase(updateProfile.pending, (state, action) => {
+            state.loading = true
+            state.error = null
+         })
+         .addCase(updateProfile.fulfilled, (state, action) => {
+            state.loading = false
+            state.userProfile = action.payload?.user || action.payload
+            state.success = true
+         })
+         .addCase(updateProfile.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload
          });

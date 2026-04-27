@@ -28,17 +28,18 @@ export default function FeaturedUnlistedShares({data}) {
         {/* CARDS GRID */}
         <div className="grid md:grid-cols-3 gap-8">
 
-          {data?.items.map((items, i) => (
-            <AnimatedSection key={items.id} delay={0.1}>
+          {data?.items.map((share, i) => (
+            <AnimatedSection key={share.id} delay={0.1}>
               <StockCard
-                id={items.id}
-                title={items.name}
-                category={items.category}
-                price={items.sell_price}
-                change={items.price_change_percent || 'NA'}
-                duration={items.price_change_period || 'NA'}
-                badge="STABLE"
-                logo={items.image_url}
+                key={share.id}
+                id={share.id}
+                title={share.share_name}
+                category={share.company_sector}
+                price={share.sell_price}
+                change={`${share.pe_ratio || 0}%`}
+                //duration="15D"
+                badge={share.share_type}
+                logo={share.company_logo || "/images/No-Image.svg"}
               />
             </AnimatedSection>
           ))}

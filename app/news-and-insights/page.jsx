@@ -161,9 +161,7 @@ export default function MediaCoverage() {
     return (
       <section className="px-6 lg:px-16 py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-
-            {/* LEFT */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               <div className="space-y-5">
 
@@ -181,16 +179,12 @@ export default function MediaCoverage() {
 
                         {/* SAME UI — untouched */}
 
-                        <div className="grid grid-cols-1 sm:grid-cols-9">
-                          <div className="sm:col-span-4 relative min-h-40">
-                            <img
-                              src={image}
-                              alt={article.title}
-                              className="object-cover h-full w-full"
-                            />
+                        <div className="">
+                          <div className="relative min-h-40">
+                            <img src={image} alt={article.title} className="h-auto w-full" />
                           </div>
 
-                          <div className="sm:col-span-5 p-6">
+                          <div className="p-6">
                             <div className="flex items-center gap-2 mb-3">
 
                               <span className="inline-block bg-primary-50 border border-primary-100 text-primary-500 font-semibold uppercase tracking-[.1em] text-[.6rem] px-2.5 py-0.5 rounded-full">

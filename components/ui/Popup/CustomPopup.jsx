@@ -69,7 +69,7 @@ const CustomPopup = ({
           <div className={`relative flex flex-col w-full ${bodyClass}`}>
             {(title || subTitle) && (
               <div
-                className={`pt-4 pb-3 px-4 ${!hideHeaderBorder ? "border-b border-blueGray-200" : ""}`}
+                className={`pt-4 pb-3 px-4 ${!hideHeaderBorder ? "border-b border-[#E6D9F0]" : ""}`}
               >
                 {title && (
                   <p className="text-[22px] font-semibold">{title}</p>
@@ -85,7 +85,7 @@ const CustomPopup = ({
 
             {/* Footer */}
             {popupFooter && (
-              <div className={`bg-white w-full px-4 py-3 border-t ${footerSpacing}`}>
+              <div className={`bg-white w-full px-4 py-3 border-t border-[#E6D9F0] ${footerSpacing}`}>
                 {popupFooter}
               </div>
             )}

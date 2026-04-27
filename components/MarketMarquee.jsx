@@ -1,23 +1,41 @@
 "use client";
 
+import { useSelector } from "react-redux";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 
 import "swiper/css";
 
 export default function MarketMarquee() {
-  const items = [
-    { name: "NSE India", price: "₹1,950", change: "+1.3%", positive: true },
-    { name: "CSK Unlisted", price: "₹206", change: "-2.8%" },
-    { name: "OYO Stays", price: "₹27", change: "-3.5%" },
-    { name: "HDB Finance", price: "₹1,120", change: "+0.8%", positive: true },
-    { name: "Swiggy Pre-IPO", price: "₹455", change: "+2.1%", positive: true },
-    { name: "CSK Unlisted", price: "₹206", change: "-2.8%" },
-    { name: "OYO Stays", price: "₹27", change: "-3.5%" },
-    { name: "OYO Stays", price: "₹27", change: "-3.5%" },
-    { name: "HDB Finance", price: "₹1,120", change: "+0.8%", positive: true },
-    { name: "Swiggy Pre-IPO", price: "₹455", change: "+2.1%", positive: true },
-  ];
+
+  // ✅ GET DATA FROM STORE
+  const { unlistedLanding, landingStatus } = useSelector(
+    (state) => state.unlistedShares
+  );
+
+  // ✅ MAP DATA FROM API (using featured shares from landing)
+  const items =
+    unlistedLanding?.featured_unlisted_shares?.items?.map((item) => {
+      const price = item.sell_price || 0;
+
+      // fallback if API doesn't give change
+      const changeVal =
+        item.price_change ??
+        item.pe_ratio ??
+        0;
+
+      return {
+        name: item.share_name || item.company_name || "Unknown",
+        price: `₹${price}`,
+        change: `${changeVal >= 0 ? "+" : ""}${changeVal}%`,
+        positive: changeVal >= 0,
+      };
+    }) || [];
+
+  // ✅ STRICT RENDER CONDITION (NO EMPTY UI)
+  if (landingStatus === "loading") return null;
+  if (!items.length) return null;
 
   return (
     <section className="border-y border-white/10 bg-primary/5 py-4 overflow-hidden">
@@ -27,14 +45,16 @@ export default function MarketMarquee() {
         slidesPerView="auto"
         spaceBetween={30}
         loop={true}
-        speed={4000} 
+        speed={4000}
         allowTouchMove={false}
         autoplay={{
           delay: 0,
           disableOnInteraction: false,
+          pauseOnMouseEnter: false,
         }}
         className="marquee-swiper"
       >
+        {/* duplicate for infinite loop smoothness */}
         {[...items, ...items].map((item, i) => (
           <SwiperSlide key={i} className="!w-auto">
             <MarqueeItem {...item} />
@@ -42,6 +62,7 @@ export default function MarketMarquee() {
         ))}
       </Swiper>
 
+      {/* smooth linear animation */}
       <style jsx global>{`
         .marquee-swiper .swiper-wrapper {
           transition-timing-function: linear !important;
@@ -57,7 +78,8 @@ export default function MarketMarquee() {
 
 function MarqueeItem({ name, price, change, positive }) {
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex gap-4 items-center whitespace-nowrap">
+      
       <span className="text-gray-500 text-xs font-bold uppercase">
         {name}
       </span>
@@ -75,6 +97,7 @@ function MarqueeItem({ name, price, change, positive }) {
       >
         {change}
       </span>
+
     </div>
   );
 }

@@ -57,7 +57,7 @@ const pathname = usePathname();
             <Link href="/smart-screener" className={isActive("/smart-screener")}>
               Smart Screener
             </Link>
-            <Link href="/bonds" className={isActive("/bonds")}>
+            <Link href="/bonds" className={`${isActive("/bonds")} !text-secondary-600`}>
               Bonds
             </Link>
             <Link href="/news-and-insights" className={isActive("/news-and-insights")}>

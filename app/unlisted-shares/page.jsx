@@ -34,8 +34,8 @@ export default function UnlistedShares() {
     <>
     <HeroDark data={unlistedLanding?.banner} />
     <MarketMarquee />
-    <HowItWorks data={unlistedLanding?.how_it_works} />
     <PopularUnlistedShares data={unlistedLanding?.featured_unlisted_shares} />
+    <HowItWorks data={unlistedLanding?.how_it_works} />
     <WhyUs data={unlistedLanding?.why_choose} />
     <Testimonials />
     <FAQ 

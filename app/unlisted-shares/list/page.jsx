@@ -165,9 +165,9 @@ useEffect(() => {
                   category={share.company_sector}
                   price={share.sell_price}
                   change={`${share.pe_ratio || 0}%`}
-                  duration="15D"
+                 // duration="15D"
                   badge={share.share_type}
-                  logo={share.company_logo || "/images/stocks/nse.png"}
+                  logo={share.company_logo || "/images/No-Image.svg"}
                 />
               ))}
             </div>

@@ -8,16 +8,16 @@ const Homeinfo = () => {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-20 ">
                     <div className="bg-white py-8 px-3 rounded-2xl shadow-md border border-gray-100 text-center">
-                        <AnimatedCounter end={100} prefix="₹" suffix="Cr+" label="Assets Under Advisory" />
+                        <AnimatedCounter end={50} prefix="₹" suffix="Cr+" label="Bonds sold" />
+                    </div>
+                    <div className="bg-white py-8 px-3 rounded-2xl shadow-md border border-gray-100 text-center">
+                        <AnimatedCounter end={9} suffix="%+" label="Average return" />
                     </div>
                     <div className="bg-white py-8 px-3 rounded-2xl shadow-md border border-gray-100 text-center">
                         <AnimatedCounter end={500} label="Satisfied Investors" />
                     </div>
                     <div className="bg-white py-8 px-3 rounded-2xl shadow-md border border-gray-100 text-center">
                         <AnimatedCounter end={15} label="Years of Expertise" />
-                    </div>
-                    <div className="bg-white py-8 px-3 rounded-2xl shadow-md border border-gray-100 text-center">
-                        <AnimatedCounter end={8} suffix="%+" label="Average Fixed Income" />
                     </div>
                 </div>
         

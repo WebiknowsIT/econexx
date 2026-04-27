@@ -95,8 +95,9 @@ export default function Home() {
       <main className="">
         <HeroSection />
         <Homeinfo />
-        <Expertise />
         <ServiceInfo />
+        <Expertise />
+        
         <WhyChooseUs />
         <HowItWorks />
         <Testimonials />
