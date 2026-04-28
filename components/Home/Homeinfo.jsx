@@ -1,46 +1,33 @@
 import React from "react";
-import AnimatedCounter from "@/components/AnimatedCounter";
 
-const Homeinfo = () => {
+const DEFAULT_STATS = [
+  { title: "Bonds sold", value: "₹50Cr+" },
+  { title: "Average return", value: "9%+" },
+  { title: "Satisfied Investors", value: "500+" },
+  { title: "Years of Expertise", value: "15+" },
+];
+
+const Homeinfo = ({ items = [] }) => {
+  const stats = items?.length ? items : DEFAULT_STATS;
+
   return (
-    <>  
-        <section className="pt-14 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-20 ">
-                    <div className="bg-white py-8 px-3 rounded-2xl shadow-md border border-gray-100 text-center">
-                        <AnimatedCounter end={50} prefix="₹" suffix="Cr+" label="Bonds sold" />
-                    </div>
-                    <div className="bg-white py-8 px-3 rounded-2xl shadow-md border border-gray-100 text-center">
-                        <AnimatedCounter end={9} suffix="%+" label="Average return" />
-                    </div>
-                    <div className="bg-white py-8 px-3 rounded-2xl shadow-md border border-gray-100 text-center">
-                        <AnimatedCounter end={500} label="Satisfied Investors" />
-                    </div>
-                    <div className="bg-white py-8 px-3 rounded-2xl shadow-md border border-gray-100 text-center">
-                        <AnimatedCounter end={15} label="Years of Expertise" />
-                    </div>
-                </div>
-        
-
-        {/* <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="">
-                <img src="images/hm-abt.png" className="w-full rounded-2xl" alt="" />
+    <section className="pt-14 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-20">
+          {stats.map((item, index) => (
+            <div
+              key={index}
+              className="bg-white py-8 px-3 rounded-2xl shadow-md border border-gray-100 text-center"
+            >
+              <div className="text-4xl md:text-5xl font-semibold text-primary-700 mb-2">
+                {item.value}
+              </div>
+              <p className="text-gray-600 text-[1rem]">{item.title}</p>
             </div>
-            <div className="">
-                <h2 className="text-5xl font-semibold mb-6 font-primary">
-                   <span className="text-secondary-300">Expertise</span> That Builds Enduring <span className="text-secondary-300">Wealth</span>
-                </h2>
-                <p className="leading-[30px] text-gray-700 font-primary mb-3">At Econexx Wealth, we specialize in sophisticated financial instruments designed to diversify and strengthen your portfolio. From stable corporate bonds to high-growth unlisted shares and strategic IPO guidance, we provide curated access backed by research, due diligence, and experienced advisory.</p>
-                <p className="text-3xl font-semibold text-white leading-[40px] bg-primary-500 p-5 rounded-2xl">We don’t just offer Products <br/>We Offer Strategy.</p>
-            </div>
-            
-        </div> */}
-                
+          ))}
+        </div>
       </div>
-     
     </section>
-    </>
-   
   );
 };
 

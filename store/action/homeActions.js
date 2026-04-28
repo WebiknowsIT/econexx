@@ -14,11 +14,11 @@ export const fetchHomePageData = createAsyncThunk(
   "home/fetchHomePageData",
   async (_, { rejectWithValue }) => {
     try {
-      const data = await API.get("/api/homepage");
+      const data = await API.get("/api/homepage/landing");
       if (!data.status) {
         return rejectWithValue(data.message);
       }
-      return data.data; 
+      return data.data;
     } catch (error) {
       return rejectWithValue("Something went wrong");
     }

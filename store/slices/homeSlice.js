@@ -6,9 +6,10 @@ import { fetchBanners, fetchHomePageData } from "../action/homeActions";
 // 2️⃣ Initial State
 const initialState = {
   loading: false,
+  status: "idle",
   error: null,
   homeData: null,
-  banners: [], 
+  banners: [],
 };
 
 // 3️⃣ Slice
@@ -20,6 +21,8 @@ const homeSlice = createSlice({
       state.homeData = null;
       state.banners = [];
       state.error = null;
+      state.status = "idle";
+      state.loading = false;
     },
   },
   extraReducers: (builder) => {
@@ -27,16 +30,19 @@ const homeSlice = createSlice({
       // Pending
       .addCase(fetchHomePageData.pending, (state) => {
         state.loading = true;
+        state.status = "loading";
         state.error = null;
       })
       // Success
       .addCase(fetchHomePageData.fulfilled, (state, action) => {
         state.loading = false;
+        state.status = "succeeded";
         state.homeData = action.payload;
       })
       // Error
       .addCase(fetchHomePageData.rejected, (state, action) => {
         state.loading = false;
+        state.status = "failed";
         state.error = action.payload;
       })
       /* -------- Banners -------- */
